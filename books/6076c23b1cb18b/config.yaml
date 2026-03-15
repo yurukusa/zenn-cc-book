@@ -1,8 +1,9 @@
 title: "Claude Codeを本番品質にする——108時間の自律稼働から生まれた実践ガイド"
 summary: "非エンジニアが108時間CCを自律稼働させた実体験から生まれた実践ガイド。20チェックリスト＋hookスクリプト付き。"
 topics: ["claudecode", "ai", "hooks", "非エンジニア"]
-published: false
+published: true
 price: 800
+allow_override: true
 chapters:
   - intro
   - 1-health-check
