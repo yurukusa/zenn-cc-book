@@ -12,9 +12,9 @@ free: false
 | # | カテゴリ | チェック | Hook/Template |
 |---|---------|---------|---------------|
 | 1 | Safety Guards | 危険コマンドをPreToolUseでブロック | branch-guard.sh |
-| 2 | Safety Guards | エラーゲートで「エラー有り状態」の外部アクションをブロック | error-gate.sh |
-| 3 | Safety Guards | 承認なしのgit pushをブロック | branch-guard.sh |
-| 4 | Safety Guards | ファイル履歴でrollbackを可能にする | activity-logger.sh |
+| 2 | Safety Guards | APIキーを専用ファイルに保管する | CLAUDE-autonomous.md |
+| 3 | Safety Guards | main/masterへの直pushを防ぐ | branch-guard.sh |
+| 4 | Safety Guards | エラーがある状態で外部APIを叩かない | error-gate.sh |
 | 5 | Code Quality | ファイル編集後に構文チェックを走らせる | syntax-check.sh |
 | 6 | Code Quality | bashの出力からエラーを自動検知する | activity-logger.sh |
 | 7 | Code Quality | 完了の定義（DoD）を持つ | dod-checklists.md |
@@ -127,12 +127,12 @@ Before（デフォルト設定）:
   Total:          0/100
 
 After（本書の手順全実施）:
-  Safety Guards:  100% (+40pts)
-  Code Quality:   100% (+20pts)
-  Monitoring:     100% (+15pts)
-  Recovery:       100% (+10pts)
-  Autonomy:       100% (+10pts)
-  Coordination:   100% (+5pts)
+  Safety Guards:  100% (+21pts)
+  Code Quality:   100% (+21pts)
+  Monitoring:     100% (+16pts)
+  Recovery:       100% (+16pts)
+  Autonomy:       100% (+16pts)
+  Coordination:   100% (+11pts)
   Total:          100/100
 ```
 
