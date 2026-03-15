@@ -9,11 +9,11 @@ free: true
 
 ## 2通りの診断方法
 
-### 方法1: ブラウザ版（CLAUDE.mdをペースト）
+### 方法1: ブラウザ版（チェックリスト）
 
 [https://yurukusa.github.io/cc-health-check/](https://yurukusa.github.io/cc-health-check/)
 
-CLAUDE.mdの内容を貼り付けるだけ。インストール不要。20問の質問に答えてスコアが出る。
+インストール不要。20問のチェックリストに答えるだけでスコアが出る。
 
 ### 方法2: CLI版（ローカルファイルを直接スキャン）
 
