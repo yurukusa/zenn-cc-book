@@ -101,6 +101,14 @@ CLAUDE.mdには「認証情報は ~/.credentials を参照」とだけ書く。
 
 「直すのが面倒だな」と思ったかもしれない。でも **1回の事故の復旧コストは、1時間のhook設定コストより高い**。
 
+実は10秒で終わる方法がある:
+
+```bash
+npx cc-safe-setup
+```
+
+7つの安全フック（destructive-guard, branch-guard, secret-guard, syntax-check, context-monitor, comment-strip, cd-git-allow）が自動でインストールされる。上の4チェックのうち3つが即座にPASSになる。
+
 ---
 
 次章: Code Quality——構文エラーを自動で防ぐ
