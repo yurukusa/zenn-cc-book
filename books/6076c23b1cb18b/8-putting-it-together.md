@@ -154,7 +154,13 @@ npx cc-health-check
 
 または: [https://yurukusa.github.io/cc-health-check/](https://yurukusa.github.io/cc-health-check/)
 
-**hookスクリプトを入手する**:
+**10秒で7つの安全フックをインストール**:
+
+```bash
+npx cc-safe-setup
+```
+
+**全16フックを入手する**:
 
 [https://github.com/yurukusa/claude-code-hooks](https://github.com/yurukusa/claude-code-hooks)
 
