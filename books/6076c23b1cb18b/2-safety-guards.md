@@ -107,7 +107,7 @@ CLAUDE.mdには「認証情報は ~/.credentials を参照」とだけ書く。
 npx cc-safe-setup
 ```
 
-7つの安全フック（destructive-guard, branch-guard, secret-guard, syntax-check, context-monitor, comment-strip, cd-git-allow）が自動でインストールされる。上の4チェックのうち3つが即座にPASSになる。
+8つの安全フック（destructive-guard, branch-guard, secret-guard, syntax-check, context-monitor, comment-strip, cd-git-allow）が自動でインストールされる。上の4チェックのうち3つが即座にPASSになる。
 
 ---
 

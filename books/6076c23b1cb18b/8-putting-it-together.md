@@ -154,7 +154,7 @@ npx cc-health-check
 
 または: [https://yurukusa.github.io/cc-health-check/](https://yurukusa.github.io/cc-health-check/)
 
-**10秒で7つの安全フックをインストール**:
+**10秒で8つの安全フックをインストール**:
 
 ```bash
 npx cc-safe-setup
