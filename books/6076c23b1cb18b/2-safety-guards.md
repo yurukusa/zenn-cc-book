@@ -109,6 +109,14 @@ npx cc-safe-setup
 
 8つの安全フック（destructive-guard, branch-guard, secret-guard, syntax-check, context-monitor, comment-strip, cd-git-allow, api-error-alert）が自動でインストールされる。上の4チェックのうち3つが即座にPASSになる。
 
+インストール後、フックが正しく動作しているか確認するには:
+
+```bash
+npx cc-safe-setup --verify
+```
+
+各フックにテスト入力を送り、ブロック/許可が期待通りか検証する。CIパイプラインにも組み込める（失敗時exit 1）。
+
 ---
 
 次章: Code Quality——構文エラーを自動で防ぐ
