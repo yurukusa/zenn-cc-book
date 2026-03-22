@@ -160,7 +160,14 @@ npx cc-health-check
 npx cc-safe-setup
 ```
 
-**全16フックを入手する**:
+**25個のexample hookからプロジェクトに合ったものを追加**:
+
+```bash
+npx cc-safe-setup --examples        # 一覧（5カテゴリ）
+npx cc-safe-setup --install-example block-database-wipe  # 個別インストール
+```
+
+**全フック・レシピを入手する**:
 
 [https://github.com/yurukusa/claude-code-hooks](https://github.com/yurukusa/claude-code-hooks)
 
