@@ -117,6 +117,25 @@ npx cc-safe-setup --verify
 
 各フックにテスト入力を送り、ブロック/許可が期待通りか検証する。CIパイプラインにも組み込める（失敗時exit 1）。
 
+### プロジェクト固有のガードを追加する
+
+8つの基本フックに加えて、プロジェクトに特化したガードが必要なことがある。cc-safe-setupには15個のexample hookが同梱されている:
+
+```bash
+# 一覧を表示
+npx cc-safe-setup --examples
+
+# 特定のexampleをワンコマンドでインストール
+npx cc-safe-setup --install-example block-database-wipe
+```
+
+よく使われるexample:
+- `block-database-wipe` — Laravel/Django/Rails/Prismaの破壊的DBコマンドをブロック
+- `protect-dotfiles` — ~/.bashrc, ~/.aws/, ~/.ssh/の変更をブロック
+- `scope-guard` — プロジェクト外のファイル操作をブロック
+- `auto-checkpoint` — 編集後に自動コミット（context compaction対策）
+- `git-config-guard` — git config --globalの無断変更をブロック
+
 ---
 
 次章: Code Quality——構文エラーを自動で防ぐ
