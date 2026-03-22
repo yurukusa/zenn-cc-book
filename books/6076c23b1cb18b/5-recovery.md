@@ -82,6 +82,22 @@ cc-solo-watchdog が監視するもの:
 
 Recoveryの3チェックは「失敗前提の設計」だ。CCは失敗する。でも失敗しても戻れる仕組みを作れば、失敗コストはゼロに近づく。
 
+### 補足: auto-checkpoint — context compaction対策
+
+長いセッションで「context compaction」が発動すると、未コミットの編集が巻き戻されることがある（[#34674](https://github.com/anthropics/claude-code/issues/34674)）。
+
+`auto-checkpoint`はEdit/Writeの後に自動で軽量コミットを作る。compactionが起きても`git log`から復旧できる。
+
+```bash
+npx cc-safe-setup --install-example auto-checkpoint
+```
+
+同様に、`auto-snapshot`はgit外の場所にファイルコピーを保存する。両方使うと二重の保険になる。
+
+```bash
+npx cc-safe-setup --install-example auto-snapshot
+```
+
 ---
 
 次章: Autonomy——CCが自分で判断して動く仕組み
