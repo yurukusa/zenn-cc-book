@@ -1,8 +1,8 @@
 ---
-title: "付録：100+ hookカタログ"
+title: "付録：120 hookカタログ"
 ---
 
-cc-safe-setupは100個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v11.0.0は120個のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -72,12 +72,18 @@ npx cc-safe-setup --examples
 | Playground | https://yurukusa.github.io/cc-hook-registry/playground.html |
 | Registry | https://yurukusa.github.io/cc-hook-registry/ |
 
-## CLI全コマンド（33個）
+### セキュリティ（4個）
+`prompt-injection-guard` / `hardcoded-secret-detector` / `typosquat-guard` / `stale-env-guard`
+
+### デプロイ（4個）
+`deploy-guard` / `no-deploy-friday` / `work-hours-guard` / `changelog-reminder`
+
+## CLI全コマンド（40個）
 
 基本: `--status` / `--verify` / `--dry-run` / `--uninstall` / `--examples` / `--install-example` / `--full`
 
-分析: `--audit` / `--scan` / `--learn` / `--stats` / `--analyze` / `--benchmark` / `--dashboard` / `--watch`
+分析: `--audit` / `--scan` / `--learn` / `--stats` / `--analyze` / `--benchmark` / `--dashboard` / `--watch` / `--suggest` / `--replay` / `--health` / `--why`
 
-生成: `--create` / `--generate-ci` / `--report` / `--shield` / `--quickfix`
+生成: `--create` / `--generate-ci` / `--report` / `--shield` / `--quickfix` / `--guard` / `--from-claudemd`
 
-管理: `--export` / `--import` / `--diff` / `--compare` / `--lint` / `--doctor` / `--share` / `--issues` / `--migrate` / `--migrate-from` / `--profile` / `--team`
+管理: `--export` / `--import` / `--diff` / `--compare` / `--lint` / `--doctor` / `--share` / `--issues` / `--migrate` / `--migrate-from` / `--profile` / `--team` / `--diff-hooks`
