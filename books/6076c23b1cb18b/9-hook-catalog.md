@@ -1,8 +1,8 @@
 ---
-title: "付録：315 hookカタログ"
+title: "付録：327 hookカタログ"
 ---
 
-cc-safe-setup v28.3.1は315個のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v28.3.5は327個のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -72,13 +72,7 @@ npx cc-safe-setup --examples
 | Playground | https://yurukusa.github.io/cc-hook-registry/playground.html |
 | Registry | https://yurukusa.github.io/cc-hook-registry/ |
 
-### セキュリティ（4個）
-`prompt-injection-guard` / `hardcoded-secret-detector` / `typosquat-guard` / `stale-env-guard`
-
-### デプロイ（4個）
-`deploy-guard` / `no-deploy-friday` / `work-hours-guard` / `changelog-reminder`
-
-## CLI全コマンド（40個）
+## CLI全コマンド（45個）
 
 基本: `--status` / `--verify` / `--dry-run` / `--uninstall` / `--examples` / `--install-example` / `--full`
 
