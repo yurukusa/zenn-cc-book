@@ -32,9 +32,21 @@ free: false
 | 19 | Coordination | 並列タスクを安全に分配する | CLAUDE-autonomous.md |
 | 20 | Coordination | 学習ログで同じミスを繰り返さない | lessons.md |
 
-## 最速セットアップ手順（30分）
+## 最速セットアップ手順
 
-### Step 1: hookスクリプトをインストール（10分）
+### 推奨: ワンコマンド（30秒）
+
+```bash
+npx cc-safe-setup --shield
+```
+
+これだけで8個のコアhook + プロジェクト検出 + 推奨hookが全てインストールされる。327個のhookから最適な組み合わせを自動選択する。
+
+### 手動でやりたい場合（30分）
+
+仕組みを理解したい、またはカスタマイズしたい場合は手動セットアップもできる。
+
+#### Step 1: hookスクリプトをインストール（10分）
 
 ```bash
 # claude-code-hooksをクローン
@@ -47,7 +59,7 @@ ln -s ~/products/claude-code-hooks/hooks/*.sh .
 ln -s ~/products/claude-code-hooks/scripts/cc-solo-watchdog ~/bin/
 ```
 
-### Step 2: settings.jsonにhookを登録（5分）
+#### Step 2: settings.jsonにhookを登録（5分）
 
 ```json
 // ~/.claude/settings.json
@@ -91,7 +103,7 @@ ln -s ~/products/claude-code-hooks/scripts/cc-solo-watchdog ~/bin/
 }
 ```
 
-### Step 3: templatesをセットアップ（10分）
+#### Step 3: templatesをセットアップ（10分）
 
 ```bash
 # テンプレートをコピー
@@ -101,11 +113,11 @@ cp ~/products/claude-code-hooks/templates/task-queue.yaml ~/ops/
 cp ~/products/claude-code-hooks/templates/mission.md ~/ops/
 ```
 
-### Step 4: CLAUDE.mdに基本ルールを追記（5分）
+#### Step 4: CLAUDE.mdに基本ルールを追記（5分）
 
 CLAUDE-autonomous.mdの内容を自分のCLAUDE.mdにコピーする。「人間に聞かないルール」「ループ検知ルール」「セッション開始時手順」を含める。
 
-### Step 5: watchdogを起動
+#### Step 5: watchdogを起動
 
 ```bash
 # 別ターミナルで起動
