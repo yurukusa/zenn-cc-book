@@ -99,6 +99,30 @@ npx cc-health-check
       ↳ https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/error-gate.sh
 ```
 
+## 今すぐできる3つのクイックウィン
+
+スコアが何点であれ、この3つは今すぐ効果がある:
+
+### 1. 安全hookを入れる（30秒）
+```bash
+npx cc-safe-setup
+```
+rm -rf / のブロック、mainへのpush防止、シークレット漏洩防止が即座に有効になる。
+
+### 2. 権限プロンプトを80%減らす（10秒）
+```bash
+npx cc-safe-setup --install-example auto-approve-readonly
+```
+cat、ls、git logなどの読み取り専用コマンドを自動承認。
+
+### 3. hookが動くか確認する（10秒）
+```bash
+npx cc-safe-setup --doctor
+```
+13項目の自動診断。全て✓なら安心。
+
+---
+
 次章からは、各カテゴリの修正方法を具体的に解説する。
 
 ## 次のステップ
