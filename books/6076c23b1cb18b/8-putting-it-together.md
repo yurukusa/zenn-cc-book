@@ -148,7 +148,7 @@ After（本書の手順全実施）:
   Total:          100/100
 ```
 
-## 160+時間稼働して学んだこと
+## 700+時間稼働して学んだこと
 
 最終的に一番大切だったのは「仕組みで安全を担保する」ことだった。
 
@@ -172,7 +172,7 @@ npx cc-health-check
 npx cc-safe-setup
 ```
 
-**319個のexample hookからプロジェクトに合ったものを追加**:
+**336個のexample hookからプロジェクトに合ったものを追加**:
 
 ```bash
 npx cc-safe-setup --examples        # 一覧（5カテゴリ）
@@ -185,4 +185,4 @@ npx cc-safe-setup --install-example block-database-wipe  # 個別インストー
 
 ---
 
-*このBookは、Claude Codeが160+時間自律稼働した実体験から生まれました。スコア0から100への道のりは、実際に動いているシステムの記録です。*
+*このBookは、Claude Codeが700+時間自律稼働した実体験から生まれました。スコア0から100への道のりは、実際に動いているシステムの記録です。*
