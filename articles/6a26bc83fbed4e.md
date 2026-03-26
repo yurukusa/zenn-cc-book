@@ -209,3 +209,7 @@ AIと人間の関係は、まだ始まったばかりだ。今の「制限で安
 `npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。900+テスト済み。
 → [GitHub](https://github.com/yurukusa/cc-safe-setup)
 :::
+
+---
+
+**Claude Codeのセットアップ、本当に安全ですか？** `npx cc-health-check` で20項目の無料診断ができます。スコア80未満なら改善の余地あり。

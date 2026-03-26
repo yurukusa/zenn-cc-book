@@ -100,3 +100,7 @@ https://github.com/yurukusa/claude-code-hooks
 `npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。900+テスト済み。
 → [GitHub](https://github.com/yurukusa/cc-safe-setup)
 :::
+
+---
+
+**Claude Codeのセットアップ、本当に安全ですか？** `npx cc-health-check` で20項目の無料診断ができます。スコア80未満なら改善の余地あり。
