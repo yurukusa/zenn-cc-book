@@ -1,16 +1,16 @@
 ---
-title: "Anthropic Academy②：Extended Thinkingの2ブロック構造を知らなかった"
+title: "Claude APIの回答に「見えないデータ」が隠れている——パーサーが壊れる原因はこれだった"
 emoji: "🧠"
 type: "tech"
 topics: ["claudecode", "anthropic", "ai", "extendedthinking"]
 published: true
 ---
 
-Anthropic Academyのクイズシリーズ第2回。今回はExtended Thinking（拡張思考）について。
+Claude APIでExtended Thinking（拡張思考）を有効にしたら、たまにパーサーがエラーを吐く。JSONの形が想定と違う。でも再実行すると動く。
 
-Extended Thinkingのレスポンスを普通のテキストレスポンスと同じように扱っていた。動いていたから問題ないと思っていた。
+原因は単純だった——**レスポンスに2つの別々のブロックが入っている**のに、1つしか読んでいなかった。通常モードと同じコードで処理していたから、「推論プロセス」ブロックが丸ごと無視されていた。
 
-運が良かっただけだった。
+[Anthropic Academy](https://anthropic.skilljar.com/)（無料）で学んだ、Extended Thinkingの正しいパース方法。
 
 ## レスポンスは2ブロックで返ってくる
 
