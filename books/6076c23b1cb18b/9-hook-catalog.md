@@ -1,8 +1,8 @@
 ---
-title: "付録：327 hookカタログ"
+title: "付録：338+ hookカタログ"
 ---
 
-cc-safe-setup v28.3.5は327個のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v29.3は338個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -39,8 +39,15 @@ npx cc-safe-setup --examples
 ### Git安全（8個）
 `git-config-guard` / `git-tag-guard` / `conflict-marker-guard` / `auto-stash-before-pull` / `branch-naming-convention` / `commit-quality-gate` / `commit-scope-guard` / `require-issue-ref`
 
-### 自動承認（11個）
+### 自動承認（11個 + PermissionRequest 4個）
 `auto-approve-build` / `auto-approve-python` / `auto-approve-docker` / `auto-approve-go` / `auto-approve-cargo` / `auto-approve-make` / `auto-approve-gradle` / `auto-approve-maven` / `auto-approve-ssh` / `auto-approve-git-read` / `compound-command-approver`
+
+**PermissionRequest**（v29.0.0で追加。保護ディレクトリの確認プロンプトを自動承認）:
+`allow-git-hooks-dir` / `allow-claude-settings` / `allow-protected-dirs` / `auto-approve-compound-git`
+
+:::message
+**PreToolUseではなくPermissionRequestを使う理由**: PreToolUseは内蔵の保護ディレクトリ検査の**前**に実行されるため、`permissionDecision: "allow"`を返しても上書きされる。PermissionRequestは**後**に実行されるため、プロンプトをキャッチして自動承認できる。
+:::
 
 ### 品質（10個）
 `syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship`
@@ -72,7 +79,7 @@ npx cc-safe-setup --examples
 | Playground | https://yurukusa.github.io/cc-hook-registry/playground.html |
 | Registry | https://yurukusa.github.io/cc-hook-registry/ |
 
-## CLI全コマンド（45個）
+## CLI全コマンド（49個）
 
 基本: `--status` / `--verify` / `--dry-run` / `--uninstall` / `--examples` / `--install-example` / `--full`
 
