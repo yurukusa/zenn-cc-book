@@ -104,3 +104,8 @@ https://github.com/yurukusa/claude-code-hooks
 ---
 
 **Claude Codeのセットアップ、本当に安全ですか？** `npx cc-health-check` で20項目の無料診断ができます。スコア80未満なら改善の余地あり。
+
+
+---
+
+📘 [Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800）

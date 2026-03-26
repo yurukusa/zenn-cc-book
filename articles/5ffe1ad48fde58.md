@@ -192,3 +192,8 @@ Spell Cascadeはブラウザで遊べる: https://yurukusa.itch.io/spell-cascade
 `npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。900+テスト済み。
 → [GitHub](https://github.com/yurukusa/cc-safe-setup)
 :::
+
+
+---
+
+📘 [Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800）
