@@ -39,11 +39,11 @@ npx cc-safe-setup --examples
 ### Git安全（8個）
 `git-config-guard` / `git-tag-guard` / `conflict-marker-guard` / `auto-stash-before-pull` / `branch-naming-convention` / `commit-quality-gate` / `commit-scope-guard` / `require-issue-ref`
 
-### 自動承認（11個 + PermissionRequest 4個）
+### 自動承認（11個 + PermissionRequest 7個）
 `auto-approve-build` / `auto-approve-python` / `auto-approve-docker` / `auto-approve-go` / `auto-approve-cargo` / `auto-approve-make` / `auto-approve-gradle` / `auto-approve-maven` / `auto-approve-ssh` / `auto-approve-git-read` / `compound-command-approver`
 
-**PermissionRequest**（v29.0.0で追加。保護ディレクトリの確認プロンプトを自動承認）:
-`allow-git-hooks-dir` / `allow-claude-settings` / `allow-protected-dirs` / `auto-approve-compound-git`
+**PermissionRequest**（保護ディレクトリや安全チェックの確認プロンプトを自動承認）:
+`allow-git-hooks-dir` / `allow-claude-settings` / `allow-protected-dirs` / `auto-approve-compound-git` / `quoted-flag-approver` / `bash-heuristic-approver` / `edit-always-allow`
 
 :::message
 **PreToolUseではなくPermissionRequestを使う理由**: PreToolUseは内蔵の保護ディレクトリ検査の**前**に実行されるため、`permissionDecision: "allow"`を返しても上書きされる。PermissionRequestは**後**に実行されるため、プロンプトをキャッチして自動承認できる。
