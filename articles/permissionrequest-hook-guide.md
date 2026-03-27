@@ -163,7 +163,7 @@ npx cc-safe-setup --install-example allow-git-hooks-dir
 npx cc-health-check
 ```
 
-cc-safe-setupには349個のフック実装例と4,549件のテストが含まれている。PermissionRequestフックのパターンも複数収録されているので、自分の環境に合ったものを選んで使ってほしい。
+cc-safe-setupには358個のフック実装例と4,572件のテストが含まれている。PermissionRequestフックのパターンも複数収録されているので、自分の環境に合ったものを選んで使ってほしい。
 
 Zenn Bookではhooksの体系的な解説を公開している：
 https://zenn.dev/yurukusa/books/6076c23b1cb18b
