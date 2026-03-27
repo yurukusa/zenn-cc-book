@@ -1,8 +1,8 @@
 ---
-title: "365個のhookから選ぶ方法"
+title: "405個のhookから選ぶ方法"
 ---
 
-365個もhookがあると「どれを入れればいいか」迷う。この章で解決する。
+405個もhookがあると「どれを入れればいいか」迷う。この章で解決する。
 
 ## 3つの選び方
 
@@ -94,6 +94,20 @@ Claude Codeを初めて使う？
   → npx cc-safe-setup --suggest（プロジェクトを分析して推奨）
 ```
 
+## パフォーマンスTip: ifフィールド（v2.1.85+）
+
+hookが多いとプロセス起動のオーバーヘッドが気になる。v2.1.85の`if`フィールドで、不要な起動をゼロにできる。
+
+```json
+{
+  "type": "command",
+  "if": "Bash(git push *)",
+  "command": "~/.claude/hooks/test-before-push.sh"
+}
+```
+
+`if`で指定したパターンにマッチしない場合、hookプロセスは起動しない。`ls`でgit専用hookが起動することがなくなる。詳細は第13章「高度なhookパターン」を参照。
+
 ## 次のセッションまでに
 
 1. `npx cc-safe-setup --shield`を実行（まだなら）
@@ -101,4 +115,4 @@ Claude Codeを初めて使う？
 3. `npx cc-safe-setup --suggest`でリスク確認
 4. 気になるhookを`--install-example`で追加
 
-365個全ての一覧は前章「hookカタログ」を参照。
+405個全ての一覧は前章「hookカタログ」を参照。
