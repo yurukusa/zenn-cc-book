@@ -216,5 +216,6 @@ npx cc-hook-test ~/.claude/hooks/guard.sh
 ---
 
 📘 [Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800）
+**第2章「Safety Guards」まで無料公開中。**
 🛡 `npx cc-safe-setup` — 8つの安全フックを10秒でインストール
 📊 `npx cc-health-check` — 20項目の無料診断
