@@ -184,6 +184,49 @@ exit 0
 
 **判断基準**: 組み込みチェックを超える必要があるならPermissionRequest。ないならPreToolUse。
 
+## ifフィールドによる条件付き実行（v2.1.85+）
+
+v2.1.85で、hookハンドラに`if`フィールドが追加された。これにより、hookプロセスを起動する前にClaude Code側でコマンドパターンをチェックし、マッチしない場合はhookをスキップする。
+
+```json
+{
+  "PreToolUse": [{
+    "matcher": "Bash",
+    "hooks": [{
+      "type": "command",
+      "if": "Bash(git push *)",
+      "command": "~/.claude/hooks/test-before-push.sh"
+    }]
+  }]
+}
+```
+
+`if`は個々のhookハンドラ内（`type`や`command`と同じ階層）に書く。`matcher`と同じ階層ではない。
+
+構文はpermissionsルール（`permissions.allow`/`permissions.deny`）と同じ:
+```
+Bash(git *)        → gitで始まるBashコマンド
+Bash(npm install *) → npm installで始まるコマンド
+Edit(*.py)         → .pyファイルへのEdit
+Write(*.json)      → .jsonファイルへのWrite
+```
+
+**Before/After**:
+
+Beforeでは、hookスクリプト内でコマンドを判定していた:
+```bash
+COMMAND=$(cat | jq -r '.tool_input.command // empty' 2>/dev/null)
+echo "$COMMAND" | grep -qE '^\s*git\s+push' || exit 0
+# 本体ロジック
+```
+
+Afterでは、`if`フィールドがClaude Code側でフィルタリングする。hookスクリプトは本体ロジックだけに集中できる。hookが10個あっても、`ls`コマンドで起動するプロセスはゼロになる。
+
+**注意**:
+- `if`はv2.1.85以降で使える。古いバージョンでは認識されない
+- `if`を省略すると従来通り`matcher`だけでフィルタされる（後方互換性あり）
+- 構文エラーの`if`ではhookが実行されない（フェイルクローズド）。構文は正確に
+
 ## まとめ
 
 | パターン | 用途 | 難易度 |
@@ -194,6 +237,7 @@ exit 0
 | 空matcherの制限 | 全ツール監視 | 高（リスクあり） |
 | 自動承認 | 権限プロンプト削減 | 中 |
 | PermissionRequest | 組み込み保護の上書き | 中 |
+| ifフィールド | hookプロセス起動の最適化 | 低 |
 | --simulate | 事前検証 | 低 |
 
 hookの設計は「何をブロックするか」だけでなく、「何を許可するか」「どう検証するか」も含む。テストと事前検証を組み合わせて、安全かつ快適な自律運用環境を作ろう。
