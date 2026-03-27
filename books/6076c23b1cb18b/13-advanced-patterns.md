@@ -144,6 +144,46 @@ npx cc-safe-setup --simulate "npm test"
 # ✓ PASS — no hook matches
 ```
 
+## PermissionRequestパターン
+
+Claude Code v2.1.78以降、`.git/`や`.claude/`への書き込みは`bypassPermissions`を有効にしても確認プロンプトが出る。PreToolUseではこれを制御できない（組み込みチェックの前に実行されるため）。
+
+PermissionRequestは組み込みチェックの**後**に実行される。だからプロンプトを上書きできる。
+
+```bash
+#!/bin/bash
+# allow-git-hooks-dir.sh — PermissionRequest hook
+INPUT=$(cat)
+FILE=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
+[ -z "$FILE" ] && exit 0
+
+# .git/hooks/ だけを許可（.git/config等は引き続きブロック）
+if echo "$FILE" | grep -qE '\.git/hooks/[^/]+$'; then
+  echo '{"permissionDecision":"allow"}'
+  exit 0
+fi
+exit 0
+```
+
+bash safety heuristics（`$()`コマンド置換、バッククォート等）の確認プロンプトも同様にPermissionRequestで自動承認できる:
+
+```bash
+#!/bin/bash
+# bash-heuristic-approver.sh — PermissionRequest hook
+INPUT=$(cat)
+MESSAGE=$(echo "$INPUT" | jq -r '.message // empty' 2>/dev/null)
+PATTERNS="command substitution|backtick|ANSI.C quot|quoted characters"
+echo "$MESSAGE" | grep -qiE "$PATTERNS" || exit 0
+
+COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty' 2>/dev/null)
+SAFE="git|npm|npx|node|python3|cargo|go|make|docker"
+BASE=$(echo "$COMMAND" | awk '{print $1}' | sed 's|.*/||')
+echo "$BASE" | grep -qE "^($SAFE)$" && echo '{"permissionDecision":"allow"}'
+exit 0
+```
+
+**判断基準**: 組み込みチェックを超える必要があるならPermissionRequest。ないならPreToolUse。
+
 ## まとめ
 
 | パターン | 用途 | 難易度 |
@@ -153,6 +193,7 @@ npx cc-safe-setup --simulate "npm test"
 | フック連鎖 | 多段チェック | 低 |
 | 空matcherの制限 | 全ツール監視 | 高（リスクあり） |
 | 自動承認 | 権限プロンプト削減 | 中 |
+| PermissionRequest | 組み込み保護の上書き | 中 |
 | --simulate | 事前検証 | 低 |
 
 hookの設計は「何をブロックするか」だけでなく、「何を許可するか」「どう検証するか」も含む。テストと事前検証を組み合わせて、安全かつ快適な自律運用環境を作ろう。
