@@ -70,6 +70,30 @@ npx cc-safe-setup --replay    # ブロック履歴
 npx cc-safe-setup --analyze   # セッション分析
 ```
 
+## 判断フローチャート
+
+迷ったらこの順で考える:
+
+```
+Claude Codeを初めて使う？
+  → YES → npx cc-safe-setup（8個の基本hookで始める）
+  → NO ↓
+
+自律モード（放置運転）する？
+  → YES → npx cc-safe-setup --shield（最大防御）
+  → NO ↓
+
+特定の問題が起きた？
+  → rm -rf事故 → --install-example rm-safety-net
+  → 権限プロンプトがうるさい → --install-example auto-approve-readonly
+  → CLAUDE.mdが無視される → --from-claudemd
+  → テストなしでpushされた → --install-example test-before-push
+  → .envがコミットされた → 基本hookに含まれる（secret-guard）
+
+上記のどれでもない？
+  → npx cc-safe-setup --suggest（プロジェクトを分析して推奨）
+```
+
 ## 次のセッションまでに
 
 1. `npx cc-safe-setup --shield`を実行（まだなら）
