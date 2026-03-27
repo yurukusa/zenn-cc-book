@@ -52,8 +52,8 @@ npx cc-safe-setup --examples
 ### 品質（10個）
 `syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship`
 
-### セキュリティ（6個）
-`env-source-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard`
+### セキュリティ（7個）
+`env-source-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard`
 
 ### デプロイ（4個）
 `deploy-guard` / `no-deploy-friday` / `work-hours-guard` / `changelog-reminder`
