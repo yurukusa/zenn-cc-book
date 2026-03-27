@@ -63,7 +63,7 @@ npx cc-safe-setup --install-example context-monitor
 
 ## パターン6：.envファイルをコミットしてAPIキーが漏洩
 
-**何が起きたか：** `git add .`を実行。`.env`ファイルがそのままコミットされ、パブリックリポジトリにプッシュされた。GitHubから「APIキーが公開されています」と警告メール。
+**何が起きたか：** Claude Codeが`git add .`を実行し、`.env`ファイルがコミットに含まれた。GitHub Issue [#6527](https://github.com/anthropics/claude-code/issues/6527)で報告された事例では、パブリックリポジトリにAPIキーが公開された。自分の環境ではGitHubのpush protectionがダミーキーを検出して拒否してくれたが、本番のキーだったら漏洩していた。
 
 **防御：**
 ```bash
@@ -74,7 +74,7 @@ npx cc-safe-setup  # secret-guardが含まれる
 
 ## パターン7：構文エラーが30ファイルに連鎖
 
-**何が起きたか：** Pythonファイルを編集したが構文エラーが入った。Claudeはエラーに気づかず次のファイルに進み、依存関係のあるファイルも連鎖的に壊れた。30ファイル以上が構文エラーになっていた。
+**何が起きたか：** Claude Codeがファイルを編集した際に構文エラーを入れ、そのまま次のファイルに進んだ。GitHubのIssueで報告されたケースでは、30ファイル以上に構文エラーが波及していた。syntax-checkを入れる前の自分の環境でも、PythonとJSONの構文エラーが数ファイルに残ったまま次のタスクに進んでいた。
 
 **防御：**
 ```bash
