@@ -1,8 +1,8 @@
 ---
-title: "付録：412+ hookカタログ"
+title: "付録：413+ hookカタログ"
 ---
 
-cc-safe-setup v29.3は412個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v29.6は413個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -61,8 +61,8 @@ npx cc-safe-setup --examples
 ### 監視・コスト（7個）
 `context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard`
 
-### ユーティリティ（12個）
-`comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard`
+### ユーティリティ（14個）
+`comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper`
 
 ### 多言語サポート
 - **Python**: `destructive_guard.py` / `secret_guard.py`
@@ -79,7 +79,7 @@ npx cc-safe-setup --examples
 | Playground | https://yurukusa.github.io/cc-hook-registry/playground.html |
 | Registry | https://yurukusa.github.io/cc-hook-registry/ |
 
-## CLI全コマンド（49個）
+## CLI全コマンド（52個）
 
 基本: `--status` / `--verify` / `--dry-run` / `--uninstall` / `--examples` / `--install-example` / `--full`
 
