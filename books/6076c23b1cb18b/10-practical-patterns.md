@@ -1,5 +1,5 @@
 ---
-title: "実践：5つの「やらかし」パターンとhookによる防御"
+title: "実践：7つの「やらかし」パターンとhookによる防御"
 ---
 
 実際に起きた事故パターンと、それを1行のhookで防ぐ方法。
@@ -60,6 +60,28 @@ npx cc-safe-setup --install-example context-monitor
 ```
 
 `large-read-guard`は100KB超のファイルをcatする前に警告。`context-monitor`はコンテキスト残量を常時監視。
+
+## パターン6：.envファイルをコミットしてAPIキーが漏洩
+
+**何が起きたか：** `git add .`を実行。`.env`ファイルがそのままコミットされ、パブリックリポジトリにプッシュされた。GitHubから「APIキーが公開されています」と警告メール。
+
+**防御：**
+```bash
+npx cc-safe-setup  # secret-guardが含まれる
+```
+
+`secret-guard`は`git add .env`、`git add credentials.json`、`.pem`/`.key`ファイルの追加を検出してブロック。`git add .`や`git add -A`の場合も、ワーキングディレクトリに`.env`が存在すればブロックする。
+
+## パターン7：構文エラーが30ファイルに連鎖
+
+**何が起きたか：** Pythonファイルを編集したが構文エラーが入った。Claudeはエラーに気づかず次のファイルに進み、依存関係のあるファイルも連鎖的に壊れた。30ファイル以上が構文エラーになっていた。
+
+**防御：**
+```bash
+npx cc-safe-setup  # syntax-checkが含まれる
+```
+
+PostToolUseフックとして、Edit/Write実行後に自動で構文チェックを走らせる。Python、Shell、JSON、YAML、JavaScriptに対応。エラーが見つかったらClaudeに通知され、即座に修正を試みる。
 
 ## まとめ：1コマンドで全部入れる
 
