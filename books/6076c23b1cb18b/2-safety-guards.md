@@ -1,6 +1,6 @@
 ---
 title: "第2章 Safety Guards——最初に直すべき4つのチェック"
-free: false
+free: true
 ---
 
 # 第2章 Safety Guards——最初に直すべき4つのチェック
