@@ -13,7 +13,7 @@ free: false
 
 **根本原因**: 重要な決定がどこにも記録されていなかった。
 
-**対策**: `hooks/decision-warn.sh` を PreToolUse に追加する。
+**対策**: `hooks/decision-warn.sh` を PostToolUse に追加する。
 
 **[decision-warn.sh を入手](https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/decision-warn.sh)**
 
