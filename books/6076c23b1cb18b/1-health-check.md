@@ -96,7 +96,7 @@ npx cc-health-check
       ↳ https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/branch-guard.sh
 
     → Add an error-tracker that prevents publishing when errors exist.
-      ↳ https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/error-gate.sh
+      ↳ https://github.com/yurukusa/cc-safe-setup/blob/main/examples/error-memory-guard.sh
 ```
 
 ## 今すぐできる3つのクイックウィン

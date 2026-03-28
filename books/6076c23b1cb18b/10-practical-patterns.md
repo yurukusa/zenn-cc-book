@@ -63,7 +63,7 @@ npx cc-safe-setup --install-example context-monitor
 
 ## パターン6：.envファイルをコミットしてAPIキーが漏洩
 
-**何が起きたか：** Claude Codeが`git add .`を実行し、`.env`ファイルがコミットに含まれた。GitHub Issue [#6527](https://github.com/anthropics/claude-code/issues/6527)で報告された事例では、パブリックリポジトリにAPIキーが公開された。自分の環境ではGitHubのpush protectionがダミーキーを検出して拒否してくれたが、本番のキーだったら漏洩していた。
+**何が起きたか：** Claude Codeが`git add .`を実行し、`.env`ファイルがコミットに含まれた。GitHub Issue [#2142](https://github.com/anthropics/claude-code/issues/2142)で報告された事例では、CLAUDE.mdのセキュリティ指示を無視してAPIキーがバージョン管理に露出した。自分の環境ではGitHubのpush protectionがダミーキーを検出して拒否してくれたが、本番のキーだったら漏洩していた。
 
 **防御：**
 ```bash

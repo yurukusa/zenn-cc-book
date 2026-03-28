@@ -14,7 +14,7 @@ free: false
 | 1 | Safety Guards | 危険コマンドをPreToolUseでブロック | branch-guard.sh |
 | 2 | Safety Guards | APIキーを専用ファイルに保管する | CLAUDE-autonomous.md |
 | 3 | Safety Guards | main/masterへの直pushを防ぐ | branch-guard.sh |
-| 4 | Safety Guards | エラーがある状態で外部APIを叩かない | error-gate.sh |
+| 4 | Safety Guards | エラーがある状態で外部APIを叩かない | error-memory-guard.sh |
 | 5 | Code Quality | ファイル編集後に構文チェックを走らせる | syntax-check.sh |
 | 6 | Code Quality | bashの出力からエラーを自動検知する | activity-logger.sh |
 | 7 | Code Quality | 完了の定義（DoD）を持つ | dod-checklists.md |
@@ -70,7 +70,7 @@ ln -s ~/products/claude-code-hooks/scripts/cc-solo-watchdog ~/bin/
         "matcher": "Bash",
         "hooks": [
           {"type": "command", "command": "bash ~/.claude/hooks/branch-guard.sh"},
-          {"type": "command", "command": "bash ~/.claude/hooks/error-gate.sh"},
+          {"type": "command", "command": "bash ~/.claude/hooks/error-memory-guard.sh"},
           {"type": "command", "command": "bash ~/.claude/hooks/no-ask-human.sh"}
         ]
       }
