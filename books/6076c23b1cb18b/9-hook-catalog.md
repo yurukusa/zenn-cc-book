@@ -2,7 +2,7 @@
 title: "付録：507+ hookカタログ"
 ---
 
-cc-safe-setup v29.6.26は507個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v29.6.27は507個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -52,16 +52,16 @@ npx cc-safe-setup --examples
 ### 品質（10個）
 `syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship`
 
-### セキュリティ（7個）
+### セキュリティ（9個）
 `env-source-guard` / `env-inherit-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard` / `staged-secret-scan`
 
 ### デプロイ（4個）
 `deploy-guard` / `no-deploy-friday` / `work-hours-guard` / `changelog-reminder`
 
-### 監視・コスト（9個）
+### 監視・コスト（13個）
 `context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor`
 
-### ユーティリティ（15個）
+### ユーティリティ（16個）
 `comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard`
 
 ### 多言語サポート

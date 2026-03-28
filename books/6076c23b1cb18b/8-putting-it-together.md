@@ -11,7 +11,7 @@ free: false
 
 | # | カテゴリ | チェック | Hook/Template |
 |---|---------|---------|---------------|
-| 1 | Safety Guards | 危険コマンドをPreToolUseでブロック | branch-guard.sh |
+| 1 | Safety Guards | 危険コマンドをPreToolUseでブロック | destructive-guard.sh |
 | 2 | Safety Guards | APIキーを専用ファイルに保管する | CLAUDE-autonomous.md |
 | 3 | Safety Guards | main/masterへの直pushを防ぐ | branch-guard.sh |
 | 4 | Safety Guards | エラーがある状態で外部APIを叩かない | error-memory-guard.sh |
