@@ -98,7 +98,7 @@ AIが同じファイルで何度もエラーを出している場合、根本的
 #!/bin/bash
 # PostToolUse: Bash に反応
 ERROR_LOG="/tmp/claude-error-count"
-EXIT_CODE="$CLAUDE_EXIT_CODE"
+EXIT_CODE="$(echo "$INPUT" | jq -r '.tool_result.exit_code // 0')"
 
 if [ "$EXIT_CODE" -ne 0 ]; then
   COUNT=$(cat "$ERROR_LOG" 2>/dev/null || echo 0)
@@ -191,7 +191,7 @@ fi
 #!/bin/bash
 # PostToolUse: Bash で test/pytest/jest を含むコマンドに反応
 COMMAND="$CLAUDE_COMMAND"
-EXIT_CODE="$CLAUDE_EXIT_CODE"
+EXIT_CODE="$(echo "$INPUT" | jq -r '.tool_result.exit_code // 0')"
 
 if [[ "$COMMAND" == *"test"* || "$COMMAND" == *"pytest"* || "$COMMAND" == *"jest"* ]]; then
   if [ "$EXIT_CODE" -ne 0 ]; then
