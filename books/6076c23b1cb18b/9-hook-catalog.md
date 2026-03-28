@@ -1,8 +1,8 @@
 ---
-title: "付録：514+ hookカタログ"
+title: "付録：517+ hookカタログ"
 ---
 
-cc-safe-setup v29.6.28は514個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v29.6.31は517個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -58,11 +58,11 @@ npx cc-safe-setup --examples
 ### デプロイ（4個）
 `deploy-guard` / `no-deploy-friday` / `work-hours-guard` / `changelog-reminder`
 
-### 監視・コスト（13個）
-`context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor`
+### 監視・コスト（14個）
+`context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor` / `dotenv-watch`
 
-### ユーティリティ（17個）
-`comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer`
+### ユーティリティ（20個）
+`comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer` / `direnv-auto-reload` / `pre-compact-checkpoint`
 
 ### 多言語サポート
 - **Python**: `destructive_guard.py` / `secret_guard.py`
