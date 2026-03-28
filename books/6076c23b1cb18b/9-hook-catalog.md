@@ -36,8 +36,8 @@ npx cc-safe-setup --examples
 ### データ保護（3個）
 `block-database-wipe` / `secret-guard` / `hardcoded-secret-detector`
 
-### Git安全（8個）
-`git-config-guard` / `git-tag-guard` / `conflict-marker-guard` / `auto-stash-before-pull` / `branch-naming-convention` / `commit-quality-gate` / `commit-scope-guard` / `require-issue-ref`
+### Git安全（9個）
+`git-config-guard` / `git-tag-guard` / `conflict-marker-guard` / `auto-stash-before-pull` / `branch-naming-convention` / `commit-quality-gate` / `commit-scope-guard` / `require-issue-ref` / `no-verify-blocker`
 
 ### 自動承認（11個 + PermissionRequest 7個）
 `auto-approve-build` / `auto-approve-python` / `auto-approve-docker` / `auto-approve-go` / `auto-approve-cargo` / `auto-approve-make` / `auto-approve-gradle` / `auto-approve-maven` / `auto-approve-ssh` / `auto-approve-git-read` / `compound-command-approver`
