@@ -1,8 +1,8 @@
 ---
-title: "付録：444+ hookカタログ"
+title: "付録：446+ hookカタログ"
 ---
 
-cc-safe-setup v29.6は444個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v29.6は446個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -33,8 +33,8 @@ npx cc-safe-setup --examples
 ### 破壊的コマンド防止（12個）
 `destructive-guard` / `branch-guard` / `no-sudo-guard` / `scope-guard` / `protect-dotfiles` / `symlink-guard` / `uncommitted-work-guard` / `no-install-global` / `protect-claudemd` / `case-sensitive-guard` / `worktree-guard` / `strict-allowlist`
 
-### データ保護（3個）
-`block-database-wipe` / `secret-guard` / `hardcoded-secret-detector`
+### データ保護（5個）
+`block-database-wipe` / `secret-guard` / `hardcoded-secret-detector` / `staged-secret-scan` / `bulk-file-delete-guard`
 
 ### Git安全（10個）
 `git-config-guard` / `git-tag-guard` / `conflict-marker-guard` / `auto-stash-before-pull` / `branch-naming-convention` / `commit-quality-gate` / `commit-scope-guard` / `require-issue-ref` / `no-verify-blocker` / `git-index-lock-cleanup`
