@@ -146,7 +146,7 @@ npx cc-safe-setup --simulate "npm test"
 
 ## PermissionRequestパターン
 
-Claude Code v2.1.78以降、`.git/`や`.claude/`への書き込みは`bypassPermissions`を有効にしても確認プロンプトが出る。PreToolUseではこれを制御できない（組み込みチェックの前に実行されるため）。
+Claude Code v2.1.78以降、`.git/`や`.claude/`への書き込みは`bypassPermissions`を有効にしても確認プロンプトが出る。PreToolUseは組み込みチェックより先に実行されるため、その後の組み込みチェックに上書きされて制御できない。
 
 PermissionRequestは組み込みチェックの**後**に実行される。だからプロンプトを上書きできる。
 

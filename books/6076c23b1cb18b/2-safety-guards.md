@@ -59,8 +59,6 @@ OPENAI_API_KEY=sk-xxxx
 GITHUB_TOKEN=ghp_xxxx
 ```
 
-CLAUDE.mdには「認証情報は ~/.credentials を参照」とだけ書く。
-
 CLAUDE.mdには「認証情報は ~/.credentials を参照」とだけ書く。cc-safe-setupの`secret-guard`フックが`.env`や鍵ファイルのgit add/commitを自動ブロックする。
 
 ## チェック3: main/masterへの直pushを防ぐ
