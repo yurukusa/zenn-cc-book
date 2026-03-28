@@ -227,6 +227,61 @@ Afterでは、`if`フィールドがClaude Code側でフィルタリングする
 - `if`を省略すると従来通り`matcher`だけでフィルタされる（後方互換性あり）
 - 構文エラーの`if`ではhookが実行されない（フェイルクローズド）。構文は正確に
 
+## シェルラッパーバイパスの防止
+
+destructive-guardは`rm -rf /`を直接ブロックする。だが次のコマンドは通り抜ける:
+
+```bash
+sh -c "rm -rf /"
+python3 -c "import os; os.system('rm -rf ~')"
+echo "rm -rf /" | bash
+```
+
+Claude Codeが「直接実行ではなくインタプリタ経由で実行」を選ぶケースが報告されている。
+
+対策: **shell-wrapper-guard**
+
+```bash
+#!/bin/bash
+# shell-wrapper-guard.sh — PreToolUse hook on "Bash"
+INPUT=$(cat)
+COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty' 2>/dev/null)
+[ -z "$COMMAND" ] && exit 0
+
+DESTRUCT='rm\s+-[rf]*\s+[/~]|git\s+reset\s+--hard|git\s+clean\s+-[fd]+'
+
+# sh/bash -c ラッパーの中身をチェック
+if echo "$COMMAND" | grep -qE '(sh|bash|zsh)\s+-c\s+'; then
+    INNER=$(echo "$COMMAND" | sed -E "s/.*(sh|bash|zsh)\s+-c\s+['\"]?//")
+    if echo "$INNER" | grep -qE "$DESTRUCT"; then
+        echo "BLOCKED: Destructive command in shell wrapper" >&2
+        exit 2
+    fi
+fi
+
+# Python one-liner
+if echo "$COMMAND" | grep -qE 'python[23]?\s+-c'; then
+    if echo "$COMMAND" | grep -qiE "os\.system|subprocess\.(run|call)" && \
+       echo "$COMMAND" | grep -qE "$DESTRUCT"; then
+        echo "BLOCKED: Destructive command in Python" >&2
+        exit 2
+    fi
+fi
+
+# パイプ to shell
+if echo "$COMMAND" | grep -qE '\|\s*(sh|bash)\s*$'; then
+    PIPED=$(echo "$COMMAND" | sed -E 's/\s*\|\s*(sh|bash)\s*$//')
+    if echo "$PIPED" | grep -qE "$DESTRUCT"; then
+        echo "BLOCKED: Destructive command piped to shell" >&2
+        exit 2
+    fi
+fi
+
+exit 0
+```
+
+cc-safe-setupのdestructive-guard（built-in）にはv29.6.28でこの検出が統合されている。example版の`shell-wrapper-guard.sh`はNode.js、Perl、Ruby、ネスト(`sh -c "bash -c '...'"`)、here-string(`bash <<< "..."`)にも対応する。
+
 ## v2.1.86の改善（2026-03-27）
 
 v2.1.86では以下の改善があり、hookの運用に影響する:
@@ -246,6 +301,7 @@ v2.1.86では以下の改善があり、hookの運用に影響する:
 | 空matcherの制限 | 全ツール監視 | 高（リスクあり） |
 | 自動承認 | 権限プロンプト削減 | 中 |
 | PermissionRequest | 組み込み保護の上書き | 中 |
+| シェルラッパー防止 | インタプリタ経由のバイパス防止 | 中 |
 | ifフィールド | hookプロセス起動の最適化 | 低 |
 | --simulate | 事前検証 | 低 |
 
