@@ -1,12 +1,12 @@
 ---
-title: "hookのテスト——4,820テストケースから学んだ品質保証"
+title: "hookのテスト——6,405テストケースから学んだ品質保証"
 ---
 
 hookは安全装置だ。テストされていない安全装置は、存在しないのと同じ。
 
 ## なぜhookをテストするのか
 
-cc-safe-setupには448個のexample hookがある。初期は118個しかテストがなかった。残り240個は「たぶん動く」状態だった。
+cc-safe-setupには448個のexample hookがある。初期は118個しかテストがなかった。残り330個は「たぶん動く」状態だった。
 
 ある日、`response-budget-guard`がセッション中に偽陽性を出した。テスト環境ではカウンターがリセットされず、累積したツール呼び出し回数がリミットを超えたのだ。テストがあれば事前に発見できた。
 
@@ -98,12 +98,12 @@ cd /tmp/test-dir && echo '{"tool_input":{"command":"git commit -m test"}}' | bas
 
 `npx cc-safe-setup --validate` は構文チェックだけ行う。機能テストは別途必要。
 
-cc-safe-setupでは `bash test.sh` で4,820テストを一括実行する:
+cc-safe-setupでは `bash test.sh` で6,405テストを一括実行する:
 
 ```bash
 cd /path/to/cc-safe-setup
 bash test.sh
-# Results: 4820/4820 passed
+# Results: 6405/6405 passed
 ```
 
 自分のカスタムhookにもテストを書くべき。テンプレート:

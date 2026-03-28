@@ -65,7 +65,7 @@ npx cc-health-check
 
 - **20チェック項目の解説**——なぜそのチェックが必要か、何が起きるとFAILするか
 - **hookスクリプト**——コピーしてすぐ使える（`npx cc-safe-setup --shield`で一括インストールも可能）
-- **6個のテンプレート**——CLAUDE-autonomous.md、CLAUDE-baseline.md、dod-checklists.md、task-queue.yaml、mission.md、lessons.md
+- **6個のテンプレート**——CLAUDE-autonomous.md、CLAUDE-baseline.md、dod-checklists.md、task-queue.yaml、mission.md、LESSONS.md
 - **700+時間の実体験**——何が失敗して、どう直したか
 
 ---

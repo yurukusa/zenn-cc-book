@@ -144,7 +144,7 @@ After（本書の手順全実施）:
   Monitoring:     100% (+16pts)
   Recovery:       100% (+16pts)
   Autonomy:       100% (+16pts)
-  Coordination:   100% (+11pts)
+  Coordination:   100% (+10pts)
   Total:          100/100
 ```
 

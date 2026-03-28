@@ -79,7 +79,7 @@ npx cc-safe-setup --examples
 | Playground | https://yurukusa.github.io/cc-hook-registry/playground.html |
 | Registry | https://yurukusa.github.io/cc-hook-registry/ |
 
-## CLI全コマンド（52個）
+## CLI全コマンド（56個）
 
 基本: `--status` / `--verify` / `--dry-run` / `--uninstall` / `--examples` / `--install-example` / `--full`
 

@@ -117,7 +117,7 @@ CLAUDE.mdにも明記する:
     100%
 ```
 
-ここまでで8チェックをカバーした（40点分）。
+ここまでで8チェックをカバーした（42点分）。
 
 構文チェックは `npx cc-safe-setup` で自動設定される。PostToolUseフックとしてsyntax-check.shがインストールされ、Edit/Write後にPython/Shell/JSON/YAML/JSの構文を自動検証する。
 
