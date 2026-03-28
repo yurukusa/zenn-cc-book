@@ -34,7 +34,7 @@ Safety Guardsでファイルを守ったら、次はコードの質を守る。
 }
 ```
 
-**[syntax-check.sh を入手](https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/syntax-check.sh)**
+**入手方法**: `npx cc-safe-setup`（[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)）
 
 対応言語:
 - Python: `python3 -m py_compile`
@@ -51,7 +51,7 @@ Safety Guardsでファイルを守ったら、次はコードの質を守る。
 
 **対策**: `hooks/activity-logger.sh` が bash 出力を記録して、エラーパターンを検知する。
 
-**[activity-logger.sh を入手](https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/activity-logger.sh)**
+**入手方法**: `npx cc-safe-setup --install-example activity-logger`（[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)）
 
 activity-loggerは全ての bash 実行を JSONL ログに記録する:
 
@@ -69,7 +69,7 @@ activity-loggerは全ての bash 実行を JSONL ログに記録する:
 
 **対策**: `templates/dod-checklists.md` を `~/.claude/` に配置する。
 
-**[dod-checklists.md を入手](https://github.com/yurukusa/claude-code-hooks/blob/main/templates/dod-checklists.md)**
+テンプレートは[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)を参照
 
 DoDチェックリストの例:
 
@@ -102,7 +102,7 @@ CLAUDE.mdにも明記する:
 - APIレスポンス後: レスポンスのHTTPステータスを確認
 ```
 
-**[CLAUDE-autonomous.md テンプレート](https://github.com/yurukusa/claude-code-hooks/blob/main/templates/CLAUDE-autonomous.md)** にこのパターンが含まれている。
+このパターンはCLAUDE.mdの自律運用テンプレートに含まれている（[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)参照）。
 
 ---
 

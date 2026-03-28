@@ -49,14 +49,12 @@ npx cc-safe-setup --shield
 #### Step 1: hookスクリプトをインストール（10分）
 
 ```bash
-# claude-code-hooksをクローン
-git clone https://github.com/yurukusa/claude-code-hooks.git ~/products/claude-code-hooks
+# ワンコマンドで8つの安全hookをインストール
+npx cc-safe-setup
 
-# hooksディレクトリをシンボリックリンク
-mkdir -p ~/.claude/hooks
-cd ~/.claude/hooks
-ln -s ~/products/claude-code-hooks/hooks/*.sh .
-ln -s ~/products/claude-code-hooks/scripts/cc-solo-watchdog ~/bin/
+# 追加のexample hookをインストール（500種から選択可能）
+npx cc-safe-setup --install-example block-database-wipe
+npx cc-safe-setup --install-example auto-checkpoint
 ```
 
 #### Step 2: settings.jsonにhookを登録（5分）
@@ -106,11 +104,13 @@ ln -s ~/products/claude-code-hooks/scripts/cc-solo-watchdog ~/bin/
 #### Step 3: templatesをセットアップ（10分）
 
 ```bash
-# テンプレートをコピー
-cp ~/products/claude-code-hooks/templates/CLAUDE-autonomous.md ~/.claude/
-cp ~/products/claude-code-hooks/templates/dod-checklists.md ~/.claude/
-cp ~/products/claude-code-hooks/templates/task-queue.yaml ~/ops/
-cp ~/products/claude-code-hooks/templates/mission.md ~/ops/
+# CLAUDE.mdに自律運用ルールを追加
+# 以下のルールを自分のCLAUDE.mdに追記する:
+# - 人間に聞かないルール
+# - ループ検知ルール（同一エラー×3回=停止）
+# - セッション開始時手順（前回の状態確認→継続）
+# テンプレートはcc-safe-setupリポを参照:
+# https://github.com/yurukusa/cc-safe-setup
 ```
 
 #### Step 4: CLAUDE.mdに基本ルールを追記（5分）
@@ -181,7 +181,7 @@ npx cc-safe-setup --install-example block-database-wipe  # 個別インストー
 
 **全フック・レシピを入手する**:
 
-[https://github.com/yurukusa/claude-code-hooks](https://github.com/yurukusa/claude-code-hooks)
+[https://github.com/yurukusa/cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)
 
 ---
 

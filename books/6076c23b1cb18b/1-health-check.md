@@ -93,7 +93,7 @@ npx cc-health-check
 
   Top fixes:
     → Add a PreToolUse hook that blocks destructive commands.
-      ↳ https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/branch-guard.sh
+      ↳ https://github.com/yurukusa/cc-safe-setup
 
     → Add an error-tracker that prevents publishing when errors exist.
       ↳ https://github.com/yurukusa/cc-safe-setup/blob/main/examples/error-memory-guard.sh

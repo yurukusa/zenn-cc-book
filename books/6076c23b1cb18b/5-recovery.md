@@ -15,7 +15,7 @@ AIは必ず失敗する。問題は「失敗するかどうか」ではなく「
 
 **対策**: `hooks/branch-guard.sh` の安全ブランチ機能を使う（チェック1と同じhook）。
 
-**[branch-guard.sh を入手](https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/branch-guard.sh)**
+**入手方法**: `npx cc-safe-setup` で自動インストール（[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)）
 
 またはCLAUDE.mdに明記する:
 
@@ -33,7 +33,7 @@ git checkout -b backup/before-changes-$(date +%Y%m%d-%H%M%S)
 
 **対策**: `cc-solo-watchdog` を常時起動する。
 
-**[cc-solo-watchdog を入手](https://github.com/yurukusa/claude-code-hooks/blob/main/scripts/cc-solo-watchdog)**
+**入手方法**: [cc-safe-setupリポ](https://github.com/yurukusa/cc-safe-setup)を参照
 
 watchdogがやること:
 
@@ -64,7 +64,7 @@ cc-solo-watchdog が監視するもの:
 損切りライン: 同一エラー × 3回 = 人間待ちに回す
 ```
 
-**[CLAUDE-autonomous.md テンプレート](https://github.com/yurukusa/claude-code-hooks/blob/main/templates/CLAUDE-autonomous.md)** にこのパターンが含まれている。
+このパターンはCLAUDE.mdの自律運用テンプレートに含まれている（[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)参照）。
 
 ループ検知ルールを入れてから、「同じコマンドを延々と繰り返す」事故が激減した。
 
