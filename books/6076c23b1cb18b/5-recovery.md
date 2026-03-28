@@ -98,6 +98,18 @@ npx cc-safe-setup --install-example auto-checkpoint
 npx cc-safe-setup --install-example auto-snapshot
 ```
 
+### 補足: edit-retry-loop-guard — Edit toolのリトライループ検出
+
+bashコマンドのループだけでなく、Edit toolでも同じファイルを何度も修正→失敗→再修正するパターンがある（[#35576](https://github.com/anthropics/claude-code/issues/35576)）。
+
+`edit-retry-loop-guard`はEdit/Writeのファイルパスを記録し、同一ファイルへの短時間の連続編集を検出する:
+
+```bash
+npx cc-safe-setup --install-example edit-retry-loop-guard
+```
+
+5回以上の連続Edit/Writeを検出すると警告を出す。チェック14のCLAUDE.mdルールとの組み合わせで、bashループ（hook）+ Editループ（hook）+ 行動ルール（CLAUDE.md）の三重防御になる。
+
 ---
 
 次章: Autonomy——CCが自分で判断して動く仕組み
