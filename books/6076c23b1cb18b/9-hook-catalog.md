@@ -53,8 +53,12 @@ npx cc-safe-setup --examples
 **PreToolUseではなくPermissionRequestを使う理由**: PreToolUseは内蔵の保護ディレクトリ検査の**前**に実行されるため、`permissionDecision: "allow"`を返しても上書きされる。PermissionRequestは**後**に実行されるため、プロンプトをキャッチして自動承認できる。
 :::
 
-### 品質（10個）
-`syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship`
+### 品質（11個）
+`syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship` / `no-output-truncation`
+
+:::message
+**出力截断防止（#39945）**: `no-output-truncation`はnpm test等のビルド/テスト出力を`| tail`でパイプしてエラーを捨てるパターンをブロック。ファイルリダイレクト+exit codeチェックを強制。
+:::
 
 ### セキュリティ（21個）
 `env-source-guard` / `env-inherit-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard` / `staged-secret-scan` / `credential-file-cat-guard` / `compound-inject-guard` / `path-deny-bash-guard` / `sandbox-write-verify` / `context-warning-verifier` / `mcp-config-freeze` / `mcp-data-boundary` / `claudeignore-enforce-guard` / `bash-safety-auto-deny` / `env-inline-secret-guard` / `migration-verify-guard` / `skill-injection-detector`
@@ -79,8 +83,15 @@ npx cc-safe-setup --examples
 ### 監視・コスト（16個）
 `context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor` / `dotenv-watch` / `consecutive-failure-circuit-breaker` / `bg-task-cooldown-guard`
 
-### ファイル保護（2個）
-`file-recycle-bin` / `worktree-memory-guard`
+### ファイル保護（3個）
+`file-recycle-bin` / `worktree-memory-guard` / `tmp-output-size-guard`
+
+### プロセス管理（1個）
+`plugin-process-cleanup`
+
+:::message
+**リソースリーク防止**: `plugin-process-cleanup`はSessionEndでリークしたプラグインプロセス（bun server.ts等）を自動クリーンアップ（#39137）。`tmp-output-size-guard`はSessionStartで肥大化したtask出力ファイル（95GB+事例）を検出（#39909）。
+:::
 
 ### 自動承認（追加: 2個）
 `heredoc-backtick-approver` / `hook-stdout-sanitizer`
