@@ -146,6 +146,20 @@ npx cc-safe-setup --examples
 **ドメインallowlist**: sandbox modeで`WebFetch(domain:*)`が動作しない問題のワークアラウンド。環境変数`CC_WEBFETCH_ALLOW_DOMAINS`でドメインリストを設定可能。
 :::
 
+### Bash ネットワーク制御（1個）
+`bash-domain-allowlist`
+
+:::message
+**curl/wgetドメイン制限**: sandboxの`allowedDomains`がHTTPリクエストをフィルタしない問題（#40213）のワークアラウンド。`CC_ALLOWED_DOMAINS`環境変数で許可ドメインを設定。curl/wgetの宛先を検査し、リスト外をブロック。
+:::
+
+### 環境チェック（1個）
+`bashrc-safety-check`
+
+:::message
+**SessionStart環境検査**: エージェントがspawnするbashシェルが`.bashrc`を読み込んでハングする問題（#40354）を検出。Angular CLI completion、nvm、conda等の非インタラクティブシェルで停止するパターンをスキャンし、ガード行追加を案内。
+:::
+
 ### ユーティリティ（20個）
 `comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer` / `direnv-auto-reload` / `api-retry-limiter`
 
