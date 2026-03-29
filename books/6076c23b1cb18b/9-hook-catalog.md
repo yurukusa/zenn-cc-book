@@ -53,11 +53,11 @@ npx cc-safe-setup --examples
 **PreToolUseではなくPermissionRequestを使う理由**: PreToolUseは内蔵の保護ディレクトリ検査の**前**に実行されるため、`permissionDecision: "allow"`を返しても上書きされる。PermissionRequestは**後**に実行されるため、プロンプトをキャッチして自動承認できる。
 :::
 
-### 品質（11個）
-`syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship` / `no-output-truncation`
+### 品質（12個）
+`syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship` / `no-output-truncation` / `prefer-dedicated-tools`
 
 :::message
-**出力截断防止（#39945）**: `no-output-truncation`はnpm test等のビルド/テスト出力を`| tail`でパイプしてエラーを捨てるパターンをブロック。ファイルリダイレクト+exit codeチェックを強制。
+**出力截断防止（#39945）**: `no-output-truncation`はビルド/テスト出力を`| tail`でパイプしてエラーを捨てるパターンをブロック。`prefer-dedicated-tools`（#39979）はBashのcat/grep/head/tailを検出し、Read/Grep/Globツールの使用を強制。トークン節約と構造化出力を確保。
 :::
 
 ### セキュリティ（22個）
@@ -84,8 +84,8 @@ npx cc-safe-setup --examples
 ### サブエージェント制御（5個）
 `subagent-scope-validator` / `subagent-scope-guard` / `subagent-budget-guard` / `max-concurrent-agents` / `subagent-tool-call-limiter`
 
-### 監視・コスト（16個）
-`context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor` / `dotenv-watch` / `consecutive-failure-circuit-breaker` / `bg-task-cooldown-guard`
+### 監視・コスト（17個）
+`context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor` / `dotenv-watch` / `consecutive-failure-circuit-breaker` / `bg-task-cooldown-guard` / `session-health-monitor`
 
 ### ファイル保護（3個）
 `file-recycle-bin` / `worktree-memory-guard` / `tmp-output-size-guard`
