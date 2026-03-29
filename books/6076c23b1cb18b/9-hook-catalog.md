@@ -85,11 +85,45 @@ npx cc-safe-setup --examples
 `heredoc-backtick-approver`はheredocのバッククォートによる誤検知を解消（[#35183](https://github.com/anthropics/claude-code/issues/35183)起点）。
 :::
 
+### CI/CDパイプライン保護（4個）
+`github-actions-secret-guard` / `ci-workflow-guard` / `gitops-drift-guard` / `dotenv-commit-guard`
+
+:::message
+**CI/CDセキュリティ**: `github-actions-secret-guard`はワークフロー内のハードコードされたシークレットを検出。`ci-workflow-guard`は`--no-verify`やremote script executionの追加を警告。GitOps環境では`gitops-drift-guard`がmain上のinfra file直接編集を防止。
+:::
+
+### クラウド/インフラ（3個）
+`k8s-production-guard` / `schema-migration-guard` / `network-exfil-guard`
+
+:::message
+**本番環境保護**: `k8s-production-guard`はproduction namespace上の`kubectl delete`/`scale --replicas=0`をブロック。`schema-migration-guard`はDROP TABLE/TRUNCATEを含むマイグレーションを警告。
+:::
+
+### MCP安全性（2個）
+`mcp-server-allowlist` / `mcp-tool-audit-log`
+
+:::message
+**OWASP MCP Top 10対応**: `mcp-server-allowlist`は未許可MCPサーバーのツール呼び出しをブロック。`mcp-tool-audit-log`は全MCPツール呼び出しをログに記録（MCP09: Insufficient Logging対策）。
+:::
+
+### ロールベース制御（1個）
+`role-tool-guard`
+
+:::message
+**エージェントチーム向け**: PMはEdit/Write/Bash不可、ArchitectはBash不可、Reviewerは読み取りのみ、Developerは全許可。`.claude/current-role.txt`でロールを切り替え。
+:::
+
+### セッションリカバリ（3個）
+`session-resume-env-fix` / `pre-compact-knowledge-save` / `headless-empty-result-guard`
+
+### プロセス強制（4個）
+`spec-file-scope-guard` / `read-all-files-enforcer` / `self-modify-bypass-guard` / `permission-entry-validator`
+
 ### プラットフォーム互換（2個）
 `windows-path-guard` / `no-git-amend`
 
-### ファイル安全（2個）
-`file-age-guard` / `binary-upload-guard`
+### ファイル安全（4個）
+`file-age-guard` / `binary-upload-guard` / `cwd-project-boundary-guard` / `file-change-undo-tracker`
 
 ### ユーティリティ（20個）
 `comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer` / `direnv-auto-reload` / `api-retry-limiter`
