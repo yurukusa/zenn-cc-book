@@ -1,8 +1,8 @@
 ---
-title: "付録：539+ hookカタログ"
+title: "付録：549+ hookカタログ"
 ---
 
-cc-safe-setup v29.6.32は539個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v29.6.32は549個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -52,8 +52,8 @@ npx cc-safe-setup --examples
 ### 品質（10個）
 `syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship`
 
-### セキュリティ（16個）
-`env-source-guard` / `env-inherit-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard` / `staged-secret-scan` / `credential-file-cat-guard` / `compound-inject-guard` / `path-deny-bash-guard` / `sandbox-write-verify` / `context-warning-verifier` / `mcp-config-freeze` / `mcp-data-boundary`
+### セキュリティ（21個）
+`env-source-guard` / `env-inherit-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard` / `staged-secret-scan` / `credential-file-cat-guard` / `compound-inject-guard` / `path-deny-bash-guard` / `sandbox-write-verify` / `context-warning-verifier` / `mcp-config-freeze` / `mcp-data-boundary` / `claudeignore-enforce-guard` / `bash-safety-auto-deny` / `env-inline-secret-guard` / `migration-verify-guard` / `skill-injection-detector`
 
 :::message
 **OWASP MCP Top 10対応**: `mcp-config-freeze`はMCP09（過剰パーミッション）、`mcp-data-boundary`はMCP01（プロンプトインジェクション）+MCP10（不十分なログ）に対応。
@@ -69,11 +69,14 @@ npx cc-safe-setup --examples
 **コンテキスト窓管理**: `context-threshold-alert`はコンテキスト使用率が閾値を超えると警告。`compaction-transcript-guard`はcompaction時の重要情報ロスを防止。Anthropic公式ベストプラクティスでも「コンテキスト窓は最重要リソース」と明言されている。
 :::
 
-### サブエージェント制御（4個）
-`subagent-scope-validator` / `subagent-scope-guard` / `subagent-budget-guard` / `max-concurrent-agents`
+### サブエージェント制御（5個）
+`subagent-scope-validator` / `subagent-scope-guard` / `subagent-budget-guard` / `max-concurrent-agents` / `subagent-tool-call-limiter`
 
-### 監視・コスト（14個）
-`context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor` / `dotenv-watch`
+### 監視・コスト（16個）
+`context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor` / `dotenv-watch` / `consecutive-failure-circuit-breaker` / `bg-task-cooldown-guard`
+
+### ファイル保護（2個）
+`file-recycle-bin` / `worktree-memory-guard`
 
 ### 自動承認（追加: 2個）
 `heredoc-backtick-approver` / `hook-stdout-sanitizer`
