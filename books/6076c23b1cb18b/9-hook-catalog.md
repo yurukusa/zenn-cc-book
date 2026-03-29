@@ -125,6 +125,27 @@ npx cc-safe-setup --examples
 ### ファイル安全（4個）
 `file-age-guard` / `binary-upload-guard` / `cwd-project-boundary-guard` / `file-change-undo-tracker`
 
+### コンテキスト管理（1個）
+`compact-blocker`
+
+:::message
+**auto-compaction完全制御**: PreCompactフックでexit 2を返し、自動圧縮を無効化。手動でコンテキストを管理するパワーユーザー向け。条件付きブロック（フラグファイルで切り替え）も可能。
+:::
+
+### コマンド修正（1個）
+`git-show-flag-sanitizer`
+
+:::message
+**自動バグ修正**: Claude Codeが`git show --no-stat`（無効フラグ）を実行する既知バグをPreToolUseフックで自動修正。コンテキスト浪費を防止。
+:::
+
+### WebFetch制御（1個）
+`webfetch-domain-allow`
+
+:::message
+**ドメインallowlist**: sandbox modeで`WebFetch(domain:*)`が動作しない問題のワークアラウンド。環境変数`CC_WEBFETCH_ALLOW_DOMAINS`でドメインリストを設定可能。
+:::
+
 ### ユーティリティ（20個）
 `comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer` / `direnv-auto-reload` / `api-retry-limiter`
 
