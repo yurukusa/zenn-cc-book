@@ -62,11 +62,11 @@ npx cc-safe-setup --examples
 ### デプロイ（4個）
 `deploy-guard` / `no-deploy-friday` / `work-hours-guard` / `changelog-reminder`
 
-### セッション管理（8個）
-`session-resume-guard` / `compaction-transcript-guard` / `plan-mode-strict-guard` / `context-threshold-alert` / `permission-mode-drift-guard` / `cross-session-error-log` / `pre-compact-checkpoint` / `concurrent-edit-lock`
+### セッション管理（10個）
+`session-resume-guard` / `compaction-transcript-guard` / `plan-mode-strict-guard` / `context-threshold-alert` / `permission-mode-drift-guard` / `cross-session-error-log` / `pre-compact-checkpoint` / `concurrent-edit-lock` / `session-end-logger` / `headless-stop-guard`
 
 :::message
-**コンテキスト窓管理**: `context-threshold-alert`はコンテキスト使用率が閾値を超えると警告。`compaction-transcript-guard`はcompaction時の重要情報ロスを防止。Anthropic公式ベストプラクティスでも「コンテキスト窓は最重要リソース」と明言されている。
+**コンテキスト窓管理**: `context-threshold-alert`はコンテキスト使用率が閾値を超えると警告。`compaction-transcript-guard`はcompaction時の重要情報ロスを防止。`session-end-logger`はSessionEnd hookでgit活動をログに記録（#40010）。`headless-stop-guard`は`-p`モードでStop hookが空結果を返すバグを回避（#38651）。
 :::
 
 ### サブエージェント制御（5個）
