@@ -60,8 +60,12 @@ npx cc-safe-setup --examples
 **出力截断防止（#39945）**: `no-output-truncation`はnpm test等のビルド/テスト出力を`| tail`でパイプしてエラーを捨てるパターンをブロック。ファイルリダイレクト+exit codeチェックを強制。
 :::
 
-### セキュリティ（21個）
-`env-source-guard` / `env-inherit-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard` / `staged-secret-scan` / `credential-file-cat-guard` / `compound-inject-guard` / `path-deny-bash-guard` / `sandbox-write-verify` / `context-warning-verifier` / `mcp-config-freeze` / `mcp-data-boundary` / `claudeignore-enforce-guard` / `bash-safety-auto-deny` / `env-inline-secret-guard` / `migration-verify-guard` / `skill-injection-detector`
+### セキュリティ（22個）
+`env-source-guard` / `env-inherit-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard` / `staged-secret-scan` / `credential-file-cat-guard` / `compound-inject-guard` / `path-deny-bash-guard` / `sandbox-write-verify` / `context-warning-verifier` / `mcp-config-freeze` / `mcp-data-boundary` / `claudeignore-enforce-guard` / `bash-safety-auto-deny` / `env-inline-secret-guard` / `migration-verify-guard` / `skill-injection-detector` / `polyglot-rm-guard`
+
+:::message
+**多言語ファイル削除防止（#39459）**: `polyglot-rm-guard`はBash rmがdenyされた場合にPython `os.remove()`、Node `fs.unlinkSync()`、Ruby `File.delete()`、Perl `unlink`へのバイパスを検出・ブロック。目標（ファイル削除）を複数言語にまたがって防止。
+:::
 
 :::message
 **OWASP MCP Top 10対応**: `mcp-config-freeze`はMCP09（過剰パーミッション）、`mcp-data-boundary`はMCP01（プロンプトインジェクション）+MCP10（不十分なログ）に対応。
