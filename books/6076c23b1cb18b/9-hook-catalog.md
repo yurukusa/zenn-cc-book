@@ -52,17 +52,44 @@ npx cc-safe-setup --examples
 ### 品質（10個）
 `syntax-check` / `diff-size-guard` / `test-deletion-guard` / `verify-before-done` / `read-before-edit` / `fact-check-gate` / `no-console-log` / `no-eval` / `no-wildcard-import` / `no-todo-ship`
 
-### セキュリティ（10個）
-`env-source-guard` / `env-inherit-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard` / `staged-secret-scan` / `credential-file-cat-guard`
+### セキュリティ（16個）
+`env-source-guard` / `env-inherit-guard` / `prompt-injection-guard` / `no-curl-upload` / `no-port-bind` / `network-guard` / `npm-publish-guard` / `mcp-server-guard` / `staged-secret-scan` / `credential-file-cat-guard` / `compound-inject-guard` / `path-deny-bash-guard` / `sandbox-write-verify` / `context-warning-verifier` / `mcp-config-freeze` / `mcp-data-boundary`
+
+:::message
+**OWASP MCP Top 10対応**: `mcp-config-freeze`はMCP09（過剰パーミッション）、`mcp-data-boundary`はMCP01（プロンプトインジェクション）+MCP10（不十分なログ）に対応。
+:::
 
 ### デプロイ（4個）
 `deploy-guard` / `no-deploy-friday` / `work-hours-guard` / `changelog-reminder`
 
+### セッション管理（8個）
+`session-resume-guard` / `compaction-transcript-guard` / `plan-mode-strict-guard` / `context-threshold-alert` / `permission-mode-drift-guard` / `cross-session-error-log` / `pre-compact-checkpoint` / `concurrent-edit-lock`
+
+:::message
+**コンテキスト窓管理**: `context-threshold-alert`はコンテキスト使用率が閾値を超えると警告。`compaction-transcript-guard`はcompaction時の重要情報ロスを防止。Anthropic公式ベストプラクティスでも「コンテキスト窓は最重要リソース」と明言されている。
+:::
+
+### サブエージェント制御（4個）
+`subagent-scope-validator` / `subagent-scope-guard` / `subagent-budget-guard` / `max-concurrent-agents`
+
 ### 監視・コスト（14個）
 `context-monitor` / `cost-tracker` / `token-budget-guard` / `output-length-guard` / `loop-detector` / `error-memory-guard` / `rate-limit-guard` / `resume-context-guard` / `output-explosion-detector` / `edit-error-counter` / `bash-timeout-guard` / `long-session-reminder` / `file-change-monitor` / `dotenv-watch`
 
+### 自動承認（追加: 2個）
+`heredoc-backtick-approver` / `hook-stdout-sanitizer`
+
+:::message
+`heredoc-backtick-approver`はheredocのバッククォートによる誤検知を解消（[#35183](https://github.com/anthropics/claude-code/issues/35183)起点）。
+:::
+
+### プラットフォーム互換（2個）
+`windows-path-guard` / `no-git-amend`
+
+### ファイル安全（2個）
+`file-age-guard` / `binary-upload-guard`
+
 ### ユーティリティ（20個）
-`comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer` / `direnv-auto-reload` / `pre-compact-checkpoint`
+`comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer` / `direnv-auto-reload` / `api-retry-limiter`
 
 ### 多言語サポート
 - **Python**: `destructive_guard.py` / `secret_guard.py`
