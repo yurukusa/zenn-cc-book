@@ -1,5 +1,5 @@
 ---
-title: "hookのテスト——9,129テストケースから学んだ品質保証"
+title: "hookのテスト——9,201テストケースから学んだ品質保証"
 ---
 
 hookは安全装置だ。テストされていない安全装置は、存在しないのと同じ。
@@ -98,12 +98,12 @@ cd /tmp/test-dir && echo '{"tool_input":{"command":"git commit -m test"}}' | bas
 
 `npx cc-safe-setup --validate` は構文チェックだけ行う。機能テストは別途必要。
 
-cc-safe-setupでは `bash test.sh` で9,129テストを一括実行する:
+cc-safe-setupでは `bash test.sh` で9,201テストを一括実行する:
 
 ```bash
 cd /path/to/cc-safe-setup
 bash test.sh
-# Results: 9129/9129 passed
+# Results: 9201/9201 passed
 ```
 
 自分のカスタムhookにもテストを書くべき。テンプレート:

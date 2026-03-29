@@ -33,8 +33,12 @@ npx cc-safe-setup --examples
 ### 破壊的コマンド防止（13個）
 `destructive-guard` / `branch-guard` / `no-sudo-guard` / `scope-guard` / `protect-dotfiles` / `symlink-guard` / `uncommitted-work-guard` / `no-install-global` / `protect-claudemd` / `case-sensitive-guard` / `worktree-guard` / `strict-allowlist` / `shell-wrapper-guard`
 
-### データ保護（5個）
-`block-database-wipe` / `secret-guard` / `hardcoded-secret-detector` / `staged-secret-scan` / `bulk-file-delete-guard`
+### データ保護（7個）
+`block-database-wipe` / `secret-guard` / `hardcoded-secret-detector` / `staged-secret-scan` / `bulk-file-delete-guard` / `secret-file-read-guard` / `bash-secret-output-detector`
+
+:::message
+**シークレット流出防止（#39882）**: `secret-file-read-guard`はRead/Grepツールが`.env`、credentials、秘密鍵等を読むのをブロック。`bash-secret-output-detector`はPostToolUseでBash出力にAWSキー、JWT、接続文字列等を検出しsystemMessage警告。
+:::
 
 ### Git安全（12個）
 `git-config-guard` / `git-tag-guard` / `conflict-marker-guard` / `auto-stash-before-pull` / `branch-naming-convention` / `commit-quality-gate` / `commit-scope-guard` / `require-issue-ref` / `no-verify-blocker` / `git-index-lock-cleanup` / `push-requires-test-pass` / `git-checkout-safety-guard`
@@ -85,11 +89,11 @@ npx cc-safe-setup --examples
 `heredoc-backtick-approver`はheredocのバッククォートによる誤検知を解消（[#35183](https://github.com/anthropics/claude-code/issues/35183)起点）。
 :::
 
-### CI/CDパイプライン保護（4個）
-`github-actions-secret-guard` / `ci-workflow-guard` / `gitops-drift-guard` / `dotenv-commit-guard`
+### CI/CDパイプライン保護（5個）
+`github-actions-secret-guard` / `ci-workflow-guard` / `gitops-drift-guard` / `dotenv-commit-guard` / `npm-supply-chain-guard`
 
 :::message
-**CI/CDセキュリティ**: `github-actions-secret-guard`はワークフロー内のハードコードされたシークレットを検出。`ci-workflow-guard`は`--no-verify`やremote script executionの追加を警告。GitOps環境では`gitops-drift-guard`がmain上のinfra file直接編集を防止。
+**CI/CDセキュリティ**: `github-actions-secret-guard`はワークフロー内のハードコードされたシークレットを検出。`ci-workflow-guard`は`--no-verify`やremote script executionの追加を警告。`npm-supply-chain-guard`はnpm/yarn/pnpm installで人気パッケージのタイポスクワッティングを検出（#39421）。
 :::
 
 ### クラウド/インフラ（3個）
