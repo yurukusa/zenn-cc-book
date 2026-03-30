@@ -1,0 +1,16 @@
+title: "AIに仕事を任せてみた——非エンジニアが800時間で学んだ全記録"
+summary: "非エンジニアがClaude Codeに800時間・$600を投じた全記録。成功も失敗も赤字も全部見せる。AIと組んで事業を回すリアル。"
+topics: ["ai", "claudecode", "非エンジニア", "自動化"]
+published: false
+price: 1500
+allow_override: true
+chapters:
+  - intro
+  - 1-why-i-started
+  - 2-first-failures
+  - 3-autonomous-operation
+  - 4-incidents
+  - 5-revenue-reality
+  - 6-community
+  - 7-why-i-continue
+  - 8-framework
