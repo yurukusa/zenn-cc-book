@@ -162,6 +162,13 @@ npx cc-safe-setup --examples
 **自動バグ修正**: Claude Codeが`git show --no-stat`（無効フラグ）を実行する既知バグをPreToolUseフックで自動修正。コンテキスト浪費を防止。
 :::
 
+### モデル行動矯正（3個）
+`read-only-mode` / `task-integrity-guard` / `permission-denial-enforcer`
+
+:::message
+**読み取り専用モード（#41063）**: `read-only-mode`はCLAUDE.mdの「テスト中はコード変更するな」が無視される問題をEdit/Writeブロックで強制。**タスク改ざん防止（#41109）**: `task-integrity-guard`はtodo.mdから未完了タスクを削除する行為をブロック（進捗偽装防止）。**拒否後バイパス防止（#41103）**: `permission-denial-enforcer`はWrite拒否後にpip3やリダイレクトでファイル作成する迂回行為を検出・ブロック。
+:::
+
 ### WebFetch制御（1個）
 `webfetch-domain-allow`
 
