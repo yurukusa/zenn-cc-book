@@ -229,6 +229,10 @@ npx cc-safe-setup --examples
 **ディレクトリ迷子での破壊的コマンドを警告**: プロジェクトルート外でgit reset/rm -rf等を検知すると警告（#1669）。72リアクションの頻出バグに対応。
 :::
 
+:::details permission-pattern-auto-allow
+**正規表現パターンでコマンドを自動許可**: 設定のexact matchの制限を回避（#819）。`~/.claude/allowed-patterns.txt`にパターンを記述。npm/git/ls等の日常コマンドを一括許可。
+:::
+
 ### ユーティリティ（20個）
 `comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer` / `direnv-auto-reload` / `api-retry-limiter`
 
