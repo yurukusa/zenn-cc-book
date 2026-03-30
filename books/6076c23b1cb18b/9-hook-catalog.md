@@ -233,6 +233,28 @@ npx cc-safe-setup --examples
 **正規表現パターンでコマンドを自動許可**: 設定のexact matchの制限を回避（#819）。`~/.claude/allowed-patterns.txt`にパターンを記述。npm/git/ls等の日常コマンドを一括許可。
 :::
 
+### セッション管理・監視（5個 — v29.6.36追加）
+
+:::details settings-mutation-detector
+**settings.jsonの意図しない変更を検知**: PostToolUse hookでsettings.jsonのハッシュを監視。hookの無効化やパーミッション変更を即座に警告。
+:::
+
+:::details token-spike-alert
+**トークン使用量の急増を警告**: API呼び出しごとのトークン消費を監視し、閾値を超えたら警告。コスト爆発の早期検知。
+:::
+
+:::details worktree-path-validator
+**worktreeでのパス誤りを防止**: Edit/Read/Writeがmainワークスペースを指している場合にブロック（#36182）。Exploreエージェントの頻出バグに対応。
+:::
+
+:::details git-crypt-worktree-guard
+**git-cryptリポジトリでのworktree作成を警告**: git-cryptの暗号化がworktreeで機能しないため、機密ファイル漏洩を防止。
+:::
+
+:::details temp-file-cleanup-stop
+**セッション終了時にtmpclaude-*ファイルを自動削除**: Stopフックでワークスペースに残るテンポラリファイルを清掃（#17636）。
+:::
+
 ### ユーティリティ（20個）
 `comment-strip` / `cd-git-allow` / `api-error-alert` / `session-handoff` / `compact-reminder` / `revert-helper` / `tmp-cleanup` / `hook-debug-wrapper` / `notify-waiting` / `auto-checkpoint` / `context-snapshot` / `lockfile-guard` / `auto-answer-question` / `fish-shell-wrapper` / `plan-repo-sync` / `parallel-session-guard` / `edit-retry-loop-guard` / `plan-mode-enforcer` / `direnv-auto-reload` / `api-retry-limiter`
 
