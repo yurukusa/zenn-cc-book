@@ -1,8 +1,8 @@
 ---
-title: "レシピ4-6: MCP連携スキル"
+title: "レシピ4-6: 外部サービス連携スキル"
 ---
 
-MCP（Model Context Protocol）を使ったスキルは、外部サービスとの連携を自動化する。
+外部サービスと連携するスキルは、GitHub CLI、ブラウザ操作（CDP）、API呼び出しなど、Claude Codeの外側にある情報源やツールとの橋渡しを自動化する。
 
 ## レシピ4: GitHub Issue管理スキル
 
