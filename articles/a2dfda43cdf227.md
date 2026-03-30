@@ -161,10 +161,8 @@ Extended Thinkingで知らなかったこと:
 次回はRAG（Retrieval Augmented Generation）について書く。re-rankingが「ソートし直す」ではない話と、embeddingの実態を扱う。
 
 
-📖 [Claude Codeを本番品質にする実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800）
 **第2章「Safety Guards」まで無料公開中。**
 
-**あなたのClaude Code設定は安全ですか？** `npx cc-health-check`（無料・20項目診断）で確認できます。スコアが80未満なら [Claude Code Ops Kit](https://yurukusa.github.io/cc-ops-kit-landing/?utm_source=zenn&utm_medium=article&utm_campaign=ops-kit) でワンコマンド修正できます。
 
 🛠 Claude Codeの自律運用に使っている安全装置: [claude-code-hooks](https://github.com/yurukusa/claude-code-hooks)
 

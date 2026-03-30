@@ -163,4 +163,3 @@ npx cc-safe-setup
 - [hookのifフィールドで不要なプロセス起動をゼロにする](https://qiita.com/yurukusa/items/7079866e9dc239fcdd57)
 - [ハーネスエンジニアリングを700時間の自律運用で実践している話](https://qiita.com/yurukusa/items/fb73a4122b583197071b)
 
-📘 [Claude Code 実戦ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（第2章無料公開中）

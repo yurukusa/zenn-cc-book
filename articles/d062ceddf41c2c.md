@@ -240,7 +240,6 @@ CLAUDE.mdは、AIと一緒に仕事をするための「関係構築ファイル
 
 ---
 
-📖 もっと詳しく知りたい方へ：[Claude Codeを本番品質にする実践ガイド（¥800）
 **第2章「Safety Guards」まで無料公開中。**](https://zenn.dev/yurukusa/books/6076c23b1cb18b)
 
 
@@ -255,4 +254,3 @@ CLAUDE.mdは、AIと一緒に仕事をするための「関係構築ファイル
 
 ---
 
-**Claude Codeのセットアップ、本当に安全ですか？** `npx cc-health-check` で20項目の無料診断ができます。スコア80未満なら改善の余地あり。
