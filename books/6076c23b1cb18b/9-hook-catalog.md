@@ -1,8 +1,8 @@
 ---
-title: "付録：610+ hookカタログ"
+title: "付録：616+ hookカタログ"
 ---
 
-cc-safe-setup v29.6.32は610個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setup v29.6.33は616個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -177,6 +177,28 @@ npx cc-safe-setup --examples
 
 :::message
 **SessionStart環境検査**: エージェントがspawnするbashシェルが`.bashrc`を読み込んでハングする問題（#40354）を検出。Angular CLI completion、nvm、conda等の非インタラクティブシェルで停止するパターンをスキャンし、ガード行追加を案内。
+:::
+
+### ファイル保護（5個 — NEW）
+`write-shrink-guard` / `symlink-protect` / `file-recycle-bin` / `settings-auto-backup` / `export-overwrite-guard`
+
+:::details write-shrink-guard
+**Write時のファイルサイズ急縮小をブロック**: 31,699行のファイルが16行に切り詰められる事故（#40807）を防止。Write操作で元ファイルの10%未満のサイズになる場合にブロック。Editツールへの切り替えを推奨する。
+:::
+
+:::details symlink-protect
+**symlink→通常ファイル置換の防止**: Worktreeの`symlinkDirectories`で作られたsymlinkがWrite操作で通常ファイルに置換される問題（#40857）を防止。writeをsymlink先のターゲットファイルにリダイレクトする。
+:::
+
+### セッション管理（3個 — NEW）
+`session-duration-guard` / `worktree-delete-guard` / `session-handoff`
+
+:::details session-duration-guard
+**長時間セッションの品質劣化を警告**: 2時間で注意、4時間でクリティカル警告。700+時間の自律稼働経験に基づく。閾値は環境変数で調整可能。
+:::
+
+:::details worktree-delete-guard
+**別セッションが使用中のworktree削除をブロック**: `git worktree remove`と`git worktree prune`をブロック（#40850）。マルチセッション環境での安全性を確保。
 :::
 
 ### ユーティリティ（20個）
