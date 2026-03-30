@@ -1,8 +1,8 @@
 ---
-title: "付録：616+ hookカタログ"
+title: "付録：625+ hookカタログ"
 ---
 
-cc-safe-setup v29.6.33は616個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
+cc-safe-setupは625個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
 
 ## インストール
 
@@ -203,6 +203,18 @@ npx cc-safe-setup --examples
 
 :::details worktree-delete-guard
 **別セッションが使用中のworktree削除をブロック**: `git worktree remove`と`git worktree prune`をブロック（#40850）。マルチセッション環境での安全性を確保。
+:::
+
+:::details clear-command-confirm-guard
+**/clearコマンドの誤実行を防止**: `/clear`を完全ブロック。`/compact`への誘導メッセージを表示（#40931）。プレフィックスマッチで`/c`+Enterが`/clear`に化ける事故を防ぐ。
+:::
+
+:::details claudemd-violation-detector
+**CLAUDE.md絶対ルールのリマインド**: 20回のツール使用ごとにCLAUDE.mdからABSOLUTE/MUST NEVER/禁止マーカーを抽出し表示（#40930）。長時間セッションでの指示忘れを防ぐ。
+:::
+
+:::details subagent-context-size-guard
+**薄いサブエージェントプロンプトを警告**: Agentツールのプロンプトが100文字未満の場合に警告（#40929）。サブエージェントは親のコンテキストを持たないため、十分な背景情報が必要。
 :::
 
 ### ユーティリティ（20個）
