@@ -191,4 +191,3 @@ PreToolUseとPostToolUseの使い分けを自分で考える必要はない。
 
 ---
 
-📘 hookの設計思想から実戦パターンまで体系的に学ぶなら [Claude Code 実戦ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)
