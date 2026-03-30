@@ -1,5 +1,5 @@
 ---
-title: "付録：625+ hookカタログ"
+title: "付録：628+ hookカタログ"
 ---
 
 cc-safe-setupは625個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
@@ -215,6 +215,18 @@ npx cc-safe-setup --examples
 
 :::details subagent-context-size-guard
 **薄いサブエージェントプロンプトを警告**: Agentツールのプロンプトが100文字未満の場合に警告（#40929）。サブエージェントは親のコンテキストを持たないため、十分な背景情報が必要。
+:::
+
+:::details edit-old-string-validator
+**Edit並列呼び出しのカスケード失敗を防止**: old_stringがファイルに存在するか事前検証（#22264）。1件の失敗が同バッチの全Editをキャンセルする問題を元から断つ。
+:::
+
+:::details virtual-cwd-helper
+**セッション中のディレクトリ切り替えを疑似実現**: `~/.claude/virtual-cwd`ファイルでCWDを管理（#3473）。コマンド実行時に仮想CWDへのcd忘れを警告。
+:::
+
+:::details cwd-drift-detector
+**ディレクトリ迷子での破壊的コマンドを警告**: プロジェクトルート外でgit reset/rm -rf等を検知すると警告（#1669）。72リアクションの頻出バグに対応。
 :::
 
 ### ユーティリティ（20個）
