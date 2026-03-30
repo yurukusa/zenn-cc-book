@@ -92,6 +92,7 @@ npx cc-safe-setup --install-example auto-checkpoint
     ],
     "Stop": [
       {
+        "matcher": "",
         "hooks": [
           {"type": "command", "command": "bash ~/.claude/hooks/proof-log-session.sh"}
         ]
