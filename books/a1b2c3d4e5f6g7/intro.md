@@ -6,7 +6,7 @@ title: "はじめに"
 
 Anthropicが公開した33ページの公式「Skills完全ガイド」を読んだ。そこに書かれているProgressive Disclosureの3層構造を自分のスキルに適用したら、SKILL.mdのトークン消費が40%減った。
 
-その体験を[Qiitaの記事](https://qiita.com/yurukusa/items/)に書いたら、19,000回以上読まれた。
+その体験を[Qiitaの記事](https://qiita.com/yurukusa/items/f69920b4a02cf7e2988c)に書いたら、20,000回以上読まれた。
 
 この本は、あの記事で書ききれなかった内容を体系化したものだ。
 
