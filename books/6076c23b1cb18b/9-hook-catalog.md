@@ -40,8 +40,12 @@ npx cc-safe-setup --examples
 **シークレット流出防止（#39882）**: `secret-file-read-guard`はRead/Grepツールが`.env`、credentials、秘密鍵等を読むのをブロック。`bash-secret-output-detector`はPostToolUseでBash出力にAWSキー、JWT、接続文字列等を検出しsystemMessage警告。
 :::
 
-### Git安全（12個）
-`git-config-guard` / `git-tag-guard` / `conflict-marker-guard` / `auto-stash-before-pull` / `branch-naming-convention` / `commit-quality-gate` / `commit-scope-guard` / `require-issue-ref` / `no-verify-blocker` / `git-index-lock-cleanup` / `push-requires-test-pass` / `git-checkout-safety-guard`
+### Git安全（13個）
+`git-config-guard` / `git-tag-guard` / `conflict-marker-guard` / `auto-stash-before-pull` / `branch-naming-convention` / `commit-quality-gate` / `commit-scope-guard` / `require-issue-ref` / `no-verify-blocker` / `git-index-lock-cleanup` / `push-requires-test-pass` / `git-checkout-safety-guard` / `git-operations-require-approval`
+
+:::message
+**CLAUDE.mdのgitルール強制（#40695）**: `git-operations-require-approval`はCLAUDE.mdの「git commit/pushは許可なく実行するな」を物理的に強制。CLAUDE.mdは助言、hookは法律。
+:::
 
 ### 自動承認（11個 + PermissionRequest 7個）
 `auto-approve-build` / `auto-approve-python` / `auto-approve-docker` / `auto-approve-go` / `auto-approve-cargo` / `auto-approve-make` / `auto-approve-gradle` / `auto-approve-maven` / `auto-approve-ssh` / `auto-approve-git-read` / `compound-command-approver`
