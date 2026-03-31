@@ -1,5 +1,5 @@
 ---
-title: "実践：7つの「やらかし」パターンとhookによる防御"
+title: "実践：9つの「やらかし」パターンとhookによる防御"
 ---
 
 実際に起きた事故パターンと、それを1行のhookで防ぐ方法。
@@ -82,6 +82,29 @@ npx cc-safe-setup  # syntax-checkが含まれる
 ```
 
 PostToolUseフックとして、Edit/Write実行後に自動で構文チェックを走らせる。Python、Shell、JSON、YAML、JavaScriptに対応。エラーが見つかったらClaudeに通知され、即座に修正を試みる。
+
+## パターン8：出力トークン上限でセッションが死ぬ
+
+**何が起きたか：** 複雑なタスクを実行中、突然「Claude's response exceeded the 32000 output token maximum」エラーが出てセッションが中断。GitHub Issue [#24055](https://github.com/anthropics/claude-code/issues/24055)（80リアクション）で多数報告。
+
+**防御：**
+```bash
+# シェルプロファイルに追加
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=128000
+```
+
+環境変数`CLAUDE_CODE_MAX_OUTPUT_TOKENS`でデフォルトの32K上限を128Kに引き上げる。Opus 4.6は128Kトークンまで出力可能。
+
+## パターン9：/tmp/claude-*ファイルが溜まり続ける
+
+**何が起きたか：** 数日間使い続けたら、`/tmp/claude-*`ファイルが数百個蓄積。ディスク容量を圧迫。GitHub Issue [#8856](https://github.com/anthropics/claude-code/issues/8856)（67リアクション）で報告。
+
+**防御：**
+```bash
+npx cc-safe-setup --install-example tmp-cleanup
+```
+
+SessionStartフックで2時間以上前の`/tmp/claude-*`を自動削除。Stopフックで30分以上前のcwdファイルをクリーンアップ。
 
 ## まとめ：1コマンドで全部入れる
 
