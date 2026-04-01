@@ -1,6 +1,6 @@
 ---
 title: "第3章 Code Quality——構文エラーを自動で防ぐ"
-free: false
+free: true
 ---
 
 # 第3章 Code Quality——構文エラーを自動で防ぐ
