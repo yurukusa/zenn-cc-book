@@ -138,6 +138,30 @@ exit 0
 
 セッション後に`/tmp/claude-token-log.txt`を確認して、消費の多いパターンを特定する。
 
+**追加の診断ステップ：**
+
+MCPサーバーの数を確認（各サーバーのツール定義がコンテキストに追加される）:
+```bash
+claude mcp list
+```
+
+Notificationフックでcompaction発生を通知（何回auto-compactが起きているか把握）:
+```bash
+#!/bin/bash
+INPUT=$(cat)
+MSG=$(printf '%s' "$INPUT" | jq -r '.message // empty' 2>/dev/null)
+if printf '%s' "$MSG" | grep -qi "compact"; then
+  printf '⚠ Compaction発生 — /clearまたは手動/compactを検討\n' >&2
+fi
+exit 0
+```
+
+**消費を減らすコツ：**
+- `/compact`を閾値到達前に手動で実行（auto-compactより安い）
+- **plan mode**で計画してから実装（trial-and-errorより総ツール呼び出しが少ない）
+- サブエージェントの乱用を避ける（各Agentが新しいコンテキスト窓を作る）
+- 大ファイルの`Read`には`offset`と`limit`パラメータを必ず指定する
+
 ## まとめ：1コマンドで全部入れる
 
 ```bash
