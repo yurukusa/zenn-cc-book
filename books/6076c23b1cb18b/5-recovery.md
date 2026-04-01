@@ -110,6 +110,28 @@ npx cc-safe-setup --install-example edit-retry-loop-guard
 
 5回以上の連続Edit/Writeを検出すると警告を出す。チェック14のCLAUDE.mdルールとの組み合わせで、bashループ（hook）+ Editループ（hook）+ 行動ルール（CLAUDE.md）の三重防御になる。
 
+### 補足: pre-compact-transcript-backup — compaction失敗時のデータ喪失防止
+
+compactionには致命的な落とし穴がある：compaction処理はまずtranscriptの内容を消去し、**その後に**APIでcompaction要約を生成する。もしAPIコールが失敗したら（rate limit、タイムアウト等）、元のtranscriptは既に消えている。要約もない。数千メッセージが空文字列になった壊れたJSONLだけが残る（[#40352](https://github.com/anthropics/claude-code/issues/40352)）。
+
+`pre-compact-transcript-backup`はPreCompactフックで、compaction開始**前**にJSONL全体をバックアップする：
+
+```bash
+npx cc-safe-setup --install-example pre-compact-transcript-backup
+```
+
+バックアップは`~/.claude/compact-backups/`に直近3世代保存される。compaction失敗でtranscriptが壊れたら：
+
+```bash
+# バックアップ一覧を確認
+ls ~/.claude/compact-backups/<session-id>/
+
+# 最新のバックアップからtranscriptを復元
+cp ~/.claude/compact-backups/<session-id>/latest.jsonl <元のtranscriptパス>
+```
+
+auto-checkpointがコード編集を守り、pre-compact-transcript-backupが会話全体を守る。両方入れると、compactionに関連する2種類のデータ喪失を防げる。
+
 ---
 
 次章: Autonomy——CCが自分で判断して動く仕組み
