@@ -106,6 +106,38 @@ npx cc-safe-setup --install-example tmp-cleanup
 
 SessionStartフックで2時間以上前の`/tmp/claude-*`を自動削除。Stopフックで30分以上前のcwdファイルをクリーンアップ。
 
+## パターン10：トークン消費が突然加速する
+
+**何が起きたか：** Max Planの5時間制限が1時間で枯渇。以前と同じ使い方なのに、トークン消費速度が数倍に感じる。GitHub Issue [#41249](https://github.com/anthropics/claude-code/issues/41249)（15リアクション）を筆頭に、2026年3月末から同様の報告が急増。
+
+**原因の切り分け：**
+
+トークンを消費する隠れた要因が複数ある:
+- **Tool Search**（デフォルト有効）: 毎ターンにデferred toolの定義が追加される
+- **大ファイルの全行Read**: 1万行のファイルを1行だけ確認するためにRead→全行分のトークン消費
+- **Auto-compact循環**: コンテキストが閾値に達する→要約→再構築→また閾値→繰り返し
+
+**防御：**
+
+```bash
+# Tool Searchを無効化（MCP多数の場合に効果大）
+export ENABLE_TOOL_SEARCH=false
+
+# 手動compactで循環を防ぐ（/compactコマンドを自分のタイミングで実行）
+```
+
+UserPromptSubmitフックでプロンプトログを記録し、どの操作がトークンを消費しているか追跡:
+
+```bash
+#!/bin/bash
+INPUT=$(cat)
+PROMPT=$(echo "$INPUT" | jq -r '.prompt | .[0:100]' 2>/dev/null)
+echo "$(date -u +%H:%M:%S) $PROMPT" >> /tmp/claude-token-log.txt
+exit 0
+```
+
+セッション後に`/tmp/claude-token-log.txt`を確認して、消費の多いパターンを特定する。
+
 ## まとめ：1コマンドで全部入れる
 
 ```bash
@@ -114,4 +146,4 @@ npx cc-safe-setup --shield
 
 上記パターン全てのhookが含まれる。加えて、プロジェクトの技術スタックに応じた追加hookも自動インストールされる。
 
-さらに詳しいhookの一覧は前章の「637+ hookカタログ」を参照。
+さらに詳しいhookの一覧は前章の「639+ hookカタログ」を参照。
