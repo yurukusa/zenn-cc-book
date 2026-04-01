@@ -40,7 +40,7 @@ free: false
 npx cc-safe-setup --shield
 ```
 
-これだけで8個のコアhook + プロジェクト検出 + 推奨hookが全てインストールされる。641個のhookから最適な組み合わせを自動選択する。
+これだけで8個のコアhook + プロジェクト検出 + 推奨hookが全てインストールされる。648個のhookから最適な組み合わせを自動選択する。
 
 ### 手動でやりたい場合（30分）
 
@@ -52,7 +52,7 @@ npx cc-safe-setup --shield
 # ワンコマンドで8つの安全hookをインストール
 npx cc-safe-setup
 
-# 追加のexample hookをインストール（641種から選択可能）
+# 追加のexample hookをインストール（648種から選択可能）
 npx cc-safe-setup --install-example block-database-wipe
 npx cc-safe-setup --install-example auto-checkpoint
 ```
@@ -173,7 +173,7 @@ npx cc-health-check
 npx cc-safe-setup
 ```
 
-**641個のexample hookからプロジェクトに合ったものを追加**:
+**648個のexample hookからプロジェクトに合ったものを追加**:
 
 ```bash
 npx cc-safe-setup --examples        # 一覧（5カテゴリ）
