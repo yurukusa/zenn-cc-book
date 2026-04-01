@@ -63,6 +63,15 @@ npx cc-safe-setup --from-claudemd
 npx cc-safe-setup --guard "本番DBに触るな"
 ```
 
+### 「トークン消費が速すぎる」
+
+```bash
+npx cc-safe-setup --install-example prompt-usage-logger
+npx cc-safe-setup --install-example compact-alert-notification
+```
+
+セッション後に`/tmp/claude-usage-log.txt`と`/tmp/claude-compact-log.txt`を確認。auto-compactが3回以上なら手動`/compact`に切り替える。MCP多い場合は`claude mcp list`で整理。
+
 ### 「何が起きたか確認したい」
 
 ```bash
