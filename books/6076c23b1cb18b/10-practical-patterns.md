@@ -108,16 +108,47 @@ SessionStartフックで2時間以上前の`/tmp/claude-*`を自動削除。Stop
 
 ## パターン10：トークン消費が突然加速する
 
-**何が起きたか：** Max Planの5時間制限が1時間で枯渇。以前と同じ使い方なのに、トークン消費速度が数倍に感じる。GitHub Issue [#41249](https://github.com/anthropics/claude-code/issues/41249)（15リアクション）を筆頭に、2026年3月末から同様の報告が急増。
+**何が起きたか：** Max Planの5時間制限が1時間で枯渇。以前と同じ使い方なのに、トークン消費速度が数倍に感じる。GitHub Issue [#40524](https://github.com/anthropics/claude-code/issues/40524)（195リアクション）を筆頭に、2026年3月末から大量の報告が集まっている。
 
 **原因の切り分け：**
 
-トークンを消費する隠れた要因が複数ある:
-- **Tool Search**（デフォルト有効）: 毎ターンにデferred toolの定義が追加される
-- **大ファイルの全行Read**: 1万行のファイルを1行だけ確認するためにRead→全行分のトークン消費
-- **Auto-compact循環**: コンテキストが閾値に達する→要約→再構築→また閾値→繰り返し
+トークンを消費する隠れた要因が複数ある。最も破壊的なものから順に:
 
-**防御：**
+1. **プロンプトキャッシュの無効化**（最大原因）: Claude Codeは会話履歴をキャッシュして再送信コストを削減している。キャッシュが壊れると、毎ターン全履歴を再送信するため消費が**10〜20倍**になる。キャッシュ読み取り率が89%→4.3%に暴落した実例あり
+2. **Tool Search**（デフォルト有効）: 毎ターンにdeferred toolの定義が追加される
+3. **大ファイルの全行Read**: 1万行のファイルを1行だけ確認するためにRead→全行分のトークン消費
+4. **Auto-compact循環**: コンテキストが閾値に達する→要約→再構築→また閾値→繰り返し
+
+**キャッシュが壊れる主な原因：**
+
+- **セッションファイルの読み取り**: Claudeが自分の会話履歴（.jsonl）を読むと、CLI内部でbilling hashが書き換わり、キャッシュのプレフィックスが変わる。これが最も一般的で最も破壊的
+- **セッション再開**: `--resume`後の最初の数ターンはキャッシュの再構築が必要
+- **並列サブエージェント**: 多数のサブエージェントがキャッシュスロットを競合する
+
+**防御（最重要: キャッシュ汚染防止）：**
+
+セッションファイルの読み取りをブロックするhook:
+```bash
+#!/bin/bash
+# conversation-history-guard.sh — PreToolUse, matcher: "Bash|Read"
+INPUT=$(cat)
+CMD=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // empty' 2>/dev/null)
+if [ -n "$CMD" ]; then
+    if printf '%s' "$CMD" | grep -qE '\.(jsonl|log)' && \
+       printf '%s' "$CMD" | grep -qiE '(claude|session|billing|transcript)'; then
+        echo '{"decision":"block","reason":"セッションファイル読み取りはキャッシュを破壊します"}'
+        exit 0
+    fi
+fi
+FILE=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
+if [ -n "$FILE" ] && printf '%s' "$FILE" | grep -qE '\.claude/projects/.+\.jsonl$'; then
+    echo '{"decision":"block","reason":"会話履歴の読み取りはキャッシュを20倍悪化させます"}'
+    exit 0
+fi
+exit 0
+```
+
+**防御（Tool SearchとMCP）：**
 
 ```bash
 # Tool Searchを無効化（MCP多数の場合に効果大）
@@ -126,7 +157,9 @@ export ENABLE_TOOL_SEARCH=false
 # 手動compactで循環を防ぐ（/compactコマンドを自分のタイミングで実行）
 ```
 
-UserPromptSubmitフックでプロンプトログを記録し、どの操作がトークンを消費しているか追跡:
+**トークン消費の追跡：**
+
+UserPromptSubmitフックでプロンプトログを記録:
 
 ```bash
 #!/bin/bash
@@ -138,14 +171,12 @@ exit 0
 
 セッション後に`/tmp/claude-token-log.txt`を確認して、消費の多いパターンを特定する。
 
-**追加の診断ステップ：**
-
 MCPサーバーの数を確認（各サーバーのツール定義がコンテキストに追加される）:
 ```bash
 claude mcp list
 ```
 
-Notificationフックでcompaction発生を通知（何回auto-compactが起きているか把握）:
+Notificationフックでcompaction発生を通知:
 ```bash
 #!/bin/bash
 INPUT=$(cat)
@@ -157,6 +188,7 @@ exit 0
 ```
 
 **消費を減らすコツ：**
+- **conversation-history-guardを必ず入れる**（最もインパクトが大きい）
 - `/compact`を閾値到達前に手動で実行（auto-compactより安い）
 - **plan mode**で計画してから実装（trial-and-errorより総ツール呼び出しが少ない）
 - サブエージェントの乱用を避ける（各Agentが新しいコンテキスト窓を作る）
