@@ -72,6 +72,16 @@ npx cc-health-check
 - **6個のテンプレート**——CLAUDE-autonomous.md、CLAUDE-baseline.md、dod-checklists.md、task-queue.yaml、mission.md、LESSONS.md
 - **700+時間の実体験**——何が失敗して、どう直したか
 
+## 今困っていること → 読むべき章
+
+| あなたの悩み | 章 |
+|---|---|
+| トークン消費が突然10倍になった | 第10章 パターン10 |
+| `rm -rf`でファイルが消えた | 第2章 Safety Guards |
+| 同じエラーの無限ループ | 第4章 Monitoring |
+| compactでセッション情報が消えた | 第5章 Recovery |
+| 何から設定すればいいかわからない | 第1章 Health Check |
+
 ---
 
 では、始めよう。まず自分の現在地を把握することから。
