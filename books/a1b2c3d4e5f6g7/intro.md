@@ -1,5 +1,6 @@
 ---
 title: "はじめに"
+free: true
 ---
 
 この本は、Claude CodeのSkills機能を実際に使いこなすための実践ガイドだ。

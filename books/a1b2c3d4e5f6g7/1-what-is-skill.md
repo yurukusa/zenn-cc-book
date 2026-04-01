@@ -1,5 +1,6 @@
 ---
 title: "Skillsとは何か——CLAUDE.mdとの違い"
+free: true
 ---
 
 Claude CodeにはAIの挙動を制御する仕組みが3つある。
