@@ -78,8 +78,8 @@ npx cc-health-check
 |---|---|
 | トークン消費が突然10倍になった | 第10章 パターン10 |
 | `rm -rf`でファイルが消えた | 第2章 Safety Guards |
-| 同じエラーの無限ループ | 第4章 Monitoring |
-| compactでセッション情報が消えた | 第5章 Recovery |
+| 同じエラーの無限ループ | 第5章 Recovery |
+| AIが裏で何をしていたかわからない | 第4章 Monitoring |
 | 何から設定すればいいかわからない | 第1章 Health Check |
 
 ---
