@@ -86,10 +86,10 @@ npx cc-health-check
 
 これは正常だ。Claude Codeのデフォルト設定は「対話セッション」向けであり、「自律稼働」向けではない。
 
-私の初回スコアも63点だった。
+私の初回スコアは19点だった。Safety Guardsが0点。hookを1つも入れていない状態だ。
 
 ```
-  Score: 63/100 — Getting There
+  Score: 19/100 — Critical
 
   Top fixes:
     → Add a PreToolUse hook that blocks destructive commands.
