@@ -1,9 +1,9 @@
 ---
-title: "第4章 Monitoring——AIが何をしているかを知る"
+title: "第4章 Monitoring——トークンがどこで消えているかを可視化する"
 free: false
 ---
 
-# 第4章 Monitoring——AIが何をしているかを知る
+# 第4章 Monitoring——トークンがどこで消えているかを可視化する
 
 「AIに任せたが、何をしているかわからない」という状態が最も危険だ。
 
