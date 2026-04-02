@@ -80,7 +80,7 @@ npx cc-health-check
 | `rm -rf`でファイルが消えた | 第2章 Safety Guards |
 | 同じエラーの無限ループ | 第5章 Recovery |
 | AIが裏で何をしていたかわからない | 第4章 Monitoring |
-| 何から設定すればいいかわからない | 第1章 Health Check |
+| 何から設定すればいいかわからない | 第1章 診断したら19点だった |
 
 ---
 
