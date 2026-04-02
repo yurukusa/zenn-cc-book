@@ -125,3 +125,11 @@ SKILL.mdが存在しないスキルは読み込まれない。
 3. references/は動的に生成できる
 4. フロントマターは最小限にする
 5. 無効化はファイル名変更で行う
+
+---
+
+:::message
+**Skillsの次はHooksで安全を固める**
+Skillsでワークフローを最適化したら、次はhookでClaude Codeの暴走を防ぐ番です。トークン消費が突然10倍になる原因と対策も解説:
+[Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800・第3章まで無料）
+:::
