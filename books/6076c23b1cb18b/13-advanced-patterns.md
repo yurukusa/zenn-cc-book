@@ -306,3 +306,11 @@ v2.1.86では以下の改善があり、hookの運用に影響する:
 | --simulate | 事前検証 | 低 |
 
 hookの設計は「何をブロックするか」だけでなく、「何を許可するか」「どう検証するか」も含む。テストと事前検証を組み合わせて、安全かつ快適な自律運用環境を作ろう。
+
+---
+
+:::note info
+**Skillsの設計パターンをもっと知りたい方へ**
+この本ではhookを中心に解説しました。CLAUDE.md・hooks・Skillsの3層のうち、Skillsの設計パターン（Progressive Disclosureによるトークン40%削減、実践レシピ10個）を扱った本もあります:
+- [Claude Code Skills 実践レシピ集](https://zenn.dev/yurukusa/books/a1b2c3d4e5f6g7)（¥500）
+:::
