@@ -160,3 +160,9 @@ Book全体では、Safety Guards（事故防止）、Code Quality（構文エラ
 `npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。900+テスト済み。
 → [GitHub](https://github.com/yurukusa/cc-safe-setup)
 :::
+---
+:::message
+**Claude Codeの自律運用をもっと深く学びたい方へ**
+トークン消費の突然の急増、ファイル消失、無限ループ——700+時間の自律稼働で起きた失敗と対策をまとめました:
+[Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800・第3章まで無料）
+:::

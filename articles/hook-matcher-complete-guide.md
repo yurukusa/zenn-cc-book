@@ -162,4 +162,9 @@ npx cc-safe-setup
 📌 関連記事:
 - [hookのifフィールドで不要なプロセス起動をゼロにする](https://qiita.com/yurukusa/items/7079866e9dc239fcdd57)
 - [ハーネスエンジニアリングを700時間の自律運用で実践している話](https://qiita.com/yurukusa/items/fb73a4122b583197071b)
-
+---
+:::message
+**Claude Codeの自律運用をもっと深く学びたい方へ**
+トークン消費の突然の急増、ファイル消失、無限ループ——700+時間の自律稼働で起きた失敗と対策をまとめました:
+[Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800・第3章まで無料）
+:::
