@@ -108,7 +108,7 @@ SessionStartフックで2時間以上前の`/tmp/claude-*`を自動削除。Stop
 
 ## パターン10：トークン消費が突然加速する
 
-**何が起きたか：** Max Planの5時間制限が1時間で枯渇。以前と同じ使い方なのに、トークン消費速度が数倍に感じる。GitHub Issue [#40524](https://github.com/anthropics/claude-code/issues/40524)（195リアクション）を筆頭に、2026年3月末から大量の報告が集まっている。
+**何が起きたか：** Max Planの5時間制限が1時間で枯渇。以前と同じ使い方なのに、トークン消費速度が数倍に感じる。GitHub Issue [#40524](https://github.com/anthropics/claude-code/issues/40524)（219リアクション）を筆頭に、2026年3月末から大量の報告が集まっている。
 
 **原因の切り分け：**
 
@@ -155,7 +155,7 @@ exit 0
 - ツール結果の合計に200Kトークンの予算上限がある（内部フラグ `tengu_hawthorn_window`）
 - 上限を超えると古い結果から順に短縮。Readで読んだファイル内容が数文字に圧縮される
 - `DISABLE_COMPACT=true`を設定してもこの予算制限には**影響しない**（compactとは別の処理）
-- 1セッションで261回の切り詰めイベントが計測された実例あり（[#42542](https://github.com/anthropics/claude-code/issues/42542)）
+- 1セッションで261回の切り詰めイベントが計測された実例あり（[ArkNill氏のプロキシ分析](https://github.com/ArkNill/claude-code-cache-analysis)、[#42542](https://github.com/anthropics/claude-code/issues/42542)）
 
 結果として、Claudeは以前読んだファイルの内容を「覚えていない」状態になり、同じファイルを再度Readする。この再読み込みがトークンを消費する悪循環になる。
 
