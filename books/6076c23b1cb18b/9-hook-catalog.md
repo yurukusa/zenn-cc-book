@@ -1,5 +1,5 @@
 ---
-title: "付録：653+ hookカタログ"
+title: "付録：654 hookカタログ"
 ---
 
 cc-safe-setupは653個以上のhookを提供している。ここでは全カテゴリと代表的なhookを一覧する。
