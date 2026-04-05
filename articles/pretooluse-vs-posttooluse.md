@@ -1,5 +1,5 @@
 ---
-title: "PreToolUseとPostToolUse、どっちを使うべきか——Claude Code hookの使い分けガイド"
+title: "PostToolUseでrm -rfを止めようとしたら手遅れだった——PreToolUseとPostToolUseの決定的な違い"
 emoji: "🔀"
 type: "tech"
 topics: ["claudecode", "security", "ai", "automation"]
