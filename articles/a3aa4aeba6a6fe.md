@@ -18,7 +18,7 @@ Claude Codeが止まっていた。5時間。
 
 :::message
 この記事は2026年3月時点の情報に基づいている。
-Claude Code Hooksについては[公式ドキュメント](https://docs.anthropic.com/en/docs/claude-code/hooks)を参照。
+Claude Code Hooksについては[公式ドキュメント](https://code.claude.com/docs/en/hooks)を参照。
 :::
 
 ## 問題1: 「次に何をするか」がわからなくて止まる
