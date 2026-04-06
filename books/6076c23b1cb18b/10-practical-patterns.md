@@ -136,14 +136,14 @@ CMD=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // empty' 2>/dev/null)
 if [ -n "$CMD" ]; then
     if printf '%s' "$CMD" | grep -qE '\.(jsonl|log)' && \
        printf '%s' "$CMD" | grep -qiE '(claude|session|billing|transcript)'; then
-        echo '{"decision":"block","reason":"セッションファイル読み取りはキャッシュを破壊します"}'
-        exit 0
+        echo "BLOCKED: セッションファイル読み取りはキャッシュを破壊します" >&2
+        exit 2
     fi
 fi
 FILE=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
 if [ -n "$FILE" ] && printf '%s' "$FILE" | grep -qE '\.claude/projects/.+\.jsonl$'; then
-    echo '{"decision":"block","reason":"会話履歴の読み取りはキャッシュを20倍悪化させます"}'
-    exit 0
+    echo "BLOCKED: 会話履歴の読み取りはキャッシュを20倍悪化させます" >&2
+    exit 2
 fi
 exit 0
 ```

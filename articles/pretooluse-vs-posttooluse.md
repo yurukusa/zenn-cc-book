@@ -73,7 +73,7 @@ command=$(echo "$input" | jq -r '.tool_input.command // empty')
 
 # 破壊的パターンを検出
 if echo "$command" | grep -qE 'rm\s+-[a-zA-Z]*r[a-zA-Z]*f|git\s+reset\s+--hard|git\s+push\s+.*--force'; then
-  echo '{"decision":"block","reason":"破壊的コマンドを検出。手動で実行してください。"}'
+  echo "BLOCKED: 破壊的コマンドを検出。手動で実行してください。" >&2
   exit 2
 fi
 ```
