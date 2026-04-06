@@ -178,7 +178,7 @@ PreToolUse（門番）        PostToolUse（検査官）
 └─ path-guard            └─ auto-format
 ```
 
-[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)は358のhook実装例と4,572のテストから、この組み合わせをワンコマンドで適用する。
+[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)は654のhook実装例と14,078のテストから、この組み合わせをワンコマンドで適用する。
 
 ## 始め方
 
