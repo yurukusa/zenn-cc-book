@@ -49,6 +49,15 @@ npx cc-safe-setup --install-example fact-check-gate
 
 ドキュメント編集時にソースファイルへの参照を検出し、読んでいないファイルを参照している場合に警告。
 
+**実測データ：** GitHub Issue [#42796](https://github.com/anthropics/claude-code/issues/42796)で、stellaraccident氏が6,852セッションの分析結果を共有している。Read:Edit比率（ファイルを読んだ回数÷編集した回数）が6.6から2.0へ70%低下。読まずに編集した率が6.2%→33.7%へ5.4倍に悪化した。ドキュメントだけでなくコード編集でも「確認せずに書く」パターンが増えている。
+
+**追加防御：**
+```bash
+npx cc-safe-setup --install-example read-before-edit
+```
+
+`read-before-edit`はEditツール実行前にファイルがReadされたか確認し、未読ファイルの編集を警告する。
+
 ## パターン5：catで巨大ファイルを読んでコンテキスト爆発
 
 **何が起きたか：** `cat production.log`を実行。200MBのログファイルがコンテキストに流れ込み、それまでの作業内容が全て押し出された。
