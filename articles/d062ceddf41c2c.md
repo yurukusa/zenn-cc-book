@@ -240,7 +240,7 @@ CLAUDE.mdは、AIと一緒に仕事をするための「関係構築ファイル
 
 ---
 
-**第2章「Safety Guards」まで無料公開中。**](https://zenn.dev/yurukusa/books/6076c23b1cb18b)
+[第3章まで無料公開中 — Claude Codeを本番品質にする実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)
 
 
 
