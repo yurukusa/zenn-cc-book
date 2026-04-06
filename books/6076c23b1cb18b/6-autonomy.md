@@ -1,5 +1,5 @@
 ---
-title: "第6章 Autonomy——CCが自分で判断して動く仕組み"
+title: "第6章 Autonomy——5時間idle状態で止まっていたCCを24時間自走させるまで"
 free: false
 ---
 

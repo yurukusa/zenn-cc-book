@@ -1,5 +1,5 @@
 ---
-title: "第7章 Coordination——複数エージェントが協調する仕組み"
+title: "第7章 Coordination——2つのCCが同じファイルを書き換えて変更が消えた"
 free: false
 ---
 

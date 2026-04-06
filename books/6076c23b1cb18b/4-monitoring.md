@@ -1,5 +1,5 @@
 ---
-title: "第4章 Monitoring——トークンがどこで消えているかを可視化する"
+title: "第4章 Monitoring——キャッシュ読取率が89%→4%に暴落してトークンが20倍消えた"
 free: false
 ---
 
