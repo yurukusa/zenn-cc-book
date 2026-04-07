@@ -132,6 +132,90 @@ cp ~/.claude/compact-backups/<session-id>/latest.jsonl <元のtranscriptパス>
 
 auto-checkpointがコード編集を守り、pre-compact-transcript-backupが会話全体を守る。両方入れると、compactionに関連する2種類のデータ喪失を防げる。
 
+## 事故発生時の復旧手順
+
+予防の仕組みを入れたら、次は「事故が起きた時にどう使うか」を知っておく。以下は実際にファイルが消えた・壊れた時の復旧フローだ。
+
+### パターン1: リファクタで壊れた → backup branchから復旧
+
+```bash
+# 1. 壊れたことを確認（テストが通らない、ファイルが消えた等）
+git status
+
+# 2. backup branchの一覧を確認
+git branch | grep backup/
+
+# 3. 壊れたファイルだけを取り出す
+git checkout backup/before-changes-20260407-143025 -- path/to/broken-file.py
+
+# 4. 全体を巻き戻すなら
+git checkout backup/before-changes-20260407-143025
+```
+
+所要時間: 約1分。
+
+### パターン2: コミットせずに上書きされた → auto-checkpointから復旧
+
+auto-checkpointはEdit/Write後に自動コミットを作る。CCが勝手にファイルを書き換えた場合でも、直前の状態がgit logに残っている。
+
+```bash
+# 1. auto-checkpointのコミット一覧を確認
+git log --oneline | grep "auto-checkpoint"
+
+# 2. 特定ファイルの変更履歴を確認
+git log --oneline -- path/to/file.py
+
+# 3. 特定コミットからファイルを取り出す
+git checkout <commit-hash> -- path/to/file.py
+```
+
+所要時間: 約2分。
+
+### パターン3: gitごと壊れた → auto-snapshotから復旧
+
+auto-snapshotはgit外の場所にファイルコピーを保存する。gitの状態に関係なく復旧できる。
+
+```bash
+# 1. スナップショットの場所を確認
+ls ~/.claude/snapshots/
+
+# 2. 対象ファイルの最新スナップショットを探す
+find ~/.claude/snapshots/ -name "file.py" -ls
+
+# 3. コピーで復元
+cp ~/.claude/snapshots/<timestamp>/path/to/file.py ./path/to/file.py
+```
+
+所要時間: 約2分。
+
+### パターン4: compaction失敗でセッションが壊れた → transcript復元
+
+pre-compact-transcript-backupがcompaction前の完全なtranscriptを保存している。
+
+```bash
+# 1. バックアップを確認
+ls ~/.claude/compact-backups/<session-id>/
+
+# 2. 復元
+cp ~/.claude/compact-backups/<session-id>/latest.jsonl <元のtranscriptパス>
+```
+
+所要時間: 約30秒。
+
+### 5分復旧の判断フロー
+
+```
+ファイルが消えた/壊れた
+  ├─ backup branchがある → パターン1（1分）
+  ├─ auto-checkpointがある → パターン2（2分）
+  ├─ auto-snapshotがある → パターン3（2分）
+  └─ 全部ない → git reflog を確認
+       └─ git reflog show HEAD | head -20
+          └─ 目的のコミットがあれば git checkout <hash> -- <file>
+```
+
+予防ツールが入っていれば、どのパターンでも5分以内に復旧できる。入っていなくても、git reflogが最後の砦として30日分の履歴を持っている。
+
 ---
 
 次章: Autonomy——CCが自分で判断して動く仕組み
