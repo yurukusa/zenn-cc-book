@@ -1,5 +1,5 @@
 title: "Claude Code Skills 実践レシピ集——SKILL.mdの設計から運用まで"
-summary: "Anthropic公式Skills完全ガイドを読んだ人のための次の一歩。10個の実践レシピとProgressive Disclosure設計パターン。"
+summary: "CLAUDE.mdが肥大化してトークン消費が膨張する——Skills機能とProgressive Disclosureの3層構造で40%削減した手法を、10個の実践レシピで解説。20,000回読まれたQiita記事の著者が、記事で書ききれなかった設計パターンとチーム共有術を体系化。非エンジニアでも実装できる。"
 topics: ["claudecode", "ai", "skills", "プロンプトエンジニアリング"]
 published: true
 price: 500
