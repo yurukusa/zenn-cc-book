@@ -11,7 +11,7 @@ free: false
 
 **失敗例**: CCが長時間作業していたら、突然「前の話を覚えていない」状態になった。コンテキスト窓が満杯になっていた。気づかないまま、最初から同じ作業を始めた。
 
-**対策**: `hooks/context-monitor.sh` を PostToolUse に追加する。
+**対策**: `hooks/context-threshold-alert.sh` を PostToolUse に追加する。
 
 **入手方法**: `npx cc-safe-setup`（[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)）
 
@@ -121,7 +121,8 @@ exit 0
 
 ```bash
 # 1. Tool Searchを無効化（MCP多い場合に効果大）
-export ENABLE_TOOL_SEARCH=false
+# settings.jsonの"env"に設定する:
+#   "env": { "ENABLE_TOOL_SEARCH": "false" }
 
 # 2. 手動/compactを閾値到達前に実行（auto-compactより安い）
 # 3. plan modeで計画→実装（trial-and-errorより総コスト低い）
