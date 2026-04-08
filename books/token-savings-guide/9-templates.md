@@ -289,7 +289,7 @@ npx cc-safe-setup --install-example subagent-budget-guard
 # ... 他のhookも同様
 ```
 
-cc-safe-setupには658のhookが用意されている。本書で紹介したhook以外にも、セキュリティ、Git保護、コード品質など幅広いカテゴリがある。
+cc-safe-setupには658のhookが用意されている。本書で紹介した9個のhookのうち、`large-read-guard`、`read-budget-guard`、`token-budget-guard`、`token-spike-alert`、`subagent-budget-guard`、`pre-compact-checkpoint`、`session-budget-alert`の7つはcc-safe-setupに含まれている。`duplicate-read-detector`と`bash-output-guard`は本書オリジナルのため、上記テンプレート3からコピーして使用する。
 
 ## 環境変数でカスタマイズ
 

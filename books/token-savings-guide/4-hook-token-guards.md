@@ -334,7 +334,7 @@ echo "📊 本日1セッション目。良いスタートを。"
 | 大きなファイルガード | PreToolUse (Read) | 100KB超の丸読みを警告 |
 | 読み込み予算 | PreToolUse (Read) | セッション100ファイル上限 |
 | トークン予算 | PostToolUse | 推定消費量で/compact促進 |
-| スパイク検出 | PreToolUse | 30秒15回で暴走警告 |
+| スパイク検出 | PostToolUse | 30秒15回で暴走警告 |
 | サブエージェント制限 | PreToolUse (Agent) | 5分5個まで |
 | Bash出力制限 | PreToolUse (Bash) | 大出力コマンドに\|head推奨 |
 | 重複読み込み検出 | PreToolUse (Read) | 同一ファイル再読み警告 |
