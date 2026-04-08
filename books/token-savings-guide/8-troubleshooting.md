@@ -119,23 +119,23 @@ Claude Codeが同じファイルを何度も読む、同じコマンドを繰り
     "PreToolUse": [
       {
         "matcher": "Read",
-        "command": "bash large-read-guard.sh"
+        "hooks": [{"type": "command", "command": "bash large-read-guard.sh"}]
       },
       {
         "matcher": "Agent",
-        "command": "bash subagent-budget-guard.sh"
+        "hooks": [{"type": "command", "command": "bash subagent-budget-guard.sh"}]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "",
-        "command": "bash token-budget-guard.sh"
+        "hooks": [{"type": "command", "command": "bash token-budget-guard.sh"}]
       }
     ],
     "PreCompact": [
       {
         "matcher": "",
-        "command": "bash pre-compact-checkpoint.sh"
+        "hooks": [{"type": "command", "command": "bash pre-compact-checkpoint.sh"}]
       }
     ]
   }

@@ -16,17 +16,17 @@ hookは`settings.json`に設定する。場所は`~/.claude/settings.json`（グ
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "command": "/path/to/your-hook.sh"
+        "hooks": [{"type": "command", "command": "/path/to/your-hook.sh"}]
       }
     ]
   }
 }
 ```
 
-- **PreToolUse**: ツール実行の前に走る。exit 1を返すとツール実行をブロック
+- **PreToolUse**: ツール実行の前に走る。exit 2を返すとツール実行をブロック
 - **PostToolUse**: ツール実行の後に走る。結果の監視やログ記録に使う
 - **PreCompact**: `/compact`の前に走る。文脈の保存に使う
-- **PostCompact**: `/compact`の後に走る。状態の復元に使う
+- **SessionStart**: セッション開始時に走る。初期状態の設定に使う
 
 hookのstdoutに出力した内容はClaude Codeのコンテキストに注入される。つまり「このファイルは大きすぎます。`limit`パラメータを使ってください」というメッセージをhookから出力すれば、Claude Codeはそれに従う。
 
@@ -52,7 +52,7 @@ if [ -n "$file_path" ] && [ -f "$file_path" ]; then
     echo "⚠️ ${file_path} は ${size_kb}KB あります。"
     echo "limitパラメータで必要な部分だけ読んでください。"
     echo "例: Read file_path=${file_path} limit=100"
-    exit 2  # exit 2 = 警告（ブロックはしない）
+    exit 0  # 警告のみ（stdoutの内容がClaude Codeに伝わる）
   fi
 fi
 ```
@@ -64,7 +64,7 @@ fi
   "hooks": {
     "PreToolUse": [{
       "matcher": "Read",
-      "command": "bash /path/to/large-read-guard.sh"
+      "hooks": [{"type": "command", "command": "bash /path/to/large-read-guard.sh"}]
     }]
   }
 }
@@ -81,8 +81,8 @@ fi
 # read-budget-guard.sh — セッション中の読み込みファイル数を制限
 
 budget=${CC_READ_BUDGET:-100}
-warn=${CC_READ_WARN:-80}
-tracker="/tmp/cc-read-budget-$$"
+warn=${CC_READ_WARN:-50}
+tracker="/tmp/cc-read-budget-$PPID"
 
 input=$(cat)
 file_path=$(echo "$input" | jq -r '.file_path // empty')
@@ -102,7 +102,7 @@ fi
 if [ "$count" -ge "$budget" ]; then
   echo "🛑 読み込みファイル数が${budget}件に達しました。"
   echo "Glob/Grepで絞り込んでから読んでください。"
-  exit 1
+  exit 2  # exit 2 = ブロック
 elif [ "$count" -ge "$warn" ]; then
   echo "⚠️ ${count}/${budget}ファイル読み込み済み。残り$((budget - count))件。"
 fi
@@ -120,7 +120,7 @@ fi
 
 budget_warn=${CC_TOKEN_BUDGET:-50000}
 budget_block=${CC_TOKEN_BLOCK:-100000}
-tracker="/tmp/cc-token-budget-$$"
+tracker="/tmp/cc-token-budget-$PPID"
 
 # ツール出力のサイズからトークン数を推定（約4文字=1トークン）
 input=$(cat)
@@ -136,7 +136,7 @@ echo "$total" > "$tracker"
 
 if [ "$total" -ge "$budget_block" ]; then
   echo "🛑 推定トークン消費が${budget_block}を超えました。/compactを実行してください。"
-  exit 1
+  exit 2  # exit 2 = ブロック
 elif [ "$total" -ge "$budget_warn" ]; then
   echo "⚠️ 推定トークン消費: ${total}/${budget_block}"
 fi
@@ -152,7 +152,7 @@ fi
 #!/bin/bash
 # token-spike-alert.sh — ツール呼び出しの異常頻度を検出
 
-tracker="/tmp/cc-spike-$$"
+tracker="/tmp/cc-spike-$PPID"
 window=30  # 秒
 threshold=15
 
@@ -184,7 +184,7 @@ fi
 # subagent-budget-guard.sh — 同時サブエージェント数を制限
 
 max=${CC_MAX_SUBAGENTS:-5}
-tracker="/tmp/cc-subagent-$$"
+tracker="/tmp/cc-subagent-$PPID"
 
 now=$(date +%s)
 echo "$now" >> "$tracker"
@@ -197,7 +197,7 @@ if [ -f "$tracker" ]; then
   if [ "$count" -gt "$max" ]; then
     echo "🛑 5分間にサブエージェント${count}個が起動されています（上限: ${max}）。"
     echo "メインのコンテキストでGlob/Grepを使ってください。"
-    exit 1
+    exit 2  # exit 2 = ブロック
   fi
 fi
 ```
@@ -235,7 +235,7 @@ fi
 #!/bin/bash
 # duplicate-read-detector.sh — 同一ファイルの再読み込みを警告
 
-tracker="/tmp/cc-read-history-$$"
+tracker="/tmp/cc-read-history-$PPID"
 input=$(cat)
 file_path=$(echo "$input" | jq -r '.file_path // empty')
 
@@ -267,6 +267,9 @@ if [ -n "$(git status --porcelain)" ]; then
   git commit -m "checkpoint: pre-compact $(date +%Y%m%d-%H%M%S)" --no-verify 2>/dev/null
   echo "✅ 圧縮前チェックポイントを保存しました。"
 fi
+
+echo "📋 コンテキストが圧縮されます。"
+echo "圧縮後は前の会話の文脈が失われます。圧縮前の作業を自動で再開せず、ユーザーの指示を確認してください。"
 ```
 
 設定:
@@ -276,7 +279,7 @@ fi
   "hooks": {
     "PreCompact": [{
       "matcher": "",
-      "command": "bash /path/to/pre-compact-checkpoint.sh"
+      "hooks": [{"type": "command", "command": "bash /path/to/pre-compact-checkpoint.sh"}]
     }]
   }
 }
@@ -284,35 +287,7 @@ fi
 
 **効果**: 圧縮後に「何を変更していたか」をgit logで確認できる。
 
-## Hook 9: 圧縮後の暴走防止
-
-auto-compact後にClaude Codeが勝手に行動を始めるのを防ぐ。
-
-```bash
-#!/bin/bash
-# post-compact-safety.sh — 圧縮後の自律行動をブロック
-
-echo "📋 コンテキストが圧縮されました。"
-echo "次に何をすべきか、ユーザーの指示を待ってください。"
-echo "圧縮前の作業を自動で再開しないでください。"
-```
-
-設定:
-
-```json
-{
-  "hooks": {
-    "PostCompact": [{
-      "matcher": "",
-      "command": "bash /path/to/post-compact-safety.sh"
-    }]
-  }
-}
-```
-
-**効果**: 圧縮後の「前の会話で〇〇をやると言っていたから始めよう」パターンを防止。
-
-## Hook 10: セッション開始時の予算表示
+## Hook 9: セッション開始時の予算表示
 
 セッション開始時に、今日の残りトークン予算を表示する。
 
@@ -346,13 +321,13 @@ echo "📊 本日1セッション目。良いスタートを。"
   "hooks": {
     "SessionStart": [{
       "matcher": "",
-      "command": "bash /path/to/session-budget-alert.sh"
+      "hooks": [{"type": "command", "command": "bash /path/to/session-budget-alert.sh"}]
     }]
   }
 }
 ```
 
-## まとめ: 10個のhookの早見表
+## まとめ: 9個のhookの早見表
 
 | Hook | イベント | 効果 |
 |------|---------|------|
@@ -363,10 +338,9 @@ echo "📊 本日1セッション目。良いスタートを。"
 | サブエージェント制限 | PreToolUse (Agent) | 5分5個まで |
 | Bash出力制限 | PreToolUse (Bash) | 大出力コマンドに\|head推奨 |
 | 重複読み込み検出 | PreToolUse (Read) | 同一ファイル再読み警告 |
-| compact前チェックポイント | PreCompact | 自動git commit |
-| compact後の暴走防止 | PostCompact | 自律行動ブロック |
+| compact前チェックポイント | PreCompact | 自動git commit + 暴走防止メッセージ |
 | セッション予算表示 | SessionStart | 日次セッション数表示 |
 
-これらのhookを全部自分で書く必要はない。cc-safe-setupには、上記を含む600以上のhookが用意されている。`--install-example`コマンドで個別にインストールできる。
+これらのhookを全部自分で書く必要はない。cc-safe-setupには、上記を含む658のhookが用意されている。`--install-example`コマンドで個別にインストールできる。
 
 次の章では、サブエージェントの戦略的な使い方を解説する。
