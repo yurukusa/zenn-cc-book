@@ -133,3 +133,9 @@ SKILL.mdが存在しないスキルは読み込まれない。
 Skillsでワークフローを最適化したら、次はhookでClaude Codeの暴走を防ぐ番です。トークン消費が突然10倍になる原因と対策も解説:
 [Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800・第3章まで無料）
 :::
+
+:::message
+**著者がClaude Codeを800時間走らせた全記録**
+この本で解説したSkillsも、hookも、すべて800時間の自律稼働の中で生まれた仕組みです。事故、収益の現実、再現可能な8つのフレームワーク:
+[AIに仕事を任せてみた——非エンジニアが800時間で学んだ全記録](https://zenn.dev/yurukusa/books/3c3c3baee85f0a19)（¥1,500）
+:::
