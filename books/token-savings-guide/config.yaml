@@ -1,7 +1,7 @@
 title: "Claude Codeのトークン消費を半分にする——800時間の運用データから見つけた実践テクニック"
 summary: "$200/月のMax planが15分で消える——GitHub Issueで最も報告が多い不満。800時間の自律運用で発見した節約テクニックを体系化。CLAUDE.mdの書き方、コンテキスト管理、hook活用、ワークフロー設計で消費を半減させた実データ付き。設定ファイルのコピペテンプレート収録。"
 topics: ["claudecode", "トークン", "llm", "プロンプトエンジニアリング"]
-published: false
+published: true
 price: 2500
 allow_override: true
 chapters:
