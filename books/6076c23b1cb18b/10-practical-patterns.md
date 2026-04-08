@@ -65,7 +65,7 @@ npx cc-safe-setup --install-example read-before-edit
 **防御：**
 ```bash
 npx cc-safe-setup --install-example large-read-guard
-npx cc-safe-setup --install-example context-monitor
+npx cc-safe-setup  # context-monitorはデフォルト8 hookに含まれる
 ```
 
 `large-read-guard`は100KB超のファイルをcatする前に警告。`context-monitor`はコンテキスト残量を常時監視。

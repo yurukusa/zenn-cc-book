@@ -11,7 +11,7 @@ free: false
 
 **失敗例**: CCが長時間作業していたら、突然「前の話を覚えていない」状態になった。コンテキスト窓が満杯になっていた。気づかないまま、最初から同じ作業を始めた。
 
-**対策**: `hooks/context-threshold-alert.sh` を PostToolUse に追加する。
+**対策**: `hooks/context-monitor.sh` を PostToolUse に追加する。
 
 **入手方法**: `npx cc-safe-setup`（[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)）
 
