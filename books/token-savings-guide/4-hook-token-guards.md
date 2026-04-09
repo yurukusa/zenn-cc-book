@@ -74,6 +74,10 @@ fi
 
 **効果**: 3,000行のファイルを丸読みする代わりに、必要な100行だけ読むようになる。1回のReadで数千トークンの節約。
 
+:::message
+以降のhookも同じ形式で`settings.json`に設定する。イベント名とmatcherは本章末尾の早見表を参照。Hook 8・9には設定例を掲載している。
+:::
+
 ## Hook 2: 読み込みファイル数の上限
 
 1セッションで100ファイル以上読むのは、ほぼ確実に非効率だ。
@@ -266,6 +270,7 @@ cd "$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
 
 if [ -n "$(git status --porcelain)" ]; then
   git add -A
+  # --no-verify: チェックポイント専用のため、pre-commit hookをスキップ
   git commit -m "checkpoint: pre-compact $(date +%Y%m%d-%H%M%S)" --no-verify 2>/dev/null
   echo "✅ 圧縮前チェックポイントを保存しました。"
 fi
@@ -343,6 +348,6 @@ echo "📊 本日1セッション目。良いスタートを。"
 | compact前チェックポイント | PreCompact | 自動git commit + 暴走防止メッセージ |
 | セッション予算表示 | SessionStart | 日次セッション数表示 |
 
-これらのhookを全部自分で書く必要はない。cc-safe-setupには658のexample hookが用意されており、`--install-example`コマンドで個別にインストールできる。本章のhookはcc-safe-setupのexampleをベースにトークン節約に特化した改良版で、一部仕様が異なる。
+これらのhookを全部自分で書く必要はない。cc-safe-setupには653のexample hookが用意されており、`--install-example`コマンドで個別にインストールできる。本章のhookはcc-safe-setupのexampleをベースにトークン節約に特化した改良版で、一部仕様が異なる。
 
 次の章では、サブエージェントの戦略的な使い方を解説する。
