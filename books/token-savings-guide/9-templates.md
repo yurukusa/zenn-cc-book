@@ -222,7 +222,8 @@ cutoff=$((now - 30))
 # /compact前にgit commit
 cd "$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
 if [ -n "$(git status --porcelain)" ]; then
-  git add -A
+  git add -A  # .gitignoreで.envや機密ファイルを除外していること
+  # --no-verify: チェックポイント専用のため、pre-commit hookをスキップ
   git commit -m "checkpoint: pre-compact $(date +%Y%m%d-%H%M%S)" --no-verify 2>/dev/null
   echo "✅ チェックポイント保存完了。"
 fi
