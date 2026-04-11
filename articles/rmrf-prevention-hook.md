@@ -65,4 +65,6 @@ npx cc-safe-setup
 **トークン消費も気になる方へ**
 rm -rfの次に多い痛みは「トークンが10倍消える」問題（[#42796](https://github.com/anthropics/claude-code/issues/42796)、2,130+リアクション）。
 [Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800・第3章まで無料）のch10で診断と対策を解説。
+
+「AIに任せて大丈夫なのか」という不安を持ったまま800時間使い続けた記録は[非エンジニアがClaude Codeを800時間走らせた——失敗と学びの全記録](https://zenn.dev/yurukusa/books/3c3c3baee85f0a19)（¥1,500・第2章まで無料）に書いた。
 :::
