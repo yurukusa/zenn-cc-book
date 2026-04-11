@@ -40,7 +40,7 @@ free: false
 npx cc-safe-setup --shield
 ```
 
-これだけで8個のコアhook + プロジェクト検出 + 推奨hookが全てインストールされる。653個のhookから最適な組み合わせを自動選択する。
+これだけで8個のコアhook + プロジェクト検出 + 推奨hookが全てインストールされる。650個以上のhookから最適な組み合わせを自動選択する。
 
 ### 手動でやりたい場合（30分）
 
@@ -52,7 +52,7 @@ npx cc-safe-setup --shield
 # ワンコマンドで8つの安全hookをインストール
 npx cc-safe-setup
 
-# 追加のexample hookをインストール（653種から選択可能）
+# 追加のexample hookをインストール（650種以上から選択可能）
 npx cc-safe-setup --install-example block-database-wipe
 npx cc-safe-setup --install-example auto-checkpoint
 ```
@@ -173,10 +173,10 @@ npx cc-health-check
 npx cc-safe-setup
 ```
 
-**653個のexample hookからプロジェクトに合ったものを追加**:
+**650個以上のexample hookからプロジェクトに合ったものを追加**:
 
 ```bash
-npx cc-safe-setup --examples        # 一覧（5カテゴリ）
+npx cc-safe-setup --examples        # 一覧
 npx cc-safe-setup --install-example block-database-wipe  # 個別インストール
 ```
 
@@ -186,4 +186,6 @@ npx cc-safe-setup --install-example block-database-wipe  # 個別インストー
 
 ---
 
-*このBookは、Claude Codeが700+時間自律稼働した実体験から生まれました。スコア0から100への道のりは、実際に動いているシステムの記録です。*
+ここまでで基本の全工程は完了だ。19点→85点に必要なことは全て扱った。
+
+以降の章は**リファレンス**として使ってほしい。全hookの目的別カタログ、hookの選び方、実践パターン集、テスト手法、高度な設計パターンを収録している。必要なときに必要な章を引く辞書のような構成だ。
