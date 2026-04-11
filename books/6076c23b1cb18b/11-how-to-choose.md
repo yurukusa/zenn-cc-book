@@ -53,7 +53,7 @@ git add .claude/ && git commit -m "chore: add hooks"
 
 ### 「CLAUDE.mdのルールが無視される」
 
-GitHub Issue [#42796](https://github.com/anthropics/claude-code/issues/42796)には1,000件以上のリアクションが付いている。CLAUDE.mdに書いたルールをClaude Codeが守らない問題は、多くのユーザーが経験している構造的な課題だ。
+GitHub Issue [#42796](https://github.com/anthropics/claude-code/issues/42796)には2,100件以上のリアクションが付いている。CLAUDE.mdに書いたルールをClaude Codeが守らない問題は、多くのユーザーが経験している構造的な課題だ。
 
 CLAUDE.mdの指示はシステムプロンプトとして注入されるが、コンテキストが長くなるほど影響力が薄まる。hookで物理的にブロックすれば、モデルが無視しようとしても実行できない。
 

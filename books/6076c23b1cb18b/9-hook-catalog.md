@@ -205,7 +205,7 @@ npx cc-safe-setup --examples
 `session-duration-guard` / `worktree-delete-guard` / `session-handoff`
 
 :::details session-duration-guard
-**長時間セッションの品質劣化を警告**: 2時間で注意、4時間でクリティカル警告。700+時間の自律稼働経験に基づく。閾値は環境変数で調整可能。
+**長時間セッションの品質劣化を警告**: 2時間で注意、4時間でクリティカル警告。800+時間の自律稼働経験に基づく。閾値は環境変数で調整可能。
 :::
 
 :::details worktree-delete-guard
