@@ -348,6 +348,6 @@ echo "📊 本日1セッション目。良いスタートを。"
 | compact前チェックポイント | PreCompact | 自動git commit + 暴走防止メッセージ |
 | セッション予算表示 | SessionStart | 日次セッション数表示 |
 
-これらのhookを全部自分で書く必要はない。cc-safe-setupには653のexample hookが用意されており、`--install-example`コマンドで個別にインストールできる。本章のhookはcc-safe-setupのexampleをベースにトークン節約に特化した改良版で、一部仕様が異なる。
+これらのhookを全部自分で書く必要はない。cc-safe-setupには650+のexample hookが用意されており、`--install-example`コマンドで個別にインストールできる。本章のhookはcc-safe-setupのexampleをベースにトークン節約に特化した改良版で、一部仕様が異なる。
 
 次の章では、サブエージェントの戦略的な使い方を解説する。
