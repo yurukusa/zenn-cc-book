@@ -31,7 +31,7 @@ hookは`settings.json`に設定する。場所は`~/.claude/settings.json`（グ
 hookのstdoutに出力した内容はClaude Codeのコンテキストに注入される。つまり「このファイルは大きすぎます。`limit`パラメータを使ってください」というメッセージをhookから出力すれば、Claude Codeはそれに従う。
 
 :::message
-**v2.1.101の新機能**: PreToolUseフックで`defer`判定が追加された。hookのstdoutにJSON `{"decision":"defer"}`を返すと、ヘッドレスセッションが一時停止し、再開時に再評価される。自律運用中に「この操作は人間に確認させたい」という場面でトークンの無駄遣いを防げる。
+**v2.1.101以降の新機能（実装時期は変更される可能性あり）**: PreToolUseフックで`defer`判定が追加された。hookのstdoutにJSON `{"decision":"defer"}`を返すと、ヘッドレスセッションが一時停止し、再開時に再評価される。自律運用中に「この操作は人間に確認させたい」という場面でトークンの無駄遣いを防げる。お使いのバージョンで利用可能か確認すること。
 :::
 
 本章のhookでは`$PPID`（親プロセスID）をセッション識別子として使う。Claude Codeがhookを起動する際、hookのbashプロセスから見た`$PPID`はClaude CodeのプロセスIDになるため、同じセッション中のhook呼び出しを追跡できる。
@@ -132,7 +132,7 @@ budget_warn=${CC_TOKEN_BUDGET:-50000}
 budget_block=${CC_TOKEN_BLOCK:-100000}
 tracker="/tmp/cc-token-budget-$PPID"
 
-# ツール出力のサイズからトークン数を推定（約4文字=1トークン）
+# ツール出力のサイズからトークン数を推定（英語テキストで約4文字=1トークン。日本語やコードでは比率が異なるため、あくまで目安）
 input=$(cat)
 output_size=${#input}
 tokens=$((output_size / 4))
