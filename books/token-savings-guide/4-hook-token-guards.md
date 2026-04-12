@@ -30,6 +30,10 @@ hookは`settings.json`に設定する。場所は`~/.claude/settings.json`（グ
 
 hookのstdoutに出力した内容はClaude Codeのコンテキストに注入される。つまり「このファイルは大きすぎます。`limit`パラメータを使ってください」というメッセージをhookから出力すれば、Claude Codeはそれに従う。
 
+:::message
+**v2.1.101の新機能**: PreToolUseフックで`defer`判定が追加された。hookのstdoutにJSON `{"decision":"defer"}`を返すと、ヘッドレスセッションが一時停止し、再開時に再評価される。自律運用中に「この操作は人間に確認させたい」という場面でトークンの無駄遣いを防げる。
+:::
+
 本章のhookでは`$PPID`（親プロセスID）をセッション識別子として使う。Claude Codeがhookを起動する際、hookのbashプロセスから見た`$PPID`はClaude CodeのプロセスIDになるため、同じセッション中のhook呼び出しを追跡できる。
 
 ## Hook 1: 大きなファイルの読み込みガード
