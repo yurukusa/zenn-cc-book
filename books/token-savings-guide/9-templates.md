@@ -316,6 +316,45 @@ export CC_MAX_SUBAGENTS=3      # デフォルト: 5
 
 ## おわりに
 
+## テンプレート4: .claudeignore（不要ファイル除外）
+
+```
+# .claudeignore — Claude Codeが読まないファイルを指定
+# .gitignoreと同じ書式。プロジェクトルートに配置
+
+# ビルド成果物
+dist/
+build/
+.next/
+out/
+
+# 依存関係（大量のファイル）
+node_modules/
+vendor/
+.venv/
+__pycache__/
+
+# ログ・一時ファイル
+*.log
+*.tmp
+coverage/
+
+# 大きなデータファイル
+*.sql
+*.csv
+*.sqlite
+fixtures/
+
+# 生成されたファイル
+*.min.js
+*.bundle.js
+*.map
+```
+
+**ポイント**: `.gitignore`で既に除外しているものは`.claudeignore`に重複して書く必要はない。Claude固有の除外（テストフィクスチャ、大きなドキュメントフォルダ、SQLダンプなど）を追加する。
+
+---
+
 この本は、800時間の自律運用で学んだトークン節約テクニックを体系化したものだ。
 
 要点を3つに絞ると:
