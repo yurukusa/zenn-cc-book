@@ -185,4 +185,23 @@ auto-compactの後、Claude Codeが圧縮前の会話を「まとめ」として
 
 auto-compactに3回以上頼っているなら、手動`/compact`のタイミングが遅すぎる。
 
+## .claudeignoreで不要なファイルを除外する
+
+`.claudeignore`は`.gitignore`と同じ書式で、Claude Codeが読まないファイルを指定する。プロジェクトルートに置くだけで有効になる。
+
+```
+# .claudeignore の例
+node_modules/
+dist/
+build/
+*.log
+*.lock
+coverage/
+.next/
+```
+
+これは「最もレバレッジが高い設定の一つ」と評されている。理由は明快だ: Claude Codeは指示がなくてもプロジェクト構造を理解するためにファイルを読む。ビルド成果物や`node_modules`を読むと、1回のReadで数千〜数万トークンを消費する。`.claudeignore`で除外すれば、この消費がゼロになる。
+
+`.gitignore`と`.claudeignore`の両方がある場合、**両方のルールが適用される**。すでに`.gitignore`でビルド成果物を除外しているなら、`.claudeignore`にはClaude固有の除外ルール（大きなドキュメントフォルダ、テストフィクスチャなど）を追加するのが効率的だ。
+
 次の章では、hookを使ってトークンの浪費パターンを自動で検出・ブロックする方法を解説する。
