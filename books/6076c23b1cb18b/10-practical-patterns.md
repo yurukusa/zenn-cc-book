@@ -261,3 +261,7 @@ npx cc-safe-setup --shield
 上記パターン全てのhookが含まれる。加えて、プロジェクトの技術スタックに応じた追加hookも自動インストールされる。
 
 さらに詳しいhookの一覧は前章の「667+ hookカタログ」を参照。
+
+:::message
+**トークン消費を体系的に削減したい方へ**: このパターン10で紹介した対策は入り口に過ぎない。CLAUDE.mdの構造最適化、コンテキスト管理、ワークフロー設計まで含む全体最適化と800時間の実測データは[Token Book](https://ko-fi.com/s/fd44ef09a7)（¥2,500）に収録。まずは無料の[Token Checkup](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で診断。
+:::
