@@ -6,7 +6,7 @@ Claude Codeを使い始めて最初に困ったのが、トークンの消費速
 
 Max plan（$200/月）に加入して、1日中使えると思っていた。実際には、朝から使い始めて昼にはquotaが半分消えていた。
 
-「何もしていないのにトークンが減る」。GitHub Issueの[トークン消費スレッド](https://github.com/anthropics/claude-code/issues/42796)には2,400件以上のリアクションがついている。Claude Codeユーザー最大の痛みだ。
+「何もしていないのにトークンが減る」。GitHub Issueの[トークン消費スレッド](https://github.com/anthropics/claude-code/issues/42796)には2,500件以上のリアクションがついている。Claude Codeユーザー最大の痛みだ。
 
 ### この本を書いた理由
 
