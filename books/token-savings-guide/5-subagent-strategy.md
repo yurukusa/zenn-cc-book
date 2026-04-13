@@ -166,7 +166,7 @@ Claude Codeのバージョンによっては、サブエージェントにCLAUDE
 
 2つ以上のサブエージェントが同じファイルを触ると、「File modified since read」エラーが発生する。
 
-実例（GitHub Issue #46968）:
+実例（GitHub Issue [#46968](https://github.com/anthropics/claude-code/issues/46968)）:
 - 並列サブエージェントが同じファイルを読み書きしようとした
 - 「File modified since read」エラーが連続発生
 - 各サブエージェントがリトライを繰り返し、**101,000トークン以上**がretryループで消費された
