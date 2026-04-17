@@ -135,5 +135,5 @@ Response: { "status": "ok", "deploy_id": "abc123" }
 判断に迷ったら、「この情報がないと手順を始められないか？」と考える。始められるなら第3層。
 
 :::message
-**トークン消費の体系的な削減**: Progressive DisclosureはCLAUDE.md最適化の1つだが、他にもhookによる自動制御、コンテキスト管理、ワークフロー設計で大幅に削減できる。800時間の実測データと設定テンプレートは[Token Book](https://ko-fi.com/s/fd44ef09a7)（¥2,500）に収録。無料の[Token Checkup](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で先に自分の消費パターンを診断できる。
+**トークン消費の体系的な削減**: Progressive DisclosureはCLAUDE.md最適化の1つだが、他にもhookによる自動制御、コンテキスト管理、ワークフロー設計で大幅に削減できる。800時間の実測データと設定テンプレートは[Token Book](https://zenn.dev/yurukusa/books/token-savings-guide)（¥2,500）に収録。無料の[Token Checkup](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で先に自分の消費パターンを診断できる。
 :::
