@@ -155,3 +155,8 @@ GitHub Issue [#40524](https://github.com/anthropics/claude-code/issues/40524)（
 第1章で`cc-health-check`を実行した人は、ここでもう一度スコアを確認してみてほしい。42点を超えていれば、ここまでの3章でカバーした安全策が機能している。超えていなければ、第4章以降で扱うMonitoring・Recovery・Autonomyが足りていないということだ。
 
 19点→85点の全工程は第8章にまとまっている。どこから読んでもいい。
+
+:::note info
+**トークン消費を半分にしたい方へ**
+上のテーブルの「Monitoring」——トークンがどこで消えているかの可視化は第4章で扱う。さらに踏み込んだCLAUDE.mdの構造最適化、コンテキスト管理、ワークフロー設計まで含む体系的な削減手法と800時間の実測データは[Token Book](https://zenn.dev/yurukusa/books/token-savings-guide)（¥2,500・はじめに+第1章 無料）にまとめた。まずは無料の[Token Checkup](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で現状チェック。
+:::
