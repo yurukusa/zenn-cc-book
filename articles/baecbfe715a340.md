@@ -236,7 +236,7 @@ AIエージェントに「いつ止まるか」を教える技術は、結局「
 
 :::message
 **Claude Codeの安全対策、まだですか？**
-`npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。900+テスト済み。
+`npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。9,200+テスト済み。
 → [GitHub](https://github.com/yurukusa/cc-safe-setup)
 :::
 

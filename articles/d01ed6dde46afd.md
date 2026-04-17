@@ -90,14 +90,14 @@ Claude Codeが自力で解決できないと判断した作業を、人間に依
 
 この記事で触れた安全装置（hooks）は、GitHubで無料公開している。自律運用の事故防止に興味があれば覗いてみてほしい。
 
-https://github.com/yurukusa/claude-code-hooks
+https://github.com/yurukusa/cc-safe-setup
 
 
 ---
 
 :::message
 **Claude Codeの安全対策、まだですか？**
-`npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。900+テスト済み。
+`npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。9,200+テスト済み。
 → [GitHub](https://github.com/yurukusa/cc-safe-setup)
 :::
 

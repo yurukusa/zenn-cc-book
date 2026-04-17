@@ -97,7 +97,7 @@ CLAUDE.mdに判断ルールを明記した。
 - セキュリティリスクがある変更
 \`\`\`
 
-さらに、[no-ask-human.sh](https://github.com/yurukusa/claude-code-hooks/blob/main/hooks/no-ask-human.sh)をPreToolUseフックとして追加した。人間の入力を要求するパターンを検知してブロックする。
+さらに、[no-ask-human.sh](https://github.com/yurukusa/cc-safe-setup/blob/main/hooks/no-ask-human.sh)をPreToolUseフックとして追加した。人間の入力を要求するパターンを検知してブロックする。
 
 「聞くな。自分で決めろ。ただし金と安全に関わることだけは聞け。」
 
@@ -157,7 +157,7 @@ Book全体では、Safety Guards（事故防止）、Code Quality（構文エラ
 
 :::message
 **Claude Codeの安全対策、まだですか？**
-`npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。900+テスト済み。
+`npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。9,200+テスト済み。
 → [GitHub](https://github.com/yurukusa/cc-safe-setup)
 :::
 ---
