@@ -70,3 +70,7 @@ Progressive Disclosureの3層構造:
 | 長さ | 短い方がいい | 3層で管理 |
 
 ルールはCLAUDE.md、手順はSkills。迷ったら「それはルールか手順か」で判断する。
+:::message
+**トークン消費も気になる？**
+[Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断 → [トークン消費を半分にする実践ガイド（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
+:::
