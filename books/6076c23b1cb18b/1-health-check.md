@@ -136,3 +136,7 @@ npx cc-safe-setup --doctor
 ---
 
 次章: Safety Guards——最初に直すべき4つのチェック
+:::message
+**トークン消費も気になる？**
+[Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断 → [トークン消費を半分にする実践ガイド（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
+:::

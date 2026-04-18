@@ -146,3 +146,7 @@ npx cc-safe-setup --install-example block-database-wipe
 - **第12章**: 「hookが本当に動くか不安」→ テスト戦略とCI統合
 
 次章: Code Quality——構文エラーを自動で防ぐ
+:::message
+**トークン消費も気になる？**
+[Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断 → [トークン消費を半分にする実践ガイド（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
+:::
