@@ -124,3 +124,7 @@ AIが現実に基づいてもっと行動するようになってくれたら。
 もしあなたが今Claude Codeを使っていて、「思ったより手がかかるな」と感じているなら、それは正常だ。自分もそうだった。
 
 失敗から何を学んで、何が変わったか――残りの6章はその記録だ。
+:::message
+**トークン消費も気になる？**
+[Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断 → [トークン消費を半分にする実践ガイド（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
+:::
