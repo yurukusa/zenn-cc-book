@@ -467,4 +467,31 @@ Claude Codeは`Read`/`Grep`実行時にマルウェア警告の`system-reminder`
 2. **大きなタスクはメインエージェントで実行**: サブエージェントはコンテキストが少ないため誤認しやすい。重要なコード分析はメインで行う
 3. **セッションを分割する**: 拒否が連続したら新しいセッションで再試行する
 
+## 症状17: claudeが再帰的にclaudeを起動し、プロセスが指数増加する
+
+### 何が起きているか
+
+Claude CodeのBashツール経由で`claude`コマンドを実行すると、新しいClaude Codeインスタンスが起動する。そのインスタンスがさらに`claude`を起動し、プロセスが指数的に増加する（[#50380](https://github.com/anthropics/claude-code/issues/50380)）。
+
+### トークンへの影響
+
+各Claude Codeインスタンスが独立したAPIセッションを確立する。5インスタンスが同時起動すれば5倍のトークン消費。制御なしでは数分でquotaが枯渇する。加えてシステムリソース（CPU、メモリ、ファイルディスクリプタ）も枯渇し、マシン自体が応答不能になる。
+
+### 対処法
+
+1. **PreToolUseフックでブロック**: Bashコマンド実行前に`claude`コマンドを検出してブロックする
+2. **サブエージェント数を制限する**: `subagent-budget-guard`フック（第4章 Hook 4）で同時3つまでに制限
+3. **auto mode / bypassPermissionsモードを避ける**: ガードなしの自動実行モードで特に危険
+
+```bash
+#!/bin/bash
+# recursive-spawn-guard.sh
+INPUT=$(cat)
+CMD=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
+if echo "$CMD" | grep -qE '^\s*(claude|npx\s+claude)\b'; then
+  echo "BLOCKED: recursive claude invocation" >&2
+  exit 2
+fi
+```
+
 次の章では、すぐに使えるCLAUDE.md、hooks、settings.jsonのテンプレートを収録する。
