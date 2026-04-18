@@ -3,7 +3,7 @@ title: "Claude Codeのトークン節約で本当に効いた3つの設定——
 emoji: "💰"
 type: "tech"
 topics: ["ClaudeCode", "AI", "トークン", "プロンプトエンジニアリング", "Claude"]
-published: false
+published: true
 ---
 
 Claude Code Max plan（$200/月）を使い始めて最初に困ったのが、トークンの消費速度だった。朝から使い始めて昼にはquotaが半分消えていた。
