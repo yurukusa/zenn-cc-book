@@ -352,7 +352,7 @@ echo "📊 本日1セッション目。良いスタートを。"
 | compact前チェックポイント | PreCompact | 自動git commit + 暴走防止メッセージ |
 | セッション予算表示 | SessionStart | 日次セッション数表示 |
 
-これらのhookを全部自分で書く必要はない。cc-safe-setupには667以上のexample hookが用意されており、`--install-example`コマンドで個別にインストールできる。
+これらのhookを全部自分で書く必要はない。cc-safe-setupには688以上のexample hookが用意されており、[examples/](https://github.com/yurukusa/cc-safe-setup/tree/main/examples)からダウンロードして使える。一括インストールは`npx cc-safe-setup`。
 
 :::message alert
 **本章のhookはcc-safe-setupのexampleとは独立した実装です。** `--install-example`ではインストールできません。本章のhookを使う場合は、手動でsettings.jsonに追加してください。
