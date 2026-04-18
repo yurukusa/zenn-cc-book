@@ -208,9 +208,13 @@ AIと人間の関係は、まだ始まったばかりだ。今の「制限で安
 
 :::message
 **Claude Codeの安全対策、まだですか？**
-`npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。9,200+テスト済み。
+`npx cc-safe-setup` — ワンコマンドで `rm -rf` 誤爆・秘密鍵コミット・force pushを防止。688 hooks・9,200+テスト済み。
 → [GitHub](https://github.com/yurukusa/cc-safe-setup)
 :::
 
 ---
-
+:::message
+**トークン消費が気になる方へ**
+[Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断。どこでトークンが消えているか可視化できる。
+もっと深く知りたい方は → [Claude Codeのトークン消費を半分にする（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
+:::

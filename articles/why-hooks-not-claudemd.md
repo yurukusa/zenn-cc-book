@@ -59,4 +59,8 @@ npx cc-safe-setup
 両方使う。CLAUDE.mdは「こうしてほしい」、hookは「これは絶対にさせない」。
 
 ---
-
+:::message
+**トークン消費が気になる方へ**
+[Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断。どこでトークンが消えているか可視化できる。
+もっと深く知りたい方は → [Claude Codeのトークン消費を半分にする（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
+:::

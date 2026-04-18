@@ -232,3 +232,8 @@ https://qiita.com/yurukusa/items/fb73a4122b583197071b
 Zenn Bookでは、Claude Codeの環境設計を体系的に解説している。
 
 https://zenn.dev/yurukusa/books/6076c23b1cb18b
+:::message
+**トークン消費が気になる方へ**
+[Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断。どこでトークンが消えているか可視化できる。
+もっと深く知りたい方は → [Claude Codeのトークン消費を半分にする（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
+:::
