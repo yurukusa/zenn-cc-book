@@ -91,7 +91,7 @@ exit 0
 npx cc-safe-setup
 ```
 
-[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)は675本のhookから必要なものを選んでインストールできる。トークン節約hookも含まれている。
+[cc-safe-setup](https://github.com/yurukusa/cc-safe-setup)は691本のhookから必要なものを選んでインストールできる。トークン節約hookも含まれている。
 
 ## 4. /clearと/compactの使い分け
 
