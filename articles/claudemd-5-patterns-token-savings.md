@@ -176,4 +176,6 @@ hookがブロックする操作はリトライしない。
 
 📘 [Claude Codeのトークン消費を半分にする——800時間の運用データ付き](https://zenn.dev/yurukusa/books/token-savings-guide)（¥2,500・第1章無料）
 
+「AIに任せて大丈夫なのか」という不安を持ったまま800時間使い続けた記録は[非エンジニアがClaude Codeを800時間走らせた——失敗と学びの全記録](https://zenn.dev/yurukusa/books/3c3c3baee85f0a19)（¥800・第2章まで無料）に書いた。
+
 「自分のCLAUDE.mdのトークンコストを知りたい」→ [CLAUDE.md Analyzer](https://yurukusa.github.io/cc-safe-setup/claudemd-analyzer.html)（無料・ペーストするだけ）

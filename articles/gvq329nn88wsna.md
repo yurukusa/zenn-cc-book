@@ -128,3 +128,6 @@ npx cc-safe-setup
 
 まずは[無料診断（30秒）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で今のトークン消費状況をチェック。
 :::
+:::message
+「AIに任せて大丈夫なのか」という不安を持ったまま800時間使い続けた記録は[非エンジニアがClaude Codeを800時間走らせた——失敗と学びの全記録](https://zenn.dev/yurukusa/books/3c3c3baee85f0a19)（¥800・第2章まで無料）に書いた。
+:::
