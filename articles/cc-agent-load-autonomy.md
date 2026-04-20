@@ -1,0 +1,131 @@
+---
+title: "AIが自分より2倍長く動いていた。cc-agent-loadで可視化した話"
+emoji: "🤖"
+type: "tech"
+topics: ["claudecode", "ai", "cli", "nodejs", "productivity"]
+published: true
+---
+
+## 数字が合わなかった
+
+`cc-session-stats` を実行したら「116時間、3,485セッション」と出た。
+
+でも感覚と合わない。50日間で116時間なら1日2.3時間。「そんなに少ないか？」という違和感。
+
+掘り下げてみた。
+
+---
+
+## 発見
+
+```
+メインセッション（自分が操作）: 86個 → 41.3時間
+サブエージェント（AI自律実行）: 3442個 → 79.0時間
+```
+
+**AIが自分の1.9倍長く動いていた。**
+
+`cc-session-stats` の116時間の65%はClaudeが自律的にTaskツールでサブエージェントを起動して動いていた時間だった。自分が直接操作した時間は41時間。
+
+---
+
+## 作ったツール: cc-agent-load
+
+```bash
+npx cc-agent-load
+```
+
+**ブラウザ版:** [yurukusa.github.io/cc-agent-load](https://yurukusa.github.io/cc-agent-load/)
+
+出力:
+
+```
+  ▸ Your Time vs AI Time
+
+  You   ████████░░░░░░░░░░░░░░░░  41h (34%)  86 sessions
+  AI    ████████████████░░░░░░░░  80h (66%)  3423 sessions
+
+  ▸ AI Autonomy Ratio
+  ████████ 1.9x  — AI ran 1.9x longer than you
+
+  ▸ Ghost Days  (AI worked, you didn't)
+
+  39 days  AI ran without you  —  52.4h total
+  Longest: 2026-02-09 (6.0h)
+    2026-02-09  6.0h
+    2026-01-30  5.7h
+    2026-02-16  5.0h
+    ... and 36 more
+```
+
+---
+
+## Ghost Days：自分が操作しなかった日にAIが動いていた
+
+一番驚いたのがこれだった。
+
+日別分析をしたら**39日間のGhost Days**が見つかった。自分のインタラクティブセッションがゼロの日、つまり一度もキーボードを触らなかった日に、AIが自律的に動き続けていた日だ。
+
+**2月9日: 自分0.0時間、AI 6.0時間。**
+
+スケジュールされたタスクの処理、キューに積まれたジョブの実行、コミット——全部自分が何もしていない間に起きていた。
+
+```
+2026-02-09: 自分0.0h  AI 6.0h
+2026-01-30: 自分0.0h  AI 5.7h
+2026-02-22: 自分0.0h  AI 4.1h
+```
+
+39日間のGhost Days、合計52.4時間。「私のClaude Code使用時間」の中に、私が全く関与していない時間がこれだけあった。
+
+---
+
+## 仕組み
+
+Claude Codeのセッションファイルは `~/.claude/projects/` に保存される。Taskツールで起動されたサブエージェントのセッションは `<uuid>/subagents/` サブディレクトリに入る。
+
+この2つを分離してカウントするだけ。ゼロ依存。ローカル完結。
+
+---
+
+## なぜ意味があるか
+
+`cc-session-stats` は「Claude Codeの総活動時間」を正しく計測している。
+
+でもcc-loopのような自律稼働セッションを使っていると、その数字の大半はAIが動いていた時間になる。
+
+- **cc-session-stats** = Claude Codeが何時間動いたか
+- **cc-agent-load** = そのうち自分が直接操作した時間 vs AIが自律実行した時間
+
+どちらも正しい。答える問いが違う。
+
+---
+
+## Autonomy Ratio の目安
+
+| 比率 | 意味 |
+|------|------|
+| < 0.5x | 手動ドライブ |
+| 0.5–1.0x | 自分が主導 |
+| 1.0–2.0x | AIと並走 |
+| > 2.0x | AIが主導 |
+
+---
+
+## cc-toolkit
+
+| ツール | 何を計測するか |
+|--------|---------------|
+| [cc-session-stats](https://github.com/yurukusa/cc-session-stats) | Claude Codeの総活動時間 |
+| **cc-agent-load** | 自分 vs AI自律実行の時間比 |
+| [cc-ghost-log](https://yurukusa.github.io/cc-ghost-log/) | Ghost Daysのgitコミット可視化 |
+| [cc-personality](https://yurukusa.github.io/cc-personality/) | 開発者タイプ診断 |
+| [cc-wrapped](https://yurukusa.github.io/cc-wrapped/) | AI使用状況のビジュアルサマリー |
+
+全部ゼロ依存。全部ローカル完結。全部無料。
+
+→ [cc-toolkit](https://yurukusa.github.io/cc-toolkit/)（全ツール一覧）
+
+---
+
+あなたのAutonomy Ratioはいくつでしたか？
