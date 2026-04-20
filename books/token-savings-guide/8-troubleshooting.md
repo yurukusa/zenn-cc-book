@@ -897,4 +897,61 @@ Extended Thinkingには**思考トークンの上限が設定されていない*
 
 [#51092](https://github.com/anthropics/claude-code/issues/51092)
 
+## 症状41: エンタープライズのhook制限がenv変数1つでバイパスされる
+
+### 何が起きているか
+
+管理者が`allowManagedHooksOnly: true`を設定して承認済みhookのみ実行を強制していたが、開発者が`ANTHROPIC_BASE_URL`をローカルプロキシ（`localhost:4010`等）に向けるだけで**制限チェックが完全にスキップ**される。非承認hookが自由に実行され、`/statusline`スクリプトも動く。
+
+### なぜ起きるか
+
+hook実行ポリシーの検証がAPI接続層に依存している。APIエンドポイントがデフォルトでない場合、「マネージドhook限定」の検証ロジック自体が発火しない。設計上、無関係なサブシステム（APIルーティング）にセキュリティ制御が依存している状態。特権不要 — 環境変数1つで誰でもバイパスできる。
+
+### 対処法
+
+1. **hook実行前にANTHROPIC_BASE_URLをチェックするPreToolUse hookを追加する**: 許可リスト外のURLならブロック
+2. **hook実行ログを中央集約する**: `allowManagedHooksOnly`設定に関係なく全実行を記録
+3. **CI/CDでENV変数を制限する**: コンテナ内で`ANTHROPIC_BASE_URL`の設定を禁止
+4. **上流修正を待つ**: Anthropicがhook制限をAPI層から分離するまでの暫定対策として上記を実施
+
+[#51123](https://github.com/anthropics/claude-code/issues/51123)
+
+## 症状42: モデルが偽のURLを生成する——フィッシングリンクのリスク
+
+### 何が起きているか
+
+セッション再開時に、Sonnet 4.6 (1M)がTelegramのプライベートグループ招待URL（`t.me/+<hash>`）を2つ生成した。プロジェクト内のどこにもTelegramへの参照は存在しない。設定、hook、スキル、ユーザープロンプトのいずれにもない。**純粋な幻覚**。
+
+### なぜ起きるか
+
+大規模言語モデルはトレーニングデータから学習したパターンに基づいてURLを生成する。セッション再開のコンテキスト再構築中に、モデルが「関連リソース」として存在しないURLを自信を持って出力する。ハッシュが偶然有効だった場合、ユーザーが攻撃者管理のグループに参加してしまう可能性がある。
+
+### 対処法
+
+1. **Claude Code出力に予期しないURLが現れたらクリックしない**: 特にメッセージングアプリ（Telegram、Discord、WhatsApp）のリンク
+2. **PostToolUse hookでメッセージングドメインをフィルタする**: プロジェクトファイルに存在しないURLをブロック
+3. **ドメインのallowlistを維持する**: モデルが参照してよいドメインを制限
+4. **モデルレベルの改善を待つ**: 根本的にはURL幻覚の防止が必要
+
+[#51127](https://github.com/anthropics/claude-code/issues/51127)
+
+## 症状43: WSL2でサンドボックスが壊れてセキュリティ低下を強いられる
+
+### 何が起きているか
+
+WSL2環境で`permissions.deny`と`sandbox.filesystem.denyRead`に30以上のパターンを設定すると、bubblewrap（bwrap）のコマンド引数がLinuxの`MAX_ARG_STRLEN`（128 KB）を超える。結果、**全てのBashツール呼び出しが`E2BIG`エラーで失敗**する。セキュリティルールを減らすか、シェル機能を失うかの二択を迫られる。
+
+### なぜ起きるか
+
+Claude Codeはbwrapサンドボックスのコマンドを単一の`/bin/bash -c`文字列にラップする。denyパターンが増えると文字列長が指数的に増加し、カーネルの引数長制限に達する。WSL2特有の問題で、通常のLinuxではバッファが十分大きい場合がある。
+
+### 対処法
+
+1. **denyパターンをワイルドカードで統合する**: `/home/user/secret-1`, `/home/user/secret-2`→`/home/user/secret*`
+2. **最重要ルールだけ残して残りを削除する**: sandbox denyリストのスリム化
+3. **hookベースの保護に切り替える**: PreToolUse hookはbwrap引数サイズに影響しない。同等の保護をhookで実現する方がWSL2ではスケーラブル
+4. **sandboxを無効化してhookで代替する**: 最終手段。`sandbox: false`にした上で、hookで全アクセスを監視
+
+[#51126](https://github.com/anthropics/claude-code/issues/51126)
+
 次の章では、すぐに使えるCLAUDE.md、hooks、settings.jsonのテンプレートを収録する。
