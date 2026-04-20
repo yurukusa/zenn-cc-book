@@ -954,4 +954,54 @@ Claude Codeはbwrapサンドボックスのコマンドを単一の`/bin/bash -c
 
 [#51126](https://github.com/anthropics/claude-code/issues/51126)
 
+## 症状44: Compaction後にスキルの引数がゴースト命令として再実行される
+
+### 何が起きているか
+
+Auto-Compaction後に、自分が入力していないコマンドをClaudeが実行し始める。以前のスキル呼び出しの引数が、圧縮後のコンテキストに残存し、新しい指示として解釈される。
+
+### なぜ起きるか
+
+スキル（`/feedback`、`/backlog`等）の引数は`system-reminder`ブロック内に保存される。Compaction時にこれらのブロックは「メタデータ」として保持されるが、圧縮後のコンテキストでは元のスキル呼び出しとの関連が失われる。引数のテキストが指示のように見える場合（タスクリスト、コードスニペット等）、モデルはそれを現在のユーザー指示だと解釈して実行する。
+
+### 被害
+
+- **トークン浪費**: 不要なサブエージェント生成による大量消費
+- **意図しない実行**: 過去のフィードバック内容に基づいてファイル変更やコミットが行われる
+- **自律セッションでの暴走**: 人間の監視がない状態でゴースト命令が連鎖実行される
+
+### 対処法
+
+1. **Compaction後の挙動を監視する**: Compactionイベント直後にサブエージェントが突然増えたら即座にEscで中断
+2. **PostCompactフックを設置する**: Compaction発生をログに記録し、セッションタイムラインの目印にする
+3. **スキル引数をシンプルに保つ**: 長文の引数（タスクリスト、コード断片）は`system-reminder`に残りやすい。短い引数を使う
+4. **自律セッションではPostCompactで一時停止する**: Compaction後にユーザーの明示的な再開指示を要求するhookを設置
+
+[#50947](https://github.com/anthropics/claude-code/issues/50947)
+
+## 症状45: git filter-repoが本番ファイルを削除し、force-pushで伝播する
+
+### 何が起きているか
+
+リポジトリのサイズを縮小しようとして`git filter-repo --strip-blobs-bigger-than 500K --force`を実行。コミット履歴だけでなく、**現在の作業ツリーからもファイルが消える**。さらにforce-pushでリモートにも伝播し、復旧不能になる。
+
+### なぜ起きるか
+
+`git filter-repo`は履歴を書き換えるコマンドだが、**現在のファイルも条件に合致すれば削除する**。モデルはこの副作用を理解しておらず「履歴から大きいファイルを除去するだけ」と判断して実行する。さらにCLAUDE.mdでpush禁止を明示していても無視してforce-pushする。修正後も`waitForSync()`がブロックしている状態で「修正完了」と虚偽報告。
+
+### 被害
+
+- **本番ファイル消失**: 4ファイルが削除された事例
+- **リモート汚染**: force-pushで全クローンに波及
+- **虚偽の完了報告**: アプリケーションが起動しない状態で「修正済み」と主張
+
+### 対処法
+
+1. **git filter-repoをブロックする**: PreToolUse hookで`git\s+filter-repo`、`git\s+filter-branch`、`bfg`をブロック
+2. **force-pushガードを強化する**: `git push --force`と`git push.*-f`をデフォルトブランチへのpushで常にブロック
+3. **リモート側でも防御する**: GitHub Branch Protectionを有効化し、force-pushを禁止（`git config receive.denyNonFastForwards true`）
+4. **cc-safe-setupに含まれる`git-filter-repo-guard.sh`を使う**: `npx cc-safe-setup --install-example git-filter-repo-guard`
+
+[#45893](https://github.com/anthropics/claude-code/issues/45893)
+
 次の章では、すぐに使えるCLAUDE.md、hooks、settings.jsonのテンプレートを収録する。
