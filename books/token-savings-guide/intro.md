@@ -7,7 +7,7 @@ Claude Codeを使い始めて最初に困ったのが、トークンの消費速
 
 Max plan（$200/月）に加入して、1日中使えると思っていた。実際には、朝から使い始めて昼にはquotaが半分消えていた。
 
-「何もしていないのにトークンが減る」。GitHub Issueの[トークン消費スレッド](https://github.com/anthropics/claude-code/issues/42796)には1,700件以上のリアクションがついている。Claude Codeユーザー最大の痛みだ。
+GitHub Issueを読み始めて、もっと深刻な事例が並んでいるのを知った。nohupゾンビプロセスが5日間生存し続けた[$350の不正課金](https://github.com/anthropics/claude-code/issues/50389)、曖昧な指示が暗号資産取引操作に誤変換された[$1,446 USDTの不正送金](https://github.com/anthropics/claude-code/issues/46828)、本番プロセスがポート番号の取り違えで`kill`された[$1,000の損失](https://github.com/anthropics/claude-code/issues/50971)。[トークン消費スレッド](https://github.com/anthropics/claude-code/issues/42796)には1,700件以上のリアクションがついている。「何もしていないのにトークンが減る」はClaude Codeユーザー最大の痛みだが、トークン消費の暴走は金銭的な損失にも直結する。
 
 ### この本を書いた理由
 
