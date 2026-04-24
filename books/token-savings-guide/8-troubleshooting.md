@@ -1091,4 +1091,124 @@ effort 50%で生成された回答は品質が低い。結果として：
 
 [#51293](https://github.com/anthropics/claude-code/issues/51293)
 
+---
+
+## 症状49: 毎ターンthinking historyが消え、cache_readが0連発する（2026-03-26〜04-10）
+
+### 症状
+
+- セッション後半になっても`cache_read_input_tokens`が毎ターン0のまま
+- 同じ文脈なのに、以前の決定やファイル内容を「忘れて」質問し直す
+- ツール選択が不自然（直前で使ったツールをわざわざ避ける）
+- Maxユーザーで「今日はquotaが1時間で尽きた」「Weekly限度が3日で消えた」報告が急増
+
+### 原因
+
+Anthropicの[April 23 postmortem](https://www.anthropic.com/engineering/april-23-postmortem)が公式に認めた2026-03-26リリースのregression。`clear_thinking_20251015`機能は本来「idle閾値を超えた**一度だけ**thinking historyを消す」設計だったが、実装が「一度閾値を超えたら、そのセッションの**残り全ターンで毎回消す**」になっていた。結果として、毎リクエストでAPIに「直近のreasoningブロックだけ残して、前のは捨てて」と指示していた。
+
+- リリース: 2026-03-26
+- 修正: 2026-04-10（v2.1.101）
+- Anthropic自身が認定した事故
+
+### なぜトークンに関係するか
+
+thinking historyが毎ターン再送されるたび、cache prefixが壊れてcache readが発生しない。見た目は同じプロンプトでも、APIは「新規生成」として課金してくる。結果：
+
+- cacheが効いたときの5〜10倍の消費
+- Max 20x tier（$200/月）で「1時間で尽きた」報告の主因
+- 「Claude got dumber」体験の技術的正体の一つ（履歴が消えているので推論が浅くなる）
+
+### 対処法
+
+1. **まずClaude Codeを最新版に**: v2.1.101以降なら修正済み（`claude --version`で確認、古ければ`npm i -g @anthropic-ai/claude-code`）
+2. **3-4ターン連続で`cache_read_input_tokens=0`が出たら疑う**: ステータスバー/API logで直接観測できる
+3. **検出されたらセッションを切って起動し直す**: 一度このモードに入ったセッションは直せない。新セッションでcacheを作り直す
+4. **hook側で検知する**: cc-safe-setupの例として「直近N turnのcache_read=0連続」を警告するhookが追加予定（`cache-miss-streak-detector`）
+
+[April 23 Postmortem (Anthropic公式)](https://www.anthropic.com/engineering/april-23-postmortem)
+
+---
+
+## 症状50: Claudeが急に短く答えるようになり、説明不足で作業が増える（2026-04-16〜04-20）
+
+### 症状
+
+- ツール呼び出しの合間の解説が25語以下で打ち切られる
+- 最終回答が100語未満で、背景説明・代替案・注意点が省かれる
+- 読者側が「なぜそう判断した？」と聞き直すターンが急増
+- Opus 4.6も4.7も同時に回答が短くなった
+
+### 原因
+
+Anthropicの[April 23 postmortem](https://www.anthropic.com/engineering/april-23-postmortem)が公式に認めた、harnessシステムプロンプトへの一時的注入：
+
+> Keep text between tool calls to ≤25 words. Keep final responses to ≤100 words unless the task requires more detail.
+
+- 注入: 2026-04-16（Opus 4.7ローンチと同時）
+- 撤回: 2026-04-20
+- 公式の内部eval計測で**Opus 4.6と4.7の両方でcoding eval 3% drop**を確認したため撤回
+
+### なぜトークンに関係するか
+
+回答が短くなること自体はトークン削減だが、**ユーザー側の追加質問で総消費量は増える**。
+
+- 「なぜその判断？」で1ターン追加（10〜30Kトークン）
+- 前提が説明されていないので、ユーザーが誤解して間違った指示を出す
+- 間違った指示に基づく実装→やり直し→さらにトークン消費
+- 同じ作業を終えるまでに、従来比1.2〜1.5倍のトークン
+
+### 対処法
+
+1. **v2.1.102以降にアップデート**: 2026-04-20以降のリリースで注入は消えている
+2. **回答が急に短いと感じたら、CLAUDE.mdで明示**: 「必要なら100語を超えて説明してよい」と書けば、注入期間中でも一定の緩和が効いた報告あり
+3. **期間が特定できる痛みはログに残す**: 「2026-04-16〜04-20の間に依頼した作業はやり直した方がいい可能性がある」と判定できる
+
+### 読者が覚えておくこと
+
+この症状は「Claudeのモデル性能が落ちた」のではなく、**harnessシステムプロンプト側の一時的な実験**だった。同じような「突然挙動が変わった」ケースでは、モデルではなくharness／UI／postmortemを疑うとよい（問題の本当の場所がわかる）。
+
+[April 23 Postmortem (Anthropic公式)](https://www.anthropic.com/engineering/april-23-postmortem)
+
+---
+
+## 症状51: reasoning effortのデフォルトがmediumに黙って下げられ、1ヶ月以上放置された（2026-03-04〜04-07）
+
+### 症状
+
+- 3月上旬以降、`effort`を明示設定していないセッションで回答の質が明らかに低下
+- 「Claude got dumber」「clients were right」系の不満がSNSに大量発生
+- 設定ファイルには触っていないのに、同じ指示で違う結果が返る
+- 週末・深夜でも質が戻らない（症状48の「ピーク時だけ」と異なる）
+
+### 原因
+
+Anthropicの[April 23 postmortem](https://www.anthropic.com/engineering/april-23-postmortem)が公式に認めたdefault変更：
+
+- 2026-03-04: UI freeze対策としてdefault effortを`high`から`medium`に変更、ユーザーへの通知なし
+- 2026-04-07: 他モデルは`high`、Opus 4.7は`xhigh`に戻す
+- 約34日間、ユーザー設定を明示していないセッションは勝手に`medium`で動いていた
+
+### なぜトークンに関係するか
+
+effort `medium`の回答はcritical推論が浅くなる：
+
+- 設計ミスを含んだ実装→後工程で全体やり直し（大量トークン）
+- 説明が浅いのでユーザーが誤解→誤った方向でさらに実装（大量トークン）
+- 明示的にeffort設定していない人ほど痛みが大きい（知らないまま浪費していた）
+
+### 対処法
+
+1. **今すぐeffortを明示する**: `settings.json`で`"effort": "high"`（Opus 4.7なら`"xhigh"`）を必ず書く
+2. **default依存のワークフローを見直す**: 「何も書かなければ自動で最大品質」という前提は取り下げる。明示設定が自己防衛
+3. **過去のアウトプットを再評価**: 2026-03-04〜04-07の間に作った実装・設計物で「なんか違う」と感じたものは、再度effort=highで回した方がいい可能性
+
+### 本章3症状（49〜51）の共通教訓
+
+- 症状49/50/51はすべて**Anthropic公式postmortemで認定されたharness regression**
+- 原因は「モデルの性能低下」ではなく「harness／inference設定の黙った変更」
+- 対策はユーザー側でもできる（バージョンpin、effort明示、cache_read監視）
+- **「Claudeが急におかしい」と感じたら、まずharnessのpostmortem／changelogを疑う**。モデルを変える前にできる確認が複数ある
+
+[April 23 Postmortem (Anthropic公式)](https://www.anthropic.com/engineering/april-23-postmortem)
+
 次の章では、すぐに使えるCLAUDE.md、hooks、settings.jsonのテンプレートを収録する。
