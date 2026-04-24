@@ -222,5 +222,5 @@ AIと人間の関係は、まだ始まったばかりだ。今の「制限で安
 :::message
 **Claude Codeの安全設定をもっと知りたいなら**
 800時間の自律運用で起きた全事故と、そこから作った安全装置を全8章で解説。
-→ [Claude Code安全ガイド](https://zenn.dev/yurukusa/books/cc-safety-guide)（¥800・第2章まで無料）
+→ [Claude Code安全ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800・第2章まで無料）
 :::
