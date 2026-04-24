@@ -1318,4 +1318,46 @@ TTFT悪化が連鎖的にトークン消費を増やす:
 - Anthropic公式postmortem（4/23）には含まれない**運用側ノウハウ**で、同じ設定でも挙動が異なる理由を説明する
 - 対処法はすべてユーザー側でできる（Telemetry設定、バージョンup、時間帯避け、`/usage`監視）
 
+## 症状55: 週次クォータの残量表示が当日内に逆行・急落する（2026-04-23同日4件クラスタ）
+
+### 症状
+
+- `/usage` や claude.ai の週制限ダッシュボードで、**リセット予定時刻が週の途中で段階的に過去方向へシフト**する
+- 使用率が`60% → 2%`に**mid-cycle で急落**し、残量が増えたように見えるが実際は使えない
+- 「新しい週」の終わり時刻が7日後ではなく**5日後**で表示される
+- 期待リセット時刻より**最大2日早く**実際のリセットが発動する
+- CLI `/usage`、claude.ai UI、`/api/organizations/{orgId}/usage` API の**3点すべてが同じ "早まった時刻" を返す**ため、クライアント側キャッシュバグではない
+
+### 原因
+
+2026-04-23 UTC 17:32〜18:21 の49分間に、独立ユーザーから4件の報告が連続して上がった（いずれも記事執筆時点で OPEN、Anthropic 公式応答なし）：
+
+- [#52472](https://github.com/anthropics/claude-code/issues/52472): Weekly usage limit reset occurring **before scheduled time** & new week ends in **5 days, not 7**
+- [#52484](https://github.com/anthropics/claude-code/issues/52484): Session window reset time **does not align** with stated reset schedule（v2.1.118, darwin）
+- [#52497](https://github.com/anthropics/claude-code/issues/52497): Weekly usage counter **dropped 60% → 2% mid-cycle** while `resets_at` still **9h in the future**
+- [#52498](https://github.com/anthropics/claude-code/issues/52498): Weekly usage reset occurred **~2 days early**; displayed reset time **shifted backward in stages** before triggering
+
+4件とも独立ユーザーで相互言及なし。症状表現は異なるが、**reset 計算ロジックが状態不整合を起こしている**という抽象は共通する。これまでの「トークンが早く消える」「キャッシュが効かない」系統とは別レイヤーで、**メーター表示そのものが信用できない**というクラスタである。
+
+### なぜトークンに関係するか
+
+残量表示が信用できない環境では、見積もり設計そのものが破綻する:
+
+- 「あと58%残っている」前提で重い改修を始めたら、10分後に2%に急落して作業途中で止まる（#52497）
+- リセット時刻が逆行するので「今日の夜にリセットされるはず」と予定した作業が前倒しで強制ストップ（#52498）
+- Pro プランの週制限が7日→5日に縮むと、**契約容量の実効 28.6% が消滅**する。$20/月のうち実効 $5.71 分、利用者視点では週あたり **$2.90 相当が forfeit**（#52497 の 60%→2% 急落を残容量換算）
+
+### 対処法
+
+1. **`/usage` の残量表示を記録しておく**: セッション開始時に `claude /usage --json > ~/.claude/logs/usage-$(date +%s).json` を hook 化。残量が逆行した時に Issue 添付できる証拠になる。Anthropic support チケット時の唯一の武器
+2. **週計画は残量ベースで立てない**: Pro で週5日稼働するなら、4日目終盤まで重いタスクを残さない。最悪時のクォータが `計算上の残量 × 0.7` と見込む
+3. **`/api/organizations/{orgId}/usage` を直接叩いて diff を取る**: CLI/UI/API の3点が同じ誤った値を返すため、1点だけチェックしても気付けない。3点同期で初めて「本当に reset が動いた」と判定する
+4. **`resets_at` が9時間以上未来なのに残量表示が急変したら、即座に作業中断**: 残容量の逆行は数分以内に強制リセットに転じる前兆パターン（#52497/#52498）。作業を区切って退避しておく
+
+### 本章追加4症状（52〜55）の共通教訓
+
+- 症状52/53/54は[Issue #46829](https://github.com/anthropics/claude-code/issues/46829)の**cache 側**のユーザー発見パターン、症状55は**quota メーター側**の同日クラスタ
+- どちらもAnthropic公式postmortemや changelog には含まれない**運用側で先に気付く必要がある痛み**
+- 対処法はすべてユーザー側でできる。ただし症状55は Anthropic 側のサーバー bug 確定のため、**ログで証拠を残してサポートに上げる** ことも長期的対処になる
+
 次の章では、すぐに使えるCLAUDE.md、hooks、settings.jsonのテンプレートを収録する。
