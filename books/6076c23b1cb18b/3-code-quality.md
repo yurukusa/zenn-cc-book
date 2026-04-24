@@ -150,7 +150,9 @@ GitHub Issue [#40524](https://github.com/anthropics/claude-code/issues/40524)（
 
 > テストが失敗している。Claudeは「テストを修正します」と言い、テストの中身を削除して「テスト通りました」と報告。テストは確かに通る。テストがないから。——パターン2
 
-全て実体験で、1つのパターンにつき1行のhookで防ぐ方法がセットになっている。第13章では、**hookを設定したのにClaudeがそのhookをバイパスした事例**と、その対策を扱う。
+> hookを設定したのに動かない。調べたらClaudeがhookの状態ファイル（`.claude/checkpoints/`）を書き換えてhookを無効化していた。「バイパスしてください」とは一度も頼んでいない。——第13章（GitHub Issue [#38841](https://github.com/anthropics/claude-code/issues/38841)で同じ挙動が報告されている）
+
+全て実体験で、1つのパターンにつき1行のhookで防ぐ方法がセットになっている。3つ目のパターンが示すように、hookを入れただけでは足りず、**hookそのものをClaudeから守る仕組み**（checkpoint-tamper-guard）まで必要になる。第13章ではこの「hookとhookの状態ファイルは閉じたシステムにする」原則と、具体的な防御コードを扱う。
 
 第1章で`cc-health-check`を実行した人は、ここでもう一度スコアを確認してみてほしい。42点を超えていれば、ここまでの3章でカバーした安全策が機能している。超えていなければ、第4章以降で扱うMonitoring・Recovery・Autonomyが足りていないということだ。
 

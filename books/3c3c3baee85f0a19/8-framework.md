@@ -570,3 +570,24 @@ Context Monitorはデフォルトの8 hookに含まれている。Day 1で`npx c
 8つのパターンは「これを知っていれば事故が起きない」というものではない。事故は起きる。でも、パターンを知っていれば、事故の原因が分かる。原因が分かれば、対策が打てる。対策が打てれば、同じ事故は二度起きない。
 
 それが、75日間で$600を使って学んだことの全てだ。
+
+---
+
+:::note info
+**ここから先、具体的にどう設定すればいいか**
+本書はCCを任せる「姿勢」と「失敗の地雷」を扱った。この本で言及したhook、mission.md、Context Monitorなどの**具体的な設定方法**は別の本にまとめている。20チェック項目、コピペで使えるhookスクリプト、運用テンプレート例付き:
+- [Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800・第3章まで無料）
+:::
+
+:::note info
+**AIの暴走で一番多いのは「トークン消費の突然10-20倍」**
+本書のパターン10でも触れた、普段の10-20倍のコストが発生する現象。4月の公式インシデント（Tokenocalypse）も含め、800+時間の実測データから原因と対策をまとめた本もある:
+- [Token Book — Claude Codeのトークン消費を半分にする](https://zenn.dev/yurukusa/books/token-savings-guide)（¥2,500）
+- まずは無料の [Token Checkup](https://yurukusa.github.io/cc-safe-setup/token-checkup.html) で30秒診断
+:::
+
+:::note info
+**Skills（CCの新機能）の設計パターンも別の本に**
+2025年後半に追加されたSkillsを使うと、CLAUDE.mdを肥大化させずにワークフローを1つずつ差し込める。Progressive Disclosureで40%のトークンを節約する設計パターンと、10個のレシピ:
+- [Claude Code Skills 実践レシピ集](https://zenn.dev/yurukusa/books/a1b2c3d4e5f6g7)（¥500）
+:::
