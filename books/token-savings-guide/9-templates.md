@@ -364,3 +364,14 @@ fixtures/
 3. **hookで強制する**（ルールを「お願い」から「自動ブロック」に変える）
 
 トークン消費は「なんとなく」で改善できるものではない。仕組みで制御する。この本のテンプレートが、その第一歩になれば幸いだ。
+
+---
+
+## 読了後のおすすめ
+
+この本を読んで、トークン節約の「その先」が気になった方へ。同じ 800+時間の運用で書き溜めた他の本を紹介する。
+
+- **[Anthropic公式ガイドにない事故防止——Claude Code 800+時間で19点→85点にした全記録（¥800）](https://zenn.dev/yurukusa/books/6076c23b1cb18b)** — トークン節約の前提になる「そもそも壊さない」を8つの hook で体系化した本。rm -rf や credential 漏洩を止める基礎編。Token Book より先に読んでも損はない
+- **[Claude Code Skills 実践レシピ集——SKILL.mdの設計から運用まで（¥500）](https://zenn.dev/yurukusa/books/a1b2c3d4e5f6g7)** — CLAUDE.md よりトークン効率が良い SKILL.md の設計と 10 レシピ。Progressive Disclosure でメインコンテキストを守る続編
+- **[非エンジニアがClaude Codeを800時間走らせた——失敗と学びの全記録（¥800）](https://zenn.dev/yurukusa/books/3c3c3baee85f0a19)** — $600 の赤字と 75 日の赤裸々な体験記。技術より「AI に仕事を任せるとはどういうことか」を描いたストーリー版
+

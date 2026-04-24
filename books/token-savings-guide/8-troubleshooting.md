@@ -1211,4 +1211,111 @@ effort `medium`の回答はcritical推論が浅くなる：
 
 [April 23 Postmortem (Anthropic公式)](https://www.anthropic.com/engineering/april-23-postmortem)
 
+---
+
+## 症状52: Telemetryを切るとキャッシュ最適化も切れる（プライバシー設定の隠れた副作用）
+
+### 症状
+
+- プライバシー意識で`DISABLE_TELEMETRY=1`を設定した
+- その瞬間から同じ作業のトークン消費が増えた気がする
+- cache_readの比率がTelemetry ON時と比べて明確に下がっている
+
+### 原因
+
+Issue [#46829](https://github.com/anthropics/claude-code/issues/46829)のAnthropicスタッフ（@bcherny）の公式発言：
+
+> When you turn off telemetry we also disable experiment gates, which means Claude reads the default value, which is 5m.
+
+つまり、Telemetryを切ると**experiment gateが無効化され、cache TTLのデフォルト値である5分が強制適用される**。1時間cache TTLの最適化はexperimentとして配布されているため、Telemetry OFFのユーザーは恩恵を受けられない。
+
+### なぜトークンに関係するか
+
+5分TTLと1時間TTLでは、cache miss頻度が大きく違う:
+
+- ペアプロ中の10〜30分思考中断でキャッシュが expire
+- 毎回cache_creation（cache_read比5倍の単価）で課金される
+- 同じワークフローでTelemetry ONユーザーより20〜32%の費用増（[#46829](https://github.com/anthropics/claude-code/issues/46829)の実測コメントと整合）
+
+### 対処法
+
+1. **Telemetryを切る前にトレードオフを理解する**: プライバシーvsキャッシュ最適化。現実の使用データはminimalなので、ON推奨（ANTHROPIC公式の立場）
+2. **どうしても切りたい場合**: `/usage`で定期的にcache_read比率を監視。50%を大幅に下回る状態が続いていたら、Telemetry再ONを検討
+3. **企業環境でPolicyで強制OFFされている場合**: IT担当と交渉する材料として本症状を共有する（社員の月$20〜50の無駄課金を定量化できる）
+
+---
+
+## 症状53: v2.1.90で隠し修正されたoverage突入セッションの5m TTL固着バグ
+
+### 症状
+
+- quota上限に達して「overage（超過課金）」セッションに切り替わった
+- そこから突然、キャッシュ効率が激しく悪化した
+- セッションを完全に終了して新規起動するまで回復しなかった
+- v2.1.89以前を使っていた
+
+### 原因
+
+Issue [#46829](https://github.com/anthropics/claude-code/issues/46829)のAnthropicスタッフ（@Jarred-Sumner）発言：
+
+> a client-side bug could cause sessions that enter overage to stay on 5m TTL until their session exits
+
+- overage突入で1h TTL → 5m TTLへの降格が発生し、**セッション終了まで元に戻らない**
+- v2.1.90で修正された
+- **公式CHANGELOGには記載されていない**（@seanGSISGの指摘でコメント欄にのみ残存）
+
+### なぜトークンに関係するか
+
+overage状態は既に「超過課金」で単価が高い時間帯。そこで追加で5m TTLに固着すると:
+
+- cache_creation頻度増で更に超過分が膨らむ
+- overage限度まで届く時間が体感より早い
+- 「今日はいつもより早くquotaが尽きた」の正体がこれの可能性
+
+### 対処法
+
+1. **v2.1.90以上にアップデート**: これで固着バグは解消
+2. **それ以前のバージョンで既にoverage突入した場合**: セッションを完全終了→新規起動で5m TTL固着をリセット
+3. **アップデートできない環境**: overage警告が出たら即座に作業を区切ってセッションを切り替える運用に変える
+
+---
+
+## 症状54: ピーク時間帯のcache missはTTFT悪化まで連動する
+
+### 症状
+
+- 5〜11AM PT（日本時間 夜9時〜翌午前3時）でキャッシュが壊れやすい
+- 同じプロンプトでも最初の1トークンが返ってくるまで（TTFT）が2〜3倍遅い
+- タイムアウトに近い体感で、作業リズムが崩れる
+
+### 原因
+
+Issue [#46829](https://github.com/anthropics/claude-code/issues/46829)の@oprizによる技術解説：
+
+> A cache miss doesn't save GPU time — it requires the model to re-run prefill on the full prompt, which inflates TTFT and tightens peak-hour capacity.
+
+- cache missはGPU側でprefill再実行が必要で、単なる課金増ではなく**計算資源そのもの**を食う
+- ピーク時（5〜11AM PT = US東海岸の朝）はinferenceキャパシティが逼迫
+- cache missの多発とピーク時のthrottleが同根の仮説
+
+### なぜトークンに関係するか
+
+TTFT悪化が連鎖的にトークン消費を増やす:
+
+- レスポンスが遅いので「失敗かも」と中断→再実行→前半がdouble consumption
+- 待ち時間中に別ウィンドウで新セッション起動→同じ作業が並列で走って消費が倍化
+- タイムアウトで自動リトライが走ると、1回の失敗で数万トークン分の再送が発生
+
+### 対処法
+
+1. **ピーク時の重要作業を避ける**: 深夜2〜8AM PT（日本時間 夕方6時〜深夜0時）は比較的安定
+2. **ピーク時はcompactを意図的にかける**: キャッシュヒット率が下がる前提で、コンテキストを意図的に小さく保つ
+3. **`/usage`でcache_read比率を時刻別に記録する**: 自分の環境でどの時間帯が落ちるか把握すると、ワークフローを設計しやすい
+
+### 本章追加3症状（52〜54）の共通教訓
+
+- 症状52/53/54はすべて[Issue #46829](https://github.com/anthropics/claude-code/issues/46829)（2,194コメント）で共有された**ユーザーが自力で発見した痛みのパターン**
+- Anthropic公式postmortem（4/23）には含まれない**運用側ノウハウ**で、同じ設定でも挙動が異なる理由を説明する
+- 対処法はすべてユーザー側でできる（Telemetry設定、バージョンup、時間帯避け、`/usage`監視）
+
 次の章では、すぐに使えるCLAUDE.md、hooks、settings.jsonのテンプレートを収録する。
