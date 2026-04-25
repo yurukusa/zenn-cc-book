@@ -375,3 +375,8 @@ fixtures/
 - **[Claude Code Skills 実践レシピ集——SKILL.mdの設計から運用まで（¥500）](https://zenn.dev/yurukusa/books/a1b2c3d4e5f6g7)** — CLAUDE.md よりトークン効率が良い SKILL.md の設計と 10 レシピ。Progressive Disclosure でメインコンテキストを守る続編
 - **[非エンジニアがClaude Codeを800時間走らせた——失敗と学びの全記録（¥800）](https://zenn.dev/yurukusa/books/3c3c3baee85f0a19)** — $600 の赤字と 75 日の赤裸々な体験記。技術より「AI に仕事を任せるとはどういうことか」を描いたストーリー版
 
+英語圏の読者・チームメンバー向けには Gumroad で英語版も公開している:
+
+- **[Token Book EN ($12)](https://yurukusa.gumroad.com/l/azrdt)** — 本書とほぼ同じデータ・テクニック・hook templates を英語で再構成した英語版。海外のチームメンバーへ共有する場合に
+- **[Claude Code Migration Playbook ($19)](https://yurukusa.gumroad.com/l/claude-code-migration-playbook)** — 「このまま Claude Code を使い続けるか、Cursor / Cline / 自前 stack に移行するか」を `/usage --json` 出力に対する measurable threshold で判断するための英語ガイド。Anthropic の 2026 年 3-4 月の連続 regression を時系列で記録
+

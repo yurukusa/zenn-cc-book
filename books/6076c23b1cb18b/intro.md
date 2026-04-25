@@ -89,4 +89,6 @@ npx cc-health-check
 :::message
 **トークン消費も気になる？**
 [Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断 → [トークン消費を半分にする実践ガイド（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
+
+If you also read English, the same author has [Token Book EN ($12)](https://yurukusa.gumroad.com/l/azrdt) on Gumroad — same depth, same data, English edition.
 :::
