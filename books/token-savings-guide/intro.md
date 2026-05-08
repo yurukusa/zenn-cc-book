@@ -65,3 +65,11 @@ Claude Codeに「トークンを節約して」と伝えると、その指示が
 
 この本の内容は2026年4月時点のClaude Code（v2.1.x系）に基づいている。Anthropicのアップデートでトークン消費の仕組みが変わる可能性はある。ただし、CLAUDE.mdの書き方やワークフロー設計の原則は、バージョンに依存しない部分が多い。
 
+### 姉妹商品
+
+この本はトークン消費の節約に絞った。Claude Codeの運用の別の軸は次の場所にまとめている。
+
+- [Claude Code Postmortems](https://yurukusa.gumroad.com/l/rhtptb)（$43.50）— 9件の事故事例（rm -rfの誤発動、自律SQLのデータ消失、サンドボックス回避）の時系列と影響範囲と予防のhook
+- [Claude Code Safety Lab](https://ko-fi.com/yurukusa/tiers)（月額¥500）— 継続更新の月次媒体。5月号は子の作業者の身分の漏れ（[Issue #55488](https://github.com/anthropics/claude-code/issues/55488)）とv2.1.126の沈黙の退行と5時間の枠の急な絞り
+- [Claude Code Migration Playbook](https://yurukusa.gumroad.com/l/claude-code-migration-playbook)（$19）— 留まるか移るかで迷っている時の、5つの触媒の解消の状態の判定の枠組み
+
