@@ -3,7 +3,7 @@ title: "Claude Codeのhookマッチャー完全ガイド——どのツールに
 type: "tech"
 emoji: "🎯"
 topics: ["claudecode", "hooks", "設定", "AI"]
-published: false
+published: true
 ---
 
 ## hookのマッチャーとは
@@ -155,24 +155,11 @@ v2.1.85から、マッチャーに加えて`if`フィールドでさらに細か
 npx cc-safe-setup
 ```
 
-446個のexample hookが含まれており、上記のマッチャーパターンは全てカバーされている。6,099テストで検証済み。
+634個のexample hookが含まれており、上記のマッチャーパターンは全てカバーされている。13,931テストで検証済み。
 
 ---
 
 📌 関連記事:
 - [hookのifフィールドで不要なプロセス起動をゼロにする](https://qiita.com/yurukusa/items/7079866e9dc239fcdd57)
 - [ハーネスエンジニアリングを700時間の自律運用で実践している話](https://qiita.com/yurukusa/items/fb73a4122b583197071b)
----
-:::message
-**Claude Codeの自律運用をもっと深く学びたい方へ**
-トークン消費の突然の急増、ファイル消失、無限ループ——700+時間の自律稼働で起きた失敗と対策をまとめました:
-[Claude Codeを本番品質にする——実践ガイド](https://zenn.dev/yurukusa/books/6076c23b1cb18b)（¥800・第3章まで無料）
-:::
-:::message
-**トークン消費が気になる方へ**
-[Token Checkup（無料）](https://yurukusa.github.io/cc-safe-setup/token-checkup.html)で30秒診断。どこでトークンが消えているか可視化できる。
-もっと深く知りたい方は → [Claude Codeのトークン消費を半分にする（¥2,500）](https://zenn.dev/yurukusa/books/token-savings-guide)
-:::
-:::message
-「AIに任せて大丈夫なのか」という不安を持ったまま800時間使い続けた記録は[非エンジニアがClaude Codeを800時間走らせた——失敗と学びの全記録](https://zenn.dev/yurukusa/books/3c3c3baee85f0a19)（¥800・第2章まで無料）に書いた。
-:::
+
