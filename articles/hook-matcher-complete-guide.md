@@ -162,4 +162,6 @@ npx cc-safe-setup
 📌 関連記事:
 - [hookのifフィールドで不要なプロセス起動をゼロにする](https://qiita.com/yurukusa/items/7079866e9dc239fcdd57)
 - [ハーネスエンジニアリングを700時間の自律運用で実践している話](https://qiita.com/yurukusa/items/fb73a4122b583197071b)
-
+---
+5月22日に新刊の事例集 [Claude Code Claim-Verify Handbook](https://yurukusa.gumroad.com/l/claim-verify-handbook?utm_source=zenn-hook-matcher-complete-guide&utm_medium=article&utm_campaign=handbook-zenn-bulk) ($19、 約89頁、 約113,000字) を発売します。 道具が「成功した」 「比較した」 「設定された」 と主張する一方で実態が乖離していた事例を GitHubの起票の集まりから130件 (本文15件+付録D 115件) 整理した本で、 14件の防衛の手順と5件の自動の点検の道具と一緒に提供しています。 試し読みのGist (約16,000字、 章1の全件) は [こちら](https://gist.github.com/yurukusa/6dd608049064ed66c54f1a545a7b47a8?utm_source=zenn-hook-matcher-complete-guide&utm_medium=article&utm_campaign=handbook-preview-zenn-bulk)。
+予防 hook の集まりは [cc-safe-setup](https://github.com/yurukusa/cc-safe-setup) (MIT、 745件以上の hook、 30,000件以上のインストール)。 月額の継続の媒体 [CC Safety Lab](https://yurukusa.github.io/cc-safe-setup/safety-lab.html?utm_source=zenn-hook-matcher-complete-guide&utm_medium=article&utm_campaign=safety-lab-zenn-bulk) (¥500/月、 Ko-fi) は毎月の事故の整理を配信。

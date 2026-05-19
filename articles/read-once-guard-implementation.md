@@ -155,3 +155,6 @@ export CC_READ_ONCE_MAX=3
 LLM のトークン消費の20-30%は「すでに知っている情報の再取得」 で消える。 これを84行のbashの hookで検知して止める実装を示した。
 
 公開の実装は [cc-safe-setup](https://github.com/yurukusa/cc-safe-setup) の examples にある。 `npx cc-safe-setup --install-example read-once-guard` で導入できる。 中身は短いシェルスクリプトなので、 一読して自分の運用に合わせて改造するのが推奨。
+---
+5月22日に新刊の事例集 [Claude Code Claim-Verify Handbook](https://yurukusa.gumroad.com/l/claim-verify-handbook?utm_source=zenn-read-once-guard-implementation&utm_medium=article&utm_campaign=handbook-zenn-bulk) ($19、 約89頁、 約113,000字) を発売します。 道具が「成功した」 「比較した」 「設定された」 と主張する一方で実態が乖離していた事例を GitHubの起票の集まりから130件 (本文15件+付録D 115件) 整理した本で、 14件の防衛の手順と5件の自動の点検の道具と一緒に提供しています。 試し読みのGist (約16,000字、 章1の全件) は [こちら](https://gist.github.com/yurukusa/6dd608049064ed66c54f1a545a7b47a8?utm_source=zenn-read-once-guard-implementation&utm_medium=article&utm_campaign=handbook-preview-zenn-bulk)。
+予防 hook の集まりは [cc-safe-setup](https://github.com/yurukusa/cc-safe-setup) (MIT、 745件以上の hook、 30,000件以上のインストール)。 月額の継続の媒体 [CC Safety Lab](https://yurukusa.github.io/cc-safe-setup/safety-lab.html?utm_source=zenn-read-once-guard-implementation&utm_medium=article&utm_campaign=safety-lab-zenn-bulk) (¥500/月、 Ko-fi) は毎月の事故の整理を配信。
